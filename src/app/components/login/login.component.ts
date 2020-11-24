@@ -4,7 +4,7 @@ import {Router} from '@angular/router';
 import {Subscription} from 'rxjs';
 import {MatDialog} from '@angular/material/dialog';
 import {RegisterComponent} from '../register/register.component';
-
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -12,8 +12,8 @@ import {RegisterComponent} from '../register/register.component';
 })
 export class LoginComponent implements OnInit, OnDestroy {
   subs: Subscription[] = [];
-
-  constructor(private router: Router, private matDialog: MatDialog) {
+  text1 = '';
+  constructor(private router: Router, private matDialog: MatDialog, private http: HttpClient) {
   }
 
   ngOnInit(): void {
@@ -28,10 +28,15 @@ export class LoginComponent implements OnInit, OnDestroy {
     const {email, password} = form.value;
 
 
-    if (!form.valid) {
-      return;
-    }
-    //this.authService.SignIn(email, password);
+    // if (!form.valid) {
+    //   return;
+    // }
+    this.http.get<string>('http://localhost:8080/posts' ).subscribe(data => {
+      this.text1 = data;
+    });
+
+    console.log(this.text1);
+
     form.resetForm();
   }
 
@@ -46,7 +51,7 @@ export class LoginComponent implements OnInit, OnDestroy {
       const {fname, lname, email, password, avatar} = result;
 
       if (result !== undefined) {
-        //this.authService.SignUp(email, password, fname, lname, avatar);
+        // this.authService.SignUp(email, password, fname, lname, avatar);
       }
 
       return;
@@ -54,4 +59,8 @@ export class LoginComponent implements OnInit, OnDestroy {
   }
 
 
+}
+interface Credentials {
+  email: string;
+  password: string;
 }

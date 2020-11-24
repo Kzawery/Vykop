@@ -52,7 +52,121 @@
 
     </div>
 
-<!--    <mat-icon [matMenuTriggerFor]="menu">expand_more</mat-icon>-->
+    <mat-icon [matMenuTriggerFor]="menu">expand_more</mat-icon>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item >
+        <mat-icon>exit_to_app</mat-icon>Logout
+
+      </button>
+    </mat-menu>
+
+  </div>
+  <div class="home__body">
+    <div class="home__body__sidebarLeft">
+      <div class="inside">
+        <div class="user-avatar">
+          <img alt="" mat-card-avatar src="">
+          <span class="name">NAME</span>
+        </div>
+        <div>
+          <mat-icon> local_hospital</mat-icon>
+          <span class="covid">COVID-19 Information Center</span>
+        </div>
+
+        <div>
+          <mat-icon>flag</mat-icon>
+          <span>Pages</span>
+        </div>
+
+        <div>
+          <mat-icon>people</mat-icon>
+          <span>Friends</span>
+        </div>
+
+        <div>
+          <mat-icon> chat</mat-icon>
+          <span>Messenger</span>
+        </div>
+
+        <div>
+          <mat-icon>store</mat-icon>
+          <span>Marketplace</span>
+        </div>
+
+        <div>
+          <mat-icon>video_library</mat-icon>
+          <span>Videos</span>
+        </div>
+
+        <div>
+          <mat-icon class="see-more">expand_more</mat-icon>
+          <span>See More</span>
+        </div>
+      </div>
+    </div>
+
+
+
+
+    <div class="home__body__contentMiddle">
+
+      <!--IMAGE CARDS-->
+<!--      <mat-card class="image-card">-->
+<!--        <mat-card-content>-->
+<!--          <img-->
+<!--            alt=""-->
+<!--            class="avatar" src="assets/blank_profile_picture.png">-->
+<!--          <span class="card-name">Indranil Mukherjee</span>-->
+<!--        </mat-card-content>-->
+<!--      </mat-card>-->
+<!--      -->
+
+      <div class="home__body__contentMiddle__top">
+        <mat-card class="post-message">
+          <mat-card-header class="post-message-header"
+                           style="padding-bottom: 20px; border-bottom: 1px solid lightgray;">
+            <img
+              alt=""
+              mat-card-avatar
+              src="assets/blank_profile_picture.png">
+            <input class="on-your-mind" name="message" ngModel placeholder="Dodaj post" type="text" (click)="openPost()">
+<!--            <div class="send_post_btn" >-->
+<!--              <mat-icon color="primary">send</mat-icon>-->
+<!--            </div>-->
+            <button style="display: none;" type="submit"></button>
+          </mat-card-header>
+
+          <mat-card-content class="card-body">
+
+            <div class="post_btn">
+              <mat-icon color="primary">photo_album</mat-icon>
+              <span>Photo/Video</span>
+            </div>
+
+            <div class="post_btn">
+              <mat-icon color="primary">mood</mat-icon>
+              <span>Emoji</span>
+            </div>
+
+
+
+          </mat-card-content>
+        </mat-card>
+
+      </div>
+
+      <div class="home__body__contentMiddle__center">
+
+      </div>
+
+    </div>
+
+    <div class="home__body__feedRight"> <!-- tutaj jakbyśmy chcieli jakis sidebar po prawej stronie -->
+      <div class="inside">
+        <img alt="feed" src="assets/">
+
+      </div>
+    </div>
 
   </div>
 </div>

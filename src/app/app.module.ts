@@ -12,12 +12,15 @@ import {MaterialModule} from './shared/material.module';
 import {FormsModule} from '@angular/forms';
 import {AppRoutingModule} from './app-routing.module';
 import {HomeModule} from './components/home/home.module';
-
+import { PostComponent } from './components/post/post.component';
+import {HttpClientModule} from '@angular/common/http';
+import {MatInputModule} from '@angular/material/input';
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
+    PostComponent,
   ],
   imports: [
     BrowserModule,
@@ -25,7 +28,9 @@ import {HomeModule} from './components/home/home.module';
     MaterialModule,
     AppRoutingModule,
     FormsModule,
-    HomeModule
+    HomeModule,
+    HttpClientModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]

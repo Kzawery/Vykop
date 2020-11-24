@@ -1,0 +1,23 @@
+
+<section class="post">
+  <div class="header">
+    <h3>Create post</h3>
+  </div>
+
+  <div class="body">
+    <form #form="ngForm">
+
+      <mat-form-field class="mat-form">
+        <mat-label>Title</mat-label>
+        <input matInput>
+      </mat-form-field>
+        <mat-form-field class="mat-form" appearance="legacy">
+          <textarea matInput placeholder="What's on your mind?" style="height: 150px; resize: none;" [(ngModel)]="chuj"></textarea>
+        </mat-form-field>
+
+          <button type="submit" class="submit-button" [mat-dialog-close]="form.value" (click)="postFun()">Post</button>
+
+
+    </form>
+  </div>
+</section>
