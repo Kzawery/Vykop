@@ -1,28 +1,30 @@
-<div class="login-container">
-  <header class = "login__header">
-    <div class = "login__header__left">
-      <img src="./assets/4chan_Logo.png" alt="logo">
-      <h2>Dołącz do nas!</h2>
-    </div>
-    <div class = "login__header__right">
-      <mat-card class="login__header__right__card">
-        <mat-card-content class="login__header__right__card__content">
-          <form #form="ngForm" class = "login-form" (ngSubmit)="login(form)">
-            <input type="text" name="email" ngModel placeholder="Email address" required>
-            <input type="password" name="password" ngModel placeholder="Password" required>
-
-            <button type="submit" class="login-button" [disabled]="form.invalid || form.pending">Login</button>
-
-          </form>
-
-          <a href="#">Forgot your username or password?</a>
-          <button class="create-account" (click)="openRegister()">Create new account</button>
-        </mat-card-content>
-      </mat-card>
-
-      <p></p>
-
-    </div>
-
-  </header>
+<div class="background-div">
+  <mat-card class="example-card" style="text-align: center;">
+    <mat-card-header>
+        <img class="img-center" src="../../../assets/logo.png" alt="Photo of a Shiba Inu">
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="loginForm">
+        <mat-form-field appearance="fill">
+          <mat-label >Enter Username</mat-label>
+          <input matInput placeholder="username" formControlName ="form_basic_username" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label >Enter Password</mat-label>
+          <input matInput placeholder="password" formControlName ="form_basic_password" required>
+        </mat-form-field>
+      </form>
+      <div class="register-div">
+        <a class="register-text">Click here to register</a>
+      </div>
+      <div class="example-button-container">
+        <div class="button-div-right">
+          <button mat-fab color="#6EBFC2" aria-label="Login button" [disabled]="!loginForm.valid" (click)="onSave()">
+            <mat-icon>forward</mat-icon>
+          </button>
+        </div>
+        <div class="progress-bar-div" *ngIf="isLoading==true"> <mat-progress-bar mode="indeterminate" > </mat-progress-bar> </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
 </div>
