@@ -12,13 +12,21 @@ import {MatInputModule} from '@angular/material/input';
 import {ReactiveFormsModule} from '@angular/forms';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatIconModule} from '@angular/material/icon';
-import {RegisterComponent} from "./components/register/register.component";
+import {RegisterComponent} from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { ScrollingModule } from '@angular/cdk/scrolling';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
+import {MatListModule} from '@angular/material/list';
+import {MatDividerModule} from '@angular/material/divider';
+import {MatMenuModule} from '@angular/material/menu';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,
@@ -32,7 +40,13 @@ import {RegisterComponent} from "./components/register/register.component";
     ReactiveFormsModule,
     MatCardModule,
     MatProgressBarModule,
-    MatIconModule
+    MatIconModule,
+    MatToolbarModule,
+    ScrollingModule,
+    MatListModule,
+    MatProgressSpinnerModule,
+    MatDividerModule,
+    MatMenuModule
   ],
   providers: [],
   bootstrap: [AppComponent]

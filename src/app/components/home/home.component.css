@@ -1,0 +1,28 @@
+.example-spacer {
+  /*flex: 1 1 auto;*/
+  /*flex-grow: 1*/
+}
+
+.content {
+  height: calc(100vh - 64px);
+  overflow: auto;
+}
+
+.spinner-item {
+  display: grid;
+  place-items: center;
+  margin-top: 10px;
+}
+
+.example-card {
+  max-width: 400px;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
+  background-size: cover;
+}
+.centered {
+  max-width: 500px;
+  margin: auto;
+}

@@ -8,14 +8,14 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class LoginComponent implements OnInit {
 
-  isLoading: boolean = false;
+  isLoading = false;
 
   loginForm = new FormGroup({
     form_basic_username: new FormControl('', [Validators.required]),
     form_basic_password: new FormControl('', [Validators.required])
   });
   constructor() { }
-  onSave(){
+  onSave() {
     this.isLoading = true;
   }
   ngOnInit(): void {
