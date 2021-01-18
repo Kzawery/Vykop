@@ -3,6 +3,8 @@ import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {filter, map, pairwise, throttleTime} from 'rxjs/operators';
 import {timer} from 'rxjs';
+import {Router} from '@angular/router';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-home',
@@ -23,7 +25,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
 
-  constructor(fb: FormBuilder, private ngZone: NgZone) {
+  constructor(fb: FormBuilder, private ngZone: NgZone,    private router: Router,
+              private authenticationService: AuthenticationService) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,
@@ -68,6 +71,11 @@ export class HomeComponent implements OnInit, AfterViewInit {
       this.listItems = [...this.listItems, ...newItems];
     });
 
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
   }
 
 }
