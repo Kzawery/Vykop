@@ -5,6 +5,7 @@ import {filter, map, pairwise, throttleTime} from 'rxjs/operators';
 import {timer} from 'rxjs';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
+import {UserService} from '../../services/user.service';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   floatLabelControl = new FormControl('auto');
 
   constructor(fb: FormBuilder, private ngZone: NgZone,    private router: Router,
-              private authenticationService: AuthenticationService) {
+              private authenticationService: AuthenticationService, private userService: UserService) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,
@@ -34,6 +35,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
+    this.userService.getAll().subscribe( data => {
+      console.log(data);
+    });
     this.fetchMore();
   }
 
