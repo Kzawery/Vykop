@@ -10,13 +10,17 @@
           <input matInput placeholder="username" formControlName ="form_basic_username" required>
         </mat-form-field>
         <mat-form-field appearance="fill">
-          <mat-label >Enter Password</mat-label>
-          <input matInput placeholder="password" formControlName ="form_basic_password" type="password" required>
+          <mat-label >Enter Email</mat-label>
+          <input matInput placeholder="email@gmail.com" formControlName="email" required>
         </mat-form-field>
         <mat-form-field appearance="fill">
-        <mat-label >Repeat Password</mat-label>
-        <input matInput placeholder="repeat password" formControlName ="form_basic_password" type="password" required>
-      </mat-form-field>
+          <mat-label >Enter Password</mat-label>
+          <input matInput placeholder="password" formControlName ="form_basic_password" required  [type]="hide ? 'password' : 'text'">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+        </mat-form-field>
+        <div class="meter">
+          <password-strength-meter [password]="this.registerForm.get('form_basic_password').value" enableFeedback="true" ></password-strength-meter>
+        </div>
       </form>
       <div class="register-div">
         <a class="register-text" (click) ="onLoginClick()">Click here to login</a>

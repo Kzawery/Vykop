@@ -23,7 +23,7 @@ import {MatMenuModule} from '@angular/material/menu';
 import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error.interceptor';
-
+import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +50,8 @@ import {ErrorInterceptor} from './helpers/error.interceptor';
     MatProgressSpinnerModule,
     MatDividerModule,
     MatMenuModule,
-    HttpClientModule
+    HttpClientModule,
+    PasswordStrengthMeterModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

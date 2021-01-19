@@ -15,4 +15,9 @@ export class UserService {
   getById(id: number) {
     return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
   }
+
+  register(data) {
+    return this.http.post(`${environment.apiUrl}/users/signup`, data);
+  }
+
 }
