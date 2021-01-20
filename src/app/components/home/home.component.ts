@@ -6,6 +6,7 @@ import {timer} from 'rxjs';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UserService} from '../../services/user.service';
+import {PostService} from '../../services/post.service';
 
 @Component({
   selector: 'app-home',
@@ -27,7 +28,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   floatLabelControl = new FormControl('auto');
 
   constructor(fb: FormBuilder, private ngZone: NgZone,    private router: Router,
-              private authenticationService: AuthenticationService, private userService: UserService) {
+              private authenticationService: AuthenticationService, private userService: UserService, private postService: PostService) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,
@@ -35,8 +36,8 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.userService.getAll().subscribe( data => {
-      console.log(data);
+    this.postService.getAll().subscribe(data => {
+      console.log(data);// Tu sciaga ci posty dla danego uzytkownika, modele dorobilem takie jak w bazie danych
     });
     this.fetchMore();
   }
