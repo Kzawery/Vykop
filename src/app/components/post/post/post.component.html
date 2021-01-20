@@ -1,0 +1,95 @@
+
+
+
+<cdk-virtual-scroll-viewport itemSize="3" class="content" style="width: 100%">
+
+  <mat-card class="example-card">
+
+    <mat-card-header class="mat-card-header" style="">
+
+      <div mat-card-avatar class="example-header-image"></div>
+<!--      <mat-card-title>-->
+<!--      </mat-card-title>-->
+      <a href="r/{{item.subreddit}}" class="text-center" style="margin-right: 10px">r/{{item.subreddit}}</a>
+      <p class="text-center" style="margin-right: 10px">Posted by:</p>
+      <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
+
+    </mat-card-header> <br><br>
+    <h2 style="margin-right: 10px">Joe Biden officially sworn in as the 46th President of the United States, Kamala Harris as the 49th Vice-President{{item.title}}</h2>
+    <mat-card-content [class.show]="true" class="container">
+      <img [src]="item.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-bottom: 10px; display: flex">
+      <hr>
+      <p>{{item.content}}
+      </p>
+    </mat-card-content>
+
+    <mat-card-actions style="padding-left: 46px">
+      <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" class="waves-light" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
+        <mat-icon>thumb_up</mat-icon> Like
+      </mat-button-toggle>
+
+      <mat-button-toggle (click)="addCommentField=!addCommentField"  type="button" class="waves-light" color="primary" mdbWavesEffect>
+        <mat-icon>comment</mat-icon> Comment
+      </mat-button-toggle>
+
+
+    </mat-card-actions>
+  </mat-card>
+
+
+
+    <ng-container>
+    <mat-card class="example-card" *ngIf="addCommentField" >
+
+      <mat-card-header class="mat-card-header" style="">
+        <div mat-card-avatar class="example-header-image"></div>
+        <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
+      </mat-card-header> <br><br>
+
+      <mat-card-content [class.show]="true" class="container">
+       <textarea class="comment-textarea" placeholder="Comment"></textarea>
+      </mat-card-content>
+
+      <button mat-button mdbBtn type="button" style="margin-left: 72%"><mat-icon>comment</mat-icon>Comment</button>
+
+
+    </mat-card>
+  </ng-container>
+
+
+  <mat-list>
+    <ng-container *cdkVirtualFor="let comment of comments">
+      <mat-card class="example-card" >
+
+        <mat-card-header class="mat-card-header" style="">
+          <div mat-card-avatar class="example-header-image"></div>
+          <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
+        </mat-card-header> <br><br>
+
+        <mat-card-content [class.show]="true" class="container">
+          <p>{{comment.comment}}</p>
+        </mat-card-content>
+
+        <mat-card-actions style="padding-left: 46px;">
+          <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
+            <mat-icon>thumb_up</mat-icon> Like
+          </mat-button-toggle>
+        </mat-card-actions>
+
+      </mat-card>
+    </ng-container>
+
+    <div class="spinner-item">
+      <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
+    </div>
+
+  </mat-list>
+</cdk-virtual-scroll-viewport>
+
+<div
+  class="search-results"
+  infiniteScroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="50"
+  (scrolled)="onScroll()"
+></div>
