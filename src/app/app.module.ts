@@ -24,13 +24,18 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error.interceptor';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
+import {FeedComponent} from './components/feed/feed.component';
+import {MatButtonToggle, MatButtonToggleGroup, MatButtonToggleModule} from '@angular/material/button-toggle';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    HomeComponent,
-  ],
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        RegisterComponent,
+        HomeComponent,
+        FeedComponent,
+    ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
@@ -51,7 +56,10 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
     MatDividerModule,
     MatMenuModule,
     HttpClientModule,
-    PasswordStrengthMeterModule
+    PasswordStrengthMeterModule,
+    MatButtonToggleModule,
+    InfiniteScrollModule
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
