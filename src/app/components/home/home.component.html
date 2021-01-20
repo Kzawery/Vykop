@@ -1,14 +1,15 @@
 
 <mat-toolbar>
-  <div style="flex-grow: 7;">
+  <div style="align-content: flex-start;">
     <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
       <mat-icon>menu</mat-icon>
     </button>
-    <span>
+    <span style="width: 10%;">
     <img class="img-center" src="../../../assets/logo.png" style="height: 150px">
       </span>
   </div>
-  <span style="padding-top: 10px;" style="flex-grow: 9">
+  <span style="width: 35%;"></span>
+  <span style="padding-top: 10px;" style="align-content: center">
     <mat-form-field style="margin: 10px; width: 500px;" appearance="fill"
                       [hideRequiredMarker]="hideRequiredControl.value"
                       [floatLabel]="floatLabelControl.value">
@@ -20,7 +21,9 @@
     </button>
 
   </span>
-  <span style="flex-grow: 1;" >
+  <span style="width: 40%"></span>
+  <span style="width: 10%;">
+
 
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" style="float: right" (click)="logout()">
       <mat-icon>favorite</mat-icon>
@@ -33,64 +36,13 @@
   </span>
 </mat-toolbar>
 <body class="centered">
-  <cdk-virtual-scroll-viewport #scroller itemSize="72" class="content">
-    <mat-list>
-      <ng-container *cdkVirtualFor="let item of listItems">
+  <div >
+    <app-feed>
 
-  <!--      <mat-list-item>-->
-  <!--        <img matListAvatar [src]="item.image">-->
-  <!--        <h3 matLine> {{item.title}} </h3>-->
-  <!--        <p matLine>-->
-  <!--          <span> {{item.content}} </span>-->
-  <!--        </p>-->
-  <!--        <button mat-icon-button [matMenuTriggerFor]="itemMenu">-->
-  <!--          <mat-icon>-->
-  <!--            more_vert-->
-  <!--          </mat-icon>-->
-  <!--        </button>-->
-  <!--        <mat-divider></mat-divider>-->
-  <!--      </mat-list-item>-->
-
-        <mat-card class="example-card">
-          <mat-card-header>
-            <div mat-card-avatar class="example-header-image"></div>
-            <mat-card-title>Shiba Inu</mat-card-title>
-            <mat-card-subtitle>Dog Breed</mat-card-subtitle>
-          </mat-card-header>
-          <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
-          <mat-card-content>
-            <p>
-              The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-              A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-              bred for hunting.
-            </p>
-          </mat-card-content>
-          <mat-card-actions>
-            <button mat-button>LIKE</button>
-            <button mat-button>SHARE</button>
-          </mat-card-actions>
-        </mat-card>
+    </app-feed>
+  </div>
 
 
-
-      </ng-container>
-      <div class="spinner-item">
-        <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
-      </div>
-    </mat-list>
-  </cdk-virtual-scroll-viewport>
-
-  <mat-menu #itemMenu="matMenu">
-    <button mat-menu-item>
-      Option 1
-    </button>
-    <button mat-menu-item>
-      Option 2
-    </button>
-    <button mat-menu-item>
-      Option 3
-    </button>
-  </mat-menu>
 </body>
 
 

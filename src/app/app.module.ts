@@ -23,31 +23,22 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error.interceptor';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
-import { UserListComponent } from './components/administration/user-list/user-list.component';
-import { UserManagamentComponent } from './components/administration/user-managament/user-managament.component';
-import {MatTableModule} from '@angular/material/table';
-import {MatPaginatorModule} from '@angular/material/paginator';
-import { CdkTableModule} from '@angular/cdk/table';
-import {DataSource} from '@angular/cdk/table';
-import {MatRippleModule} from '@angular/material/core';
-import {MatSortModule} from '@angular/material/sort';
-import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
-import {CdkDetailRowDirective} from './cdk-detail-row.directive';
+import {FeedComponent} from './components/feed/feed.component';
+import {MatButtonToggle, MatButtonToggleGroup, MatButtonToggleModule} from '@angular/material/button-toggle';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
+import {CdkTableModule} from '@angular/cdk/table';
+import {UserListComponent} from './components/administration/user-list/user-list.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginComponent,
-    RegisterComponent,
-    HomeComponent,
-    UserListComponent,
-    UserManagamentComponent,
-    DeleteDialogComponent,
-    CdkDetailRowDirective,
-  ],
-
+    declarations: [
+        AppComponent,
+        LoginComponent,
+        RegisterComponent,
+        HomeComponent,
+        FeedComponent,
+    ],
   imports: [
     MatSnackBarModule,
     MatDialogModule,
@@ -72,10 +63,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
     MatMenuModule,
     HttpClientModule,
     PasswordStrengthMeterModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatRippleModule,
-    MatSortModule,
+    InfiniteScrollModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
