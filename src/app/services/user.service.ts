@@ -28,4 +28,8 @@ export class UserService {
     return this.http.post(`${environment.apiUrl}/users`, data);
   }
 
+  edit(data) {
+    return this.http.put(`${environment.apiUrl}/users/` + data.id, data);
+  }
+
 }

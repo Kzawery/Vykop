@@ -56,10 +56,16 @@ export class UserListComponent implements OnInit {
     this.dataSource.filter = filterValue;
   }
 
-  editUser(user_id: number) {
-    this.router.navigate(['users/edit-user', user_id]);
+  editUser(id: number) {
+    const dialogRef = this.dialog.open(UserManagamentComponent, {
+      disableClose: true,
+      hasBackdrop: true,
+      data: {id: id},
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.reloadData();
+    });
   }
-
   createUser() {
     const dialogRef = this.dialog.open(UserManagamentComponent, {
       disableClose: true,
