@@ -6,42 +6,33 @@
 <cdk-virtual-scroll-viewport itemSize="3" class="content" style="width: 100%">
   <mat-list>
     <ng-container *cdkVirtualFor="let item of listItems">
-      <mat-card class="example-card" #theElementYouWantToCheck>
-      <mat-card-title>{{item.title}}</mat-card-title>
+
+      <mat-card class="example-card">
+        <mat-card-title>{{item.title}}</mat-card-title>
         <mat-card-header class="mat-card-header" style="">
           <div mat-card-avatar class="example-header-image"></div>
-          <a href="r/chujki" class="text-center" style="margin-right: 10px">r/chujki</a>
+          <a href="r/{{item.subreddit}}" class="text-center" style="margin-right: 10px">r/{{item.subreddit}}</a>
           <p class="text-center" style="margin-right: 10px">Posted by:</p>
-          <a class="text-center" href="u/chujek">u/chujek</a>
+          <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
 
 
         </mat-card-header> <br>
 
-
-        <mat-card-content [class.show]="item.show" class="container">
+        <mat-card-content [class.show]="true" class="container">
           <img [src]="item.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex">
-          <p>
-            The Shiba Inu is the smallest of the six original and distinct spitz breeds of dog from Japan.
-            A small, agile dog that copes very well with mountainous terrain, the Shiba Inu was originally
-            bred for hunting.
+          <p>{{item.content}}
           </p>
 
         </mat-card-content>
 
-        <button mat-button (click)="item.show = !item.show">{{item.show ? 'Show less': 'Show more'}}</button>
-
         <mat-card-actions style="padding-left: 46px">
-          <mat-button-toggle-group name="fontStyle" aria-label="Font Style">
-            <mat-button-toggle value="bold" ><mat-icon>thumb_up</mat-icon></mat-button-toggle>
-            <mat-button-toggle value="italic"><mat-icon>thumb_down</mat-icon></mat-button-toggle>
-          </mat-button-toggle-group>
+          <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
+            <mat-icon>thumb_up</mat-icon> Like
+          </mat-button-toggle>
 
-          <button mat-button> <mat-icon> comment</mat-icon>Comments </button>
         </mat-card-actions>
 
       </mat-card>
-
-
 
     </ng-container>
     <div class="spinner-item">

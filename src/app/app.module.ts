@@ -30,6 +30,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
 import {CdkTableModule} from '@angular/cdk/table';
 import {UserListComponent} from './components/administration/user-list/user-list.component';
+import { PostComponent } from './components/post/post/post.component';
 
 @NgModule({
     declarations: [
@@ -38,6 +39,7 @@ import {UserListComponent} from './components/administration/user-list/user-list
         RegisterComponent,
         HomeComponent,
         FeedComponent,
+        PostComponent,
     ],
   imports: [
     MatSnackBarModule,

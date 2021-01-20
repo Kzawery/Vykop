@@ -20,7 +20,7 @@ export class LoginComponent implements OnInit {
     form_basic_password: new FormControl('', [Validators.required])
   });
   constructor(  private authenticationService: AuthenticationService, private router: Router) { }
-  ngOnInit(): void {
+  ngOnInit( ): void {
   }
   onSave() {
     this.submitted = true;

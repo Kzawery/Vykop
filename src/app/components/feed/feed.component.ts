@@ -26,26 +26,8 @@ export class FeedComponent implements OnInit {
     this.fetchMore();
   }
 
-  ngAfterViewInit(): void {
-    this.scroller.elementScrolled().pipe(
-      map(() => this.scroller.measureScrollOffset('bottom')),
-      pairwise(),
-      filter(([y1, y2]) => (y2 < y1 && y2 < 140)),
-      throttleTime(200)
-    ).subscribe(() => {
-        this.ngZone.run(() => {
-          this.fetchMore();
-        });
-      }
-    );
-  }
-  checkOverflow (element) {
-    if (element.offsetHeight < element.scrollHeight ||
-      element.offsetWidth < element.scrollWidth) {
-      return true;
-    } else {
-      return false;
-    }
+  likeBtnClick(event) {
+    console.log(event);
   }
 
   fetchMore(): void {
@@ -58,7 +40,8 @@ export class FeedComponent implements OnInit {
         title: 'List Item ' + randomListNumber,
         content: 'This is some description of the list - item # ' + randomListNumber,
         image: `${images[randomPhotoId]}`,
-        show: false
+        user: 'username',
+        subreddit: 'subreddit'
       });
     }
 
