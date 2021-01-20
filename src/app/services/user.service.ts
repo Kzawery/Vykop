@@ -12,12 +12,20 @@ export class UserService {
     return this.http.get<User[]>(`${environment.apiUrl}/users`);
   }
 
+  deleteById(id) {
+    return this.http.delete<any>(`${environment.apiUrl}/users/` + id);
+  }
+
   getById(id: number) {
     return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
   }
 
   register(data) {
     return this.http.post(`${environment.apiUrl}/users/signup`, data);
+  }
+
+  add(data) {
+    return this.http.post(`${environment.apiUrl}/users`, data);
   }
 
 }

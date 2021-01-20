@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-
-
+import { DeleteDialogComponent } from './components/delete-dialog/delete-dialog.component';
 import { AppComponent } from './app.component';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import { LoginComponent } from './components/login/login.component';
@@ -24,14 +23,35 @@ import {HTTP_INTERCEPTORS, HttpClientModule} from '@angular/common/http';
 import {JwtInterceptor} from './helpers/jwt.interceptor';
 import {ErrorInterceptor} from './helpers/error.interceptor';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
+import { UserListComponent } from './components/administration/user-list/user-list.component';
+import { UserManagamentComponent } from './components/administration/user-managament/user-managament.component';
+import {MatTableModule} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { CdkTableModule} from '@angular/cdk/table';
+import {DataSource} from '@angular/cdk/table';
+import {MatRippleModule} from '@angular/material/core';
+import {MatSortModule} from '@angular/material/sort';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
+import {CdkDetailRowDirective} from './cdk-detail-row.directive';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
+
+
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
     HomeComponent,
+    UserListComponent,
+    UserManagamentComponent,
+    DeleteDialogComponent,
+    CdkDetailRowDirective,
   ],
+
   imports: [
+    MatSnackBarModule,
+    MatDialogModule,
+    CdkTableModule,
     BrowserModule,
     BrowserAnimationsModule,
     MatCardModule,
@@ -51,12 +71,18 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
     MatDividerModule,
     MatMenuModule,
     HttpClientModule,
-    PasswordStrengthMeterModule
+    PasswordStrengthMeterModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatRippleModule,
+    MatSortModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [DeleteDialogComponent, UserListComponent]
 })
 export class AppModule { }

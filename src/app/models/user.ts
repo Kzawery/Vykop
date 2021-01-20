@@ -4,7 +4,7 @@ export class User {
   id: number;
   username: string;
   password: string;
-  registration_date: Date;
+  registrationDate: string;
   role: Role;
   token?: string;
 }
