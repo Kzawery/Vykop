@@ -47,7 +47,8 @@ import {MatRippleModule} from '@angular/material/core';
     DeleteDialogComponent,
     UserListComponent,
     UserManagamentComponent,
-    CdkDetailRowDirective
+    CdkDetailRowDirective,
+    PostComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -78,6 +79,7 @@ import {MatRippleModule} from '@angular/material/core';
     MatPaginatorModule,
     MatSortModule,
     MatRippleModule,
+    MatButtonToggleModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
