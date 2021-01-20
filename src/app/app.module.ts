@@ -30,15 +30,25 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
 import {CdkTableModule} from '@angular/cdk/table';
 import {UserListComponent} from './components/administration/user-list/user-list.component';
+import {UserManagamentComponent} from './components/administration/user-managament/user-managament.component';
+import {MatTableModule} from '@angular/material/table';
+import {CdkDetailRowDirective} from './cdk-detail-row.directive';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatSortModule} from '@angular/material/sort';
+import {MatRippleModule} from '@angular/material/core';
 
 @NgModule({
-    declarations: [
-        AppComponent,
-        LoginComponent,
-        RegisterComponent,
-        HomeComponent,
-        FeedComponent,
-    ],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent,
+    FeedComponent,
+    DeleteDialogComponent,
+    UserListComponent,
+    UserManagamentComponent,
+    CdkDetailRowDirective
+  ],
   imports: [
     MatSnackBarModule,
     MatDialogModule,
@@ -63,7 +73,11 @@ import {UserListComponent} from './components/administration/user-list/user-list
     MatMenuModule,
     HttpClientModule,
     PasswordStrengthMeterModule,
-    InfiniteScrollModule
+    InfiniteScrollModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule,
+    MatRippleModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

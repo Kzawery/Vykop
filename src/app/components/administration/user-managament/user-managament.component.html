@@ -27,8 +27,16 @@
       </form>
       <div class="example-button-container">
         <div class="button-div-right">
-          <button mat-fab color="#6EBFC2" aria-label="Register button" [disabled]="!registerForm.valid" (click)="onSave()">
+          <button mat-fab color="#6EBFC2" aria-label="Register button" [disabled]="!registerForm.valid" (click)="onSave()" *ngIf="!data">
             <mat-icon>task_alt</mat-icon>
+          </button>
+          <button mat-fab color="#6EBFC2" aria-label="Register button" [disabled]="!registerForm.valid" (click)="onEdit()" *ngIf="data">
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+        <div class="button-div-left">
+          <button mat-fab color="warn" aria-label="Example icon button with a bookmark icon" (click)="onBack()">
+            <mat-icon>undo</mat-icon>
           </button>
         </div>
         <div class="progress-bar-div" *ngIf="isLoading==true"> <mat-progress-bar mode="indeterminate" > </mat-progress-bar> </div>
