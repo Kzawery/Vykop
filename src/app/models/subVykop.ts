@@ -1,5 +1,5 @@
 export class SubVykop {
-  id: int;
+  id: number;
   name: string;
   description: string;
   banner: string;

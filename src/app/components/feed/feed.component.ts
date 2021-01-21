@@ -1,14 +1,11 @@
 import {AfterViewInit, Component, HostListener, Input, NgZone, OnInit, Output, ViewChild} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {filter, map, pairwise, throttleTime} from 'rxjs/operators';
 import {timer} from 'rxjs';
-import {EventEmitter} from 'events';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UserService} from '../../services/user.service';
 import {PostService} from '../../services/post.service';
-import {User} from '../../models/user';
-import {Content} from '../../models/content';
 import {Post} from '../../models/post';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-feed',
@@ -20,12 +17,12 @@ export class FeedComponent implements OnInit {
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   title = 'Angular Infinite Scrolling List';
-  listItems = [];
+  listItems: Post[] = [];
   loading = false;
 
 
   constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
-              private userService: UserService, private postService: PostService) { }
+              private userService: UserService, private postService: PostService, private router: Router) { }
 
   @Input() childProperty;
   private posts: Post[];
@@ -34,7 +31,6 @@ export class FeedComponent implements OnInit {
     this.fetchMore();
   }
   onScroll() {
-    console.log('Chuj');
     this.fetchMore();
   }
 
@@ -42,18 +38,15 @@ export class FeedComponent implements OnInit {
     console.log(event);
   }
 
+  goToPost(event) {
+    this.router.navigate(['post/' + event.id]);
+  }
+
   fetchMore(): void {
     this.postService.getAll().subscribe(data => {
       console.log(data); // Tu sciaga ci posty dla danego uzytkownika, modele dorobilem takie jak w bazie danych
       for (const post of data) {
-        newItems.push({
-          id: post.id,
-          author: post.author,
-          votes: post.votes,
-          content: post.content,
-          creationDate: post.creationDate,
-          comments:  post.comments
-        });
+        newItems.push(post);
       }
 
     });

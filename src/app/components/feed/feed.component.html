@@ -7,12 +7,12 @@
   <ng-container *ngFor="let item of listItems" >
 
     <mat-card class="example-card">
-      <mat-card-title>Brak</mat-card-title>
+      <mat-card-title>{{item.title}}</mat-card-title>
       <mat-card-header class="mat-card-header" style="">
         <div mat-card-avatar class="example-header-image"></div>
-        <a href="r/{{item.subreddit}}" class="text-center" style="margin-right: 10px">r/{{item.subreddit}}</a>
+        <a href="r/{{item.subVykop.name}}" class="text-center" style="margin-right: 10px">r/{{item.subVykop.name}}</a>
         <p class="text-center" style="margin-right: 10px">Posted by:</p>
-        <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
+        <a class="text-center" href="u/{{item.author.username}}">u/{{item.author.username}}</a>
       </mat-card-header> <br>
 
       <mat-card-content [class.show]="true" class="container">
@@ -24,9 +24,10 @@
 
       <mat-card-actions style="padding-left: 46px">
         <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
-          <mat-icon>thumb_up</mat-icon> Like
+          <mat-icon>thumb_up</mat-icon> Like ({{item.votes}})
         </mat-button-toggle>
-        <button mat-button style="padding: 7px"> <mat-icon> comment</mat-icon>Comments </button>
+          <button mat-button style="padding: 7px" (click)="goToPost(item)"> <mat-icon> comment</mat-icon>Comments </button>
+
       </mat-card-actions>
 
     </mat-card>

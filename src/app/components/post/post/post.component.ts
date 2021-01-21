@@ -6,7 +6,7 @@ import {Post} from '../../../models/post';
 import {PostService} from '../../../services/post.service';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Comment} from '../../../models/comment'
+import {Comment} from '../../../models/comment';
 import {DeleteDialogComponent} from '../../delete-dialog/delete-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
 @Component({
@@ -24,7 +24,9 @@ export class PostComponent implements OnInit {
   id_post: any;
   post: Post = new Post();
   comment: string;
-  constructor(private ngZone: NgZone, private route: ActivatedRoute, public postService: PostService, public auth: AuthenticationService, private _snackBar: MatSnackBar, private dialog: MatDialog) { }
+
+  constructor(private ngZone: NgZone, private route: ActivatedRoute, public postService: PostService,
+              public auth: AuthenticationService, private _snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
@@ -33,6 +35,7 @@ export class PostComponent implements OnInit {
     this.refresh();
     this.fetchMore();
   }
+
   refresh(): void {
     this.postService.getPost(this.id_post).subscribe(p => {
       this.post = p;

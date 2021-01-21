@@ -4,17 +4,18 @@
 </head>
 
 <body>
-<<<<<<< HEAD
 <app-navbar></app-navbar>
 <div itemSize="3" class="content" style="width: 100%; height: auto;">
+
+<!--  <img [src]="imageURL"  alt="" *ngIf="imageURL != null" class="img" style="height: 200px;">-->
     <div style="background:#0079d3 url({{subreddit.banner}}) no-repeat center / cover;background-position:center top;height:200px"> </div>
     <div style="background: white; height: 100px">
       <div style="display: flex;">
-        <img src="{{subreddit.icon}}" style="margin-left: auto; margin-right: 20px; height: 100px; width: auto;">
+        <img src="{{subreddit.banner}}" style="margin-left: auto; margin-right: 20px; height: 100px; width: auto;">
         <div style="margin-right: auto; margin-left: 20px; margin-top: auto; margin-bottom: auto">
           <h1 style="margin-bottom: 0px">{{subreddit.name}}</h1>
           <h4 style="margin-bottom: 0px; color: gray">r/{{subreddit.name}}</h4>
-          <button mat-flat-button color="primary"><mat-icon>add</mat-icon>Join</button>
+          <button mat-flat-button color="primary" (click)="joinSubVykop()"><mat-icon>add</mat-icon>Join</button>
           <button mat-flat-button><mat-icon>add</mat-icon>Add Post</button>
         </div>
 
@@ -25,47 +26,53 @@
 
 <mat-list>
 
-  <ng-container *ngFor="let item of listItems">
+  <mat-list>
+    <ng-container *ngFor="let item of listItems" >
 
-    <mat-card class="example-card">
-      <mat-card-title>{{item.title}}</mat-card-title>
-      <mat-card-header class="mat-card-header" style="">
-        <div mat-card-avatar class="example-header-image"></div>
-        <a href="r/{{item.subreddit}}" class="text-center" style="margin-right: 10px">r/{{item.subreddit}}</a>
-        <p class="text-center" style="margin-right: 10px">Posted by:</p>
-        <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
+      <mat-card class="example-card">
+        <mat-card-title>{{item.title}}</mat-card-title>
+        <mat-card-header class="mat-card-header" style="">
+          <div mat-card-avatar class="example-header-image"></div>
+          <a href="r/{{item.subVykop.name}}" class="text-center" style="margin-right: 10px">r/{{item.subVykop.name}}</a>
+          <p class="text-center" style="margin-right: 10px">Posted by:</p>
+          <a class="text-center" href="u/{{item.author.username}}">u/{{item.author.username}}</a>
+        </mat-card-header> <br>
 
+        <mat-card-content [class.show]="true" class="container">
+          <img [src]="item.content.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex">
+          <p>{{item.content.text}}
+          </p>
 
-      </mat-card-header> <br>
+        </mat-card-content>
 
-      <mat-card-content [class.show]="true" class="container">
-        <img [src]="item.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex;">
-        <p>{{item.content}}
-        </p>
+        <mat-card-actions style="padding-left: 46px">
+          <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
+            <mat-icon>thumb_up</mat-icon> Like ({{item.votes}})
+          </mat-button-toggle>
+          <button mat-button style="padding: 7px" (click)="goToPost(item)"> <mat-icon> comment</mat-icon>Comments </button>
 
-      </mat-card-content>
+        </mat-card-actions>
 
-      <mat-card-actions style="padding-left: 46px">
-        <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
-          <mat-icon>thumb_up</mat-icon> Like
-        </mat-button-toggle>
-        <button mat-button style="padding: 7px"> <mat-icon> comment</mat-icon>Comments </button>
-      </mat-card-actions>
+      </mat-card>
 
-    </mat-card>
-  </ng-container>
+    </ng-container>
+
+    <div class="spinner-item">
+      <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
+    </div>
+  </mat-list>
 
   <div
-    class="search-results"
-    infiniteScroll
+    infinite-scroll
     [infiniteScrollDistance]="2"
     [infiniteScrollThrottle]="50"
     (scrolled)="onScroll()"
-  ></div>
-
-  <div class="spinner-item">
-    <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
+  >
   </div>
+
+
+
+
 </mat-list>
 
 

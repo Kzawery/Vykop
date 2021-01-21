@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent,  canActivate: [AuthGuard]},
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
   { path: 'post', component: PostComponent },
-  { path: 'subreddit', component: SubredditComponent },
+  { path: 'subVykop/:id', component: SubredditComponent },
   { path: 'feed', component: FeedComponent },
   { path: 'post/:id', component: PostComponent},
 ];

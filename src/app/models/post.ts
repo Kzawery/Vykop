@@ -1,6 +1,7 @@
 import {Content} from './content';
 import {User} from './user';
 import {Comment} from './comment';
+import {SubVykop} from './subVykop';
 
 export class Post {
   id: number;
@@ -10,4 +11,5 @@ export class Post {
   content: Content;
   creationDate: Date;
   comments: Set<Comment>;
+  subVykop: SubVykop;
 }

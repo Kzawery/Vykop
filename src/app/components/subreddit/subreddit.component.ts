@@ -1,9 +1,11 @@
 import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {timer} from 'rxjs';
-import {MatDialog} from '@angular/material/dialog';
-import {UserManagamentComponent} from '../administration/user-managament/user-managament.component';
-import {PostAddComponent} from '../post/post-add/post-add.component';
+import {AuthenticationService} from '../../services/authentication.service';
+import {UserService} from '../../services/user.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {SubvykopService} from '../../services/subvykop.service';
+import {SubVykop} from '../../models/subVykop';
 
 @Component({
   selector: 'app-subreddit',
@@ -15,22 +17,17 @@ export class SubredditComponent implements OnInit {
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
 
   title = 'Angular Infinite Scrolling List';
-  subreddit = {name: '', banner: '', icon: ''};
+  subreddit: SubVykop = new SubVykop();
   listItems = [];
+  imageURL: string;
   loading = false;
+  subredditId: any;
+  constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
+              private userService: UserService, private subvykopService: SubvykopService,
+              private router: Router, private route: ActivatedRoute) { }
 
-  constructor(private ngZone: NgZone, public dialog: MatDialog ) { }
 
-
-  subredditConts(name, banner, icon) {
-    this.subreddit = {
-      name: name,
-      banner: banner,
-      icon: icon
-    };
-  }
-
-  createPost(title, content, image, user, subreddit){
+  createPost(title, content, image, user, subreddit) {
     this.listItems.push({
       title: title,
       content: content,
@@ -40,12 +37,36 @@ export class SubredditComponent implements OnInit {
     });
   }
 
-  ngOnInit(): void {
-    this.fetchMore();
-    this.subredditConts('wallstreetbets', 'https://static.toiimg.com/photo/72975551.cms', 'https://www.flaticon.com/svg/vstatic/svg/4062/4062980.svg?token=exp=1611230439~hmac=a6b8d57c1b53c4c16af64ea7862b347a');
+  goToPost(event) {
+    this.router.navigate(['post/' + event.id]);
   }
+  joinSubVykop() {
+
+  }
+
+  ngOnInit(): void {
+    this.route.paramMap.subscribe( paramMap => {
+      this.subredditId = paramMap.get('id');
+    });
+
+
+
+    this.subvykopService.getSubVykopById(this.subredditId).subscribe(resp => {
+      this.subreddit = resp;
+      this.imageURL = resp.banner;
+      console.log(resp);
+      console.log(this.subreddit.name);
+      this.fetchMore();
+    });
+  }
+
+  refresh(): void {
+    // this.subvykopService.getPost(this.subredditId).subscribe(p => {
+    //   // this.post = p;
+    // });
+  }
+
   onScroll() {
-    console.log('Chuj');
     this.fetchMore();
   }
 
@@ -54,19 +75,14 @@ export class SubredditComponent implements OnInit {
   }
 
   fetchMore(): void {
-    const images = ['https://images.unsplash.com/photo-1541963463532-d68292c34b19?ixlib=rb-1.2.1&ixid=MXwxMjA3fDB8MHxleHBsb3JlLWZlZWR8Mnx8fGVufDB8fHw%3D&w=1000&q=80', 'https://static.toiimg.com/photo/72975551.cms', 'YW3F-https://images.unsplash.com/photo-1494548162494-384bba4ab999?ixid=MXwxMjA3fDB8MHxzZWFyY2h8MXx8ZGF3bnxlbnwwfHwwfA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80', 'https://www.filmibeat.com/ph-big/2019/07/ismart-shankar_156195627930.jpg' , 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS92eisuWOx3tEjeW14mT9ACVgXDwIRBGtnww&usqp=CAU'];
+    this.subvykopService.getPostBySubVykopName(this.subreddit.name).subscribe(data => {
+      console.log(data); // Tu sciaga ci posty dla danego uzytkownika, modele dorobilem takie jak w bazie danych
+      for (const post of data) {
+        newItems.push(post);
+      }
+
+    });
     const newItems = [];
-    for (let i = 0; i < 20; i++) {
-      const randomListNumber = Math.round(Math.random() * 100);
-      const randomPhotoId = Math.round(Math.random() * 4);
-      newItems.push({
-        title: 'List Item ' + randomListNumber,
-        content: 'This is some description of the list - item # ' + randomListNumber,
-        image: `${images[randomPhotoId]}`,
-        user: 'username',
-        subreddit: 'subreddit'
-      });
-    }
     this.loading = true;
     timer(1000).subscribe(() => {
       this.loading = false;
