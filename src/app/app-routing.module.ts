@@ -8,6 +8,7 @@ import {UserListComponent} from './components/administration/user-list/user-list
 import {Role} from './models/role';
 import {PostComponent} from './components/post/post/post.component';
 import {SubredditComponent} from './components/subreddit/subreddit.component';
+import {FeedComponent} from './components/feed/feed.component';
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
   { path: 'post', component: PostComponent },
   { path: 'subreddit', component: SubredditComponent },
+  { path: 'feed', component: FeedComponent },
 ];
 
 @NgModule({

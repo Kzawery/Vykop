@@ -1,57 +1,47 @@
-<html>
+
 <head>
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
-<body>
-Hi {{ childProperty }}
 
-<cdk-virtual-scroll-viewport itemSize="3" class="content" style="width: 100%">
-  <mat-list>
-    <ng-container *cdkVirtualFor="let item of listItems">
+<mat-list>
+  <ng-container *ngFor="let item of listItems" >
 
-      <mat-card class="example-card">
-        <mat-card-title>{{item.title}}</mat-card-title>
-        <mat-card-header class="mat-card-header" style="">
-          <div mat-card-avatar class="example-header-image"></div>
-          <a href="r/{{item.subreddit}}" class="text-center" style="margin-right: 10px">r/{{item.subreddit}}</a>
-          <p class="text-center" style="margin-right: 10px">Posted by:</p>
-          <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
+    <mat-card class="example-card">
+      <mat-card-title>Brak</mat-card-title>
+      <mat-card-header class="mat-card-header" style="">
+        <div mat-card-avatar class="example-header-image"></div>
+        <a href="r/{{item.subreddit}}" class="text-center" style="margin-right: 10px">r/{{item.subreddit}}</a>
+        <p class="text-center" style="margin-right: 10px">Posted by:</p>
+        <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
+      </mat-card-header> <br>
 
+      <mat-card-content [class.show]="true" class="container">
+        <img [src]="item.content.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex">
+        <p>{{item.content.text}}
+        </p>
 
-        </mat-card-header> <br>
+      </mat-card-content>
 
-        <mat-card-content [class.show]="true" class="container">
-          <img [src]="item.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex">
-          <p>{{item.content}}
-          </p>
+      <mat-card-actions style="padding-left: 46px">
+        <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
+          <mat-icon>thumb_up</mat-icon> Like
+        </mat-button-toggle>
+        <button mat-button style="padding: 7px"> <mat-icon> comment</mat-icon>Comments </button>
+      </mat-card-actions>
 
-        </mat-card-content>
+    </mat-card>
 
-        <mat-card-actions style="padding-left: 46px">
-          <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
-            <mat-icon>thumb_up</mat-icon> Like
-          </mat-button-toggle>
-          <button mat-button style="padding: 7px"> <mat-icon> comment</mat-icon>Comments </button>
-        </mat-card-actions>
+  </ng-container>
 
-      </mat-card>
-
-    </ng-container>
-    <div class="spinner-item">
-      <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
-    </div>
-  </mat-list>
-</cdk-virtual-scroll-viewport>
+  <div class="spinner-item">
+    <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
+  </div>
+</mat-list>
 
 <div
-  class="search-results"
-  infiniteScroll
+  infinite-scroll
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()"
-></div>
-
-
-
-</body>
-</html>
+>
+</div>

@@ -1,15 +1,17 @@
+<html>
+<head>
+  <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
+</head>
+<body>
 
-
-
-<cdk-virtual-scroll-viewport itemSize="3" class="content" style="width: 100%">
+<app-navbar></app-navbar>
+<div itemSize="3" class="content" style="width: 100%">
 
   <mat-card class="example-card">
 
     <mat-card-header class="mat-card-header" style="">
 
       <div mat-card-avatar class="example-header-image"></div>
-<!--      <mat-card-title>-->
-<!--      </mat-card-title>-->
       <a href="r/{{item.subreddit}}" class="text-center" style="margin-right: 10px">r/{{item.subreddit}}</a>
       <p class="text-center" style="margin-right: 10px">Posted by:</p>
       <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
@@ -36,8 +38,6 @@
     </mat-card-actions>
   </mat-card>
 
-
-
     <ng-container>
     <mat-card class="example-card" *ngIf="addCommentField" >
 
@@ -58,7 +58,7 @@
 
 
   <mat-list>
-    <ng-container *cdkVirtualFor="let comment of comments">
+    <ng-container *ngFor="let comment of comments">
       <mat-card class="example-card" >
         <mat-card-header class="mat-card-header" style="">
           <div mat-card-avatar class="example-header-image"></div>
@@ -78,7 +78,7 @@
       <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
     </div>
   </mat-list>
-</cdk-virtual-scroll-viewport>
+</div>
 
 <div
   class="search-results"
@@ -87,3 +87,6 @@
   [infiniteScrollThrottle]="50"
   (scrolled)="onScroll()"
 ></div>
+
+</body>
+</html>

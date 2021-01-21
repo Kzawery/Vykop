@@ -28,18 +28,18 @@ export class PostAddComponent implements OnInit {
         fileEntry.file((file: File) => {
           this.isLoading = true;
           this.formData.append('file', file, droppedFile.relativePath);
-          this.iamgeService.create(this.formData).subscribe(x => {
-              this.dialogRef.close();
-              this.isLoading = false,
-                this._snackBar.open('Image have been added', 'hide',  {
-                  duration: 2000,
-                }); },
-            error => {
-              this.isLoading = false;
-              this._snackBar.open('File is not an image', 'hide',  {
-                duration: 2000,
-              });
-            });
+          // this.iamgeService.create(this.formData).subscribe(x => {
+          //     this.dialogRef.close();
+          //     this.isLoading = false,
+          //       this._snackBar.open('Image have been added', 'hide',  {
+          //         duration: 2000,
+          //       }); },
+          //   error => {
+          //     this.isLoading = false;
+          //     this._snackBar.open('File is not an image', 'hide',  {
+          //       duration: 2000,
+          //     });
+          //   });
         });
       }
     }

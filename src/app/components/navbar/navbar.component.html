@@ -1,0 +1,29 @@
+<mat-toolbar>
+  <div style="align-content: flex-start;">
+    <span style="width: 10%;">
+    <img class="img-center" src="../../../assets/logo.png" style="height: 150px">
+      </span>
+  </div>
+  <span style="width: 35%;"></span>
+  <span style="padding-top: 10px;" style="align-content: center">
+    <mat-form-field style="margin: 10px; width: 500px;" appearance="fill"
+                    [hideRequiredMarker]="hideRequiredControl.value"
+                    [floatLabel]="floatLabelControl.value">
+          <input matInput ="Search" placeholder="Search">
+    </mat-form-field>
+
+    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon">
+      <mat-icon>search</mat-icon>
+    </button>
+
+  </span>
+  <span style="width: 40%"></span>
+  <span style="width: 10%;">
+
+
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" style="float: right" (click)="logout()">
+      <mat-icon>login</mat-icon>
+    </button>
+
+  </span>
+</mat-toolbar>

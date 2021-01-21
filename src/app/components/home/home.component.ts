@@ -29,10 +29,14 @@ export class HomeComponent implements OnInit {
   message: string;
   parentData: any;
 
+onScroll() {
+  console.log('Chuj');
+}
+
   childMsg(event) {
     this.message = event;
   }
-  constructor(fb: FormBuilder, private ngZone: NgZone,    private router: Router,
+  constructor(fb: FormBuilder, private ngZone: NgZone,   private router: Router,
               private authenticationService: AuthenticationService, private userService: UserService, private postService: PostService) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
@@ -46,9 +50,6 @@ export class HomeComponent implements OnInit {
       this.parentData = data;
     });
   }
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['/login']);
-  }
+
 
 }

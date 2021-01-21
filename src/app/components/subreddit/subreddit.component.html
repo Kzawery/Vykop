@@ -4,16 +4,15 @@
 </head>
 
 <body>
-
-<cdk-virtual-scroll-viewport itemSize="3" class="content" style="width: 100%;">
-  <div>
-    <div style="background:#0079d3 url(https://static.toiimg.com/photo/72975551.cms) no-repeat center / cover;background-position:center top;height:200px"> </div>
+<app-navbar></app-navbar>
+<div itemSize="3" class="content" style="width: 100%; height: auto;">
+    <div style="background:#0079d3 url({{subreddit.banner}}) no-repeat center / cover;background-position:center top;height:200px"> </div>
     <div style="background: white; height: 100px">
       <div style="display: flex;">
-        <img src="https://styles.redditmedia.com/t5_2th52/styles/communityIcon_b37n2zfs8k861.png?width=256&s=a9cb63319055ded916e5b12ff03f1e8c63ae6911" style="margin-left: auto; margin-right: 20px; height: 100px; width: auto;">
+        <img src="{{subreddit.icon}}" style="margin-left: auto; margin-right: 20px; height: 100px; width: auto;">
         <div style="margin-right: auto; margin-left: 20px; margin-top: auto; margin-bottom: auto">
-          <h1 style="margin-bottom: 0px">wallstreetbets</h1>
-          <h4 style="margin-bottom: 0px; color: gray">r/wallstreetbets</h4>
+          <h1 style="margin-bottom: 0px">{{subreddit.name}}</h1>
+          <h4 style="margin-bottom: 0px; color: gray">r/{{subreddit.name}}</h4>
           <button mat-flat-button color="primary"><mat-icon>add</mat-icon>Join</button>
           <button mat-flat-button><mat-icon>add</mat-icon>Add Post</button>
         </div>
@@ -21,52 +20,52 @@
       </div>
 
     </div>
+</div>
 
+<mat-list>
+
+  <ng-container *ngFor="let item of listItems">
+
+    <mat-card class="example-card">
+      <mat-card-title>{{item.title}}</mat-card-title>
+      <mat-card-header class="mat-card-header" style="">
+        <div mat-card-avatar class="example-header-image"></div>
+        <a href="r/{{item.subreddit}}" class="text-center" style="margin-right: 10px">r/{{item.subreddit}}</a>
+        <p class="text-center" style="margin-right: 10px">Posted by:</p>
+        <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
+
+
+      </mat-card-header> <br>
+
+      <mat-card-content [class.show]="true" class="container">
+        <img [src]="item.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex;">
+        <p>{{item.content}}
+        </p>
+
+      </mat-card-content>
+
+      <mat-card-actions style="padding-left: 46px">
+        <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
+          <mat-icon>thumb_up</mat-icon> Like
+        </mat-button-toggle>
+        <button mat-button style="padding: 7px"> <mat-icon> comment</mat-icon>Comments </button>
+      </mat-card-actions>
+
+    </mat-card>
+  </ng-container>
+
+  <div
+    class="search-results"
+    infiniteScroll
+    [infiniteScrollDistance]="2"
+    [infiniteScrollThrottle]="50"
+    (scrolled)="onScroll()"
+  ></div>
+
+  <div class="spinner-item">
+    <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
   </div>
-  <mat-list>
-    <ng-container *cdkVirtualFor="let item of listItems">
-
-      <mat-card class="example-card">
-        <mat-card-title>{{item.title}}</mat-card-title>
-        <mat-card-header class="mat-card-header" style="">
-          <div mat-card-avatar class="example-header-image"></div>
-          <a href="r/{{item.subreddit}}" class="text-center" style="margin-right: 10px">r/{{item.subreddit}}</a>
-          <p class="text-center" style="margin-right: 10px">Posted by:</p>
-          <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
-
-
-        </mat-card-header> <br>
-
-        <mat-card-content [class.show]="true" class="container">
-          <img [src]="item.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex;">
-          <p>{{item.content}}
-          </p>
-
-        </mat-card-content>
-
-        <mat-card-actions style="padding-left: 46px">
-          <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
-            <mat-icon>thumb_up</mat-icon> Like
-          </mat-button-toggle>
-          <button mat-button style="padding: 7px"> <mat-icon> comment</mat-icon>Comments </button>
-        </mat-card-actions>
-
-      </mat-card>
-
-    </ng-container>
-    <div class="spinner-item">
-      <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
-    </div>
-  </mat-list>
-</cdk-virtual-scroll-viewport>
-
-<div
-  class="search-results"
-  infiniteScroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="50"
-  (scrolled)="onScroll()"
-></div>
+</mat-list>
 
 
 

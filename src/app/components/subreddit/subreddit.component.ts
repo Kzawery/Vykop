@@ -12,15 +12,37 @@ export class SubredditComponent implements OnInit {
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
 
   title = 'Angular Infinite Scrolling List';
+  subreddit = {name: '', banner: '', icon: ''};
   listItems = [];
   loading = false;
 
   constructor(private ngZone: NgZone) { }
 
+
+  subredditConts(name, banner, icon) {
+    this.subreddit = {
+      name: name,
+      banner: banner,
+      icon: icon
+    };
+  }
+
+  createPost(title, content, image, user, subreddit){
+    this.listItems.push({
+      title: title,
+      content: content,
+      image: image,
+      user: user,
+      subreddit: subreddit
+    });
+  }
+
   ngOnInit(): void {
     this.fetchMore();
+    this.subredditConts('wallstreetbets', 'https://static.toiimg.com/photo/72975551.cms', 'https://www.flaticon.com/svg/vstatic/svg/4062/4062980.svg?token=exp=1611230439~hmac=a6b8d57c1b53c4c16af64ea7862b347a');
   }
   onScroll() {
+    console.log('Chuj');
     this.fetchMore();
   }
 
