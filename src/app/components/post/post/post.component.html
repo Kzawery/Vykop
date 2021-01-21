@@ -60,29 +60,23 @@
   <mat-list>
     <ng-container *cdkVirtualFor="let comment of comments">
       <mat-card class="example-card" >
-
         <mat-card-header class="mat-card-header" style="">
           <div mat-card-avatar class="example-header-image"></div>
           <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
         </mat-card-header> <br><br>
-
         <mat-card-content [class.show]="true" class="container">
           <p>{{comment.comment}}</p>
         </mat-card-content>
-
         <mat-card-actions style="padding-left: 46px;">
           <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
             <mat-icon>thumb_up</mat-icon> Like
           </mat-button-toggle>
         </mat-card-actions>
-
       </mat-card>
     </ng-container>
-
     <div class="spinner-item">
       <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
     </div>
-
   </mat-list>
 </cdk-virtual-scroll-viewport>
 
