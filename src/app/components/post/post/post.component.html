@@ -42,6 +42,7 @@
     </mat-card>
   </ng-container>
 </div>
+
 <mat-list>
   <ng-container *ngFor="let element of post.comments">
     <mat-card class="example-card" >
@@ -53,9 +54,12 @@
         <p>{{element.text}}</p>
       </mat-card-content>
       <mat-card-actions style="padding-left: 46px;">
-        <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
+        <mat-button-toggle (click)="likeBtnClick(element)" [checked]="element.upvoted">
           <mat-icon>thumb_up</mat-icon> Like({{element.votes}})
         </mat-button-toggle>
+        <button mat-button (click)="openDialog(element)" *ngIf="element.author.username==auth.currentUserValue.username">
+          <mat-icon>delete</mat-icon>
+        </button>
       </mat-card-actions>
     </mat-card>
   </ng-container>
