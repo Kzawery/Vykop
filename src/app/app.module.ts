@@ -8,7 +8,7 @@ import {MatCardModule} from '@angular/material/card';
 import {AppRoutingModule} from './app-routing.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatIconModule} from '@angular/material/icon';
 import {RegisterComponent} from './components/register/register.component';
@@ -38,6 +38,8 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatRippleModule} from '@angular/material/core';
 import { PostAddComponent } from './components/post/post-add/post-add.component';
+import {NgxFileDropModule} from 'ngx-file-drop';
+import {SubredditComponent} from './components/subreddit/subreddit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -51,6 +53,7 @@ import { PostAddComponent } from './components/post/post-add/post-add.component'
     CdkDetailRowDirective,
     PostComponent,
     PostAddComponent,
+    SubredditComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -82,6 +85,8 @@ import { PostAddComponent } from './components/post/post-add/post-add.component'
     MatSortModule,
     MatRippleModule,
     MatButtonToggleModule,
+    NgxFileDropModule,
+    FormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

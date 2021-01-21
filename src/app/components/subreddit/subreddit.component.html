@@ -1,27 +1,19 @@
 <html>
 <head>
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-
-
-
 </head>
 <body>
-
 <div>
   <div style="background:#0079d3 url(https://styles.redditmedia.com/t5_2th52/styles/bannerBackgroundImage_dsa63wgtpsa61.jpg?width=4000&format=pjpg&s=17d85f8dbd585d3d1654a410ef8485464825b66a) no-repeat center / cover;background-position:center top;height:228px"> </div>
   <div style="background: white; height: 100px">
     <div>
       <img src="https://styles.redditmedia.com/t5_2th52/styles/communityIcon_b37n2zfs8k861.png?width=256&s=a9cb63319055ded916e5b12ff03f1e8c63ae6911" style="margin-left: auto; margin-right: auto">
     </div>
-
   </div>
-
 </div>
-
 <cdk-virtual-scroll-viewport itemSize="3" class="content" style="width: 100%">
   <mat-list>
     <ng-container *cdkVirtualFor="let item of listItems">
-
       <mat-card class="example-card">
         <mat-card-title>{{item.title}}</mat-card-title>
         <mat-card-header class="mat-card-header" style="">
@@ -29,33 +21,24 @@
           <a href="r/{{item.subreddit}}" class="text-center" style="margin-right: 10px">r/{{item.subreddit}}</a>
           <p class="text-center" style="margin-right: 10px">Posted by:</p>
           <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
-
-
         </mat-card-header> <br>
-
         <mat-card-content [class.show]="true" class="container">
           <img [src]="item.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex">
           <p>{{item.content}}
           </p>
-
         </mat-card-content>
-
         <mat-card-actions style="padding-left: 46px">
           <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
             <mat-icon>thumb_up</mat-icon> Like
           </mat-button-toggle>
-
         </mat-card-actions>
-
       </mat-card>
-
     </ng-container>
     <div class="spinner-item">
       <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
     </div>
   </mat-list>
 </cdk-virtual-scroll-viewport>
-
 <div
   class="search-results"
   infiniteScroll
