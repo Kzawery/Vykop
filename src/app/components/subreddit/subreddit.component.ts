@@ -27,15 +27,6 @@ export class SubredditComponent implements OnInit {
               private router: Router, private route: ActivatedRoute) { }
 
 
-  createPost(title, content, image, user, subreddit) {
-    this.listItems.push({
-      title: title,
-      content: content,
-      image: image,
-      user: user,
-      subreddit: subreddit
-    });
-  }
 
   goToPost(event) {
     this.router.navigate(['post/' + event.id]);

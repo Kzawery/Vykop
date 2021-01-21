@@ -22,6 +22,7 @@ export class LoginComponent implements OnInit {
   constructor(  private authenticationService: AuthenticationService, private router: Router) { }
   ngOnInit( ): void {
   }
+
   onSave() {
     this.submitted = true;
     // stop here if form is invalid
@@ -39,5 +40,10 @@ export class LoginComponent implements OnInit {
           this.loading = false;
         });
   }
+
+    toRegister() {
+    this.router.navigate(['/register']);
+  }
+
 
 }

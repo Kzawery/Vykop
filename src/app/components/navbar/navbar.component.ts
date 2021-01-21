@@ -15,18 +15,24 @@ export class NavbarComponent implements OnInit {
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
   constructor(fb: FormBuilder, private ngZone: NgZone,    private router: Router,
-              private authenticationService: AuthenticationService, private userService: UserService, private postService: PostService) {
+              public authenticationService: AuthenticationService, private userService: UserService, private postService: PostService) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,
     });
   }
   ngOnInit(): void {
+    console.log(this.authenticationService.currentUserValue.role);
   }
 
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
   }
+
+  manage() {
+    this.router.navigate(['/users']);
+  }
+
 
 }

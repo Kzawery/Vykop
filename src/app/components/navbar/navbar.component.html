@@ -20,7 +20,9 @@
   <span style="width: 40%"></span>
   <span style="width: 10%;">
 
-
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" style="float: right" (click)="manage()" *ngIf="authenticationService.currentUserValue.role == 'admin'">
+      <mat-icon>admin_panel_settings</mat-icon>
+    </button>
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" style="float: right" (click)="logout()">
       <mat-icon>login</mat-icon>
     </button>
