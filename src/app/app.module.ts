@@ -25,7 +25,6 @@ import {ErrorInterceptor} from './helpers/error.interceptor';
 import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import {FeedComponent} from './components/feed/feed.component';
 import {MatButtonToggle, MatButtonToggleGroup, MatButtonToggleModule} from '@angular/material/button-toggle';
-import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
 import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
 import {CdkTableModule} from '@angular/cdk/table';
@@ -38,6 +37,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatRippleModule} from '@angular/material/core';
 import {SubredditComponent} from './components/subreddit/subreddit.component';
+import { PostAddComponent } from './components/post/post-add/post-add.component';
+import { NavbarComponent } from './components/navbar/navbar.component';
+import {InfiniteScrollModule} from 'ngx-infinite-scroll';
 @NgModule({
   declarations: [
     AppComponent,
@@ -50,7 +52,9 @@ import {SubredditComponent} from './components/subreddit/subreddit.component';
     UserManagamentComponent,
     CdkDetailRowDirective,
     PostComponent,
-    SubredditComponent
+    SubredditComponent,
+    PostAddComponent,
+    NavbarComponent,
   ],
   imports: [
     MatSnackBarModule,
@@ -82,6 +86,7 @@ import {SubredditComponent} from './components/subreddit/subreddit.component';
     MatSortModule,
     MatRippleModule,
     MatButtonToggleModule,
+
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

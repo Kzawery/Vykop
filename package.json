@@ -23,6 +23,7 @@
     "@angular/router": "~11.0.0",
     "angular-password-strength-meter": "^3.0.1",
     "bootstrap": "3.4.1",
+    "ngx-file-drop": "^10.1.1",
     "ngx-infinite-scroll": "^10.0.1",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
