@@ -4,6 +4,8 @@ import {timer} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {Post} from '../../../models/post';
 import {PostService} from '../../../services/post.service';
+import {AuthenticationService} from '../../../services/authentication.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-post',
@@ -15,30 +17,24 @@ export class PostComponent implements OnInit {
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
 
   title = 'Angular Infinite Scrolling List';
-  comments = [];
   loading = false;
   addCommentField = false;
   id_post: any;
-  item = {
-    title: 'List Item ' + 1,
-    content: 'Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker',
-    image: `https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS92eisuWOx3tEjeW14mT9ACVgXDwIRBGtnww&usqp=CAU`,
-    user: 'username',
-    subreddit: 'subreddit',
-    upvoted: true,
-    downvoted: false
-  };
-  post: Post;
-  constructor(private ngZone: NgZone, private route: ActivatedRoute, public postService: PostService) { }
+  post: Post = new Post();
+  comment: string;
+  constructor(private ngZone: NgZone, private route: ActivatedRoute, public postService: PostService, public auth: AuthenticationService, private _snackBar: MatSnackBar) { }
 
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
       this.id_post = paramMap.get('id');
     });
+    this.refresh();
+    this.fetchMore();
+  }
+  refresh(): void {
     this.postService.getPost(this.id_post).subscribe(p => {
       this.post = p;
     });
-    this.fetchMore();
   }
   onScroll() {
     this.fetchMore();
@@ -49,20 +45,15 @@ export class PostComponent implements OnInit {
   }
 
   fetchMore(): void {
-    const myMap =  ['Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker ', 'value2', 'value3', 'value4'];
-    const comments = [];
-    for (let i = 0; i < 20; i++) {
-      comments.push({
-        comment: `${myMap[i]}`,
-        votes: Math.round(Math.random() * 1000)
+  }
+
+  addComment(): void {
+    this.postService.addComment(this.id_post, this.comment).subscribe( resp => {
+      this.refresh();
+      this._snackBar.open('Comment have been added', 'hide',  {
+        duration: 2000,
       });
-    }
-
-    this.loading = true;
-    timer(1000).subscribe(() => {
-      this.loading = false;
-      this.comments = [...this.comments, ...comments];
-    });
-
+      }
+    );
   }
 }
