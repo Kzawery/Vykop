@@ -23,11 +23,13 @@ export class PostAddComponent implements OnInit {
   public post = new Post();
   title: string;
   text: string;
+  subVykop: string;
 
   // tslint:disable-next-line:max-line-length
   constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<PostAddComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public postService: PostService, private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
+    this.subVykop = this.data;
   }
   public dropped(files: NgxFileDropEntry[]) {
     this.files = files;
@@ -53,19 +55,9 @@ export class PostAddComponent implements OnInit {
   }
 
   public addPost() {
-    /*
-    const form = {
-      'content': {
-        'text': this.text,
-      },
-      'author': this.currentUser,
-      'title': this.title,
-    };
-    */
-
     this.formData.append('title', this.title);
     this.formData.append('text', this.text);
-    console.log(this.formData.get('title'));
+    this.formData.append('subVykop', this.subVykop);
     this.postService.addPost(this.formData).subscribe(x => {
         this.dialogRef.close();
         this.isLoading = false;
