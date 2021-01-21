@@ -5,7 +5,7 @@
 <body>
 
 <app-navbar></app-navbar>
-<div itemSize="3" class="content" style="width: 100%">
+<div class="content" style="width: 100%">
   <mat-card class="example-card" *ngIf="this.post.author!=null">
     <mat-card-header class="mat-card-header" style="">
       <div mat-card-avatar class="example-header-image"></div>
@@ -15,7 +15,8 @@
     </mat-card-header> <br><br>
     <h2 style="margin-right: 10px">{{post.title}}</h2>
     <mat-card-content [class.show]="true" class="container">
-      <img [src]="post.content.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-bottom: 10px; display: flex">
+      <img [src]="post.content.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-bottom: 10px; display: flex"  *ngIf="post.content.image">
+      <video  width="400" #videoPlayer [src]="post.content.video" *ngIf="post.content.video"></video>
       <hr>
       <p>{{post.content.text}}
       </p>

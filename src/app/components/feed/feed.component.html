@@ -2,7 +2,13 @@
 <head>
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="200"
+  (scrolled)="onScroll()"
 
+>
 <mat-list>
   <ng-container *ngFor="let item of listItems" >
 
@@ -16,7 +22,8 @@
       </mat-card-header> <br>
 
       <mat-card-content [class.show]="true" class="container">
-        <img [src]="item.content.image" style="max-width: 100%; max-height: 100%; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex">
+        <img [src]="item.content.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-bottom: 10px; display: flex"  *ngIf="item.content.image">
+        <mat-video src="{{item.content.video}}" *ngIf="item.content.video"></mat-video>
         <p class="p">{{item.content.text}}</p>
       </mat-card-content>
 
@@ -35,16 +42,8 @@
   <div class="spinner-item">
     <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50" *ngIf="loading"></mat-progress-spinner>
   </div>
-
   <div class="spinner-item" *ngIf="!loading">
     There are no more posts to load.
   </div>
 </mat-list>
-
-<div
-  infinite-scroll
-  [infiniteScrollDistance]="7"
-  [infiniteScrollThrottle]="150"
-  (scrolled)="onScroll()"
->
 </div>
