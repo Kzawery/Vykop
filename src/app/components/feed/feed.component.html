@@ -17,9 +17,7 @@
 
       <mat-card-content [class.show]="true" class="container">
         <img [src]="item.content.image" style="max-width: 100%; max-height: 100%; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex">
-        <p>{{item.content.text}}
-        </p>
-
+        <p class="p">{{item.content.text}}</p>
       </mat-card-content>
 
       <mat-card-actions style="padding-left: 46px">
@@ -35,14 +33,18 @@
   </ng-container>
 
   <div class="spinner-item">
-    <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
+    <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50" *ngIf="loading"></mat-progress-spinner>
+  </div>
+
+  <div class="spinner-item" *ngIf="!loading">
+    There are no more posts to load.
   </div>
 </mat-list>
 
 <div
   infinite-scroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="50"
+  [infiniteScrollDistance]="7"
+  [infiniteScrollThrottle]="150"
   (scrolled)="onScroll()"
 >
 </div>

@@ -67,3 +67,20 @@
   line-height: 10px !important;
 }
 
+.p{
+  word-break: break-all;
+}
+.comment-textarea{
+  margin-top: 10%;
+  width: 100%;
+  font-size: 14px;
+  user-select: text;
+  display: block;
+  cursor: text;
+  resize: none;
+  border-style: solid;
+  border-color: whitesmoke;
+  height: 300px;
+  margin-bottom: 10%;
+  padding-bottom: 10%;
+}

@@ -48,12 +48,7 @@ onScroll() {
     });
   }
 
-  ngOnInit(): void {
-    this.postService.getAll().subscribe(data => {
-      console.log(data); // Tu sciaga ci posty dla danego uzytkownika, modele dorobilem takie jak w bazie danych
-      this.parentData = data;
-    });
-  }
+  ngOnInit(): void {}
   addPost() {
     const dialogRef = this.dialog.open(PostAddComponent, {
       hasBackdrop: true,

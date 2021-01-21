@@ -18,7 +18,7 @@ export class FeedComponent implements OnInit {
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   title = 'Angular Infinite Scrolling List';
-  listItems: Post[] = [];
+  listItems = [];
   loading = false;
   i = 0 ;
 
@@ -51,12 +51,11 @@ export class FeedComponent implements OnInit {
   goToPost(event) {
     this.router.navigate(['post/' + event.id]);
   }
-
+/*
   fetchMore(): void {
     this.postService.getForUser(this.i).subscribe(data => {
       for (const post of data) {
         newItems.push(post);
-        console.log(post);
       }
       this.i += 1;
       console.log(this.i);
@@ -66,6 +65,20 @@ export class FeedComponent implements OnInit {
     timer(1000).subscribe(() => {
       this.loading = false;
       this.listItems = [...this.listItems, ...newItems];
+    });
+  }*/
+
+  fetchMore(): void {
+    this.postService.getForUser(this.i).subscribe(data => {
+      for (const post of data) {
+        this.listItems.push(post);
+      }
+      this.i += 1;
+      console.log(this.i);
+      console.log(data);
+    }, error => {
+      this.loading = false;
+      console.log("chuju nie ma postow");
     });
   }
 
