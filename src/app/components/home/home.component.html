@@ -1,9 +1,6 @@
 
 <mat-toolbar>
   <div style="align-content: flex-start;">
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
-      <mat-icon>menu</mat-icon>
-    </button>
     <span style="width: 10%;">
     <img class="img-center" src="../../../assets/logo.png" style="height: 150px">
       </span>
@@ -26,18 +23,14 @@
 
 
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" style="float: right" (click)="logout()">
-      <mat-icon>favorite</mat-icon>
-    </button>
-
-    <button mat-icon-button class="example-icon" aria-label="Example icon-button with share icon" style="float: right">
-      <mat-icon>share</mat-icon>
+      <mat-icon>login</mat-icon>
     </button>
 
   </span>
 </mat-toolbar>
 <body class="centered">
-  <div >
-    <app-feed>
+  <div>
+    <app-feed [childProperty]="parentData">
 
     </app-feed>
   </div>

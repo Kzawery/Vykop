@@ -1,24 +1,28 @@
 <html>
 <head>
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
-
-
-
 </head>
+
 <body>
 
-<div>
-  <div style="background:#0079d3 url(https://styles.redditmedia.com/t5_2th52/styles/bannerBackgroundImage_dsa63wgtpsa61.jpg?width=4000&format=pjpg&s=17d85f8dbd585d3d1654a410ef8485464825b66a) no-repeat center / cover;background-position:center top;height:228px"> </div>
-  <div style="background: white; height: 100px">
-    <div>
-      <img src="https://styles.redditmedia.com/t5_2th52/styles/communityIcon_b37n2zfs8k861.png?width=256&s=a9cb63319055ded916e5b12ff03f1e8c63ae6911" style="margin-left: auto; margin-right: auto">
+<cdk-virtual-scroll-viewport itemSize="3" class="content" style="width: 100%;">
+  <div>
+    <div style="background:#0079d3 url(https://static.toiimg.com/photo/72975551.cms) no-repeat center / cover;background-position:center top;height:200px"> </div>
+    <div style="background: white; height: 100px">
+      <div style="display: flex;">
+        <img src="https://styles.redditmedia.com/t5_2th52/styles/communityIcon_b37n2zfs8k861.png?width=256&s=a9cb63319055ded916e5b12ff03f1e8c63ae6911" style="margin-left: auto; margin-right: 20px; height: 100px; width: auto;">
+        <div style="margin-right: auto; margin-left: 20px; margin-top: auto; margin-bottom: auto">
+          <h1 style="margin-bottom: 0px">wallstreetbets</h1>
+          <h4 style="margin-bottom: 0px; color: gray">r/wallstreetbets</h4>
+          <button mat-flat-button color="primary"><mat-icon>add</mat-icon>Join</button>
+          <button mat-flat-button><mat-icon>add</mat-icon>Add Post</button>
+        </div>
+
+      </div>
+
     </div>
 
   </div>
-
-</div>
-
-<cdk-virtual-scroll-viewport itemSize="3" class="content" style="width: 100%">
   <mat-list>
     <ng-container *cdkVirtualFor="let item of listItems">
 
@@ -34,7 +38,7 @@
         </mat-card-header> <br>
 
         <mat-card-content [class.show]="true" class="container">
-          <img [src]="item.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex">
+          <img [src]="item.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex;">
           <p>{{item.content}}
           </p>
 
@@ -44,7 +48,7 @@
           <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
             <mat-icon>thumb_up</mat-icon> Like
           </mat-button-toggle>
-
+          <button mat-button style="padding: 7px"> <mat-icon> comment</mat-icon>Comments </button>
         </mat-card-actions>
 
       </mat-card>

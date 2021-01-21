@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, HostListener, NgZone, OnInit, ViewChild} from '@angular/core';
+import {AfterViewInit, Component, HostListener, Input, NgZone, OnInit, ViewChild} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {filter, map, pairwise, throttleTime} from 'rxjs/operators';
 import {timer} from 'rxjs';
@@ -18,6 +18,8 @@ export class FeedComponent implements OnInit {
   loading = false;
 
   constructor(private ngZone: NgZone) { }
+
+  @Input() childProperty: string;
 
   ngOnInit(): void {
     this.fetchMore();

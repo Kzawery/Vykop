@@ -7,6 +7,7 @@ import {AuthGuard} from './helpers/auth.guard';
 import {UserListComponent} from './components/administration/user-list/user-list.component';
 import {Role} from './models/role';
 import {PostComponent} from './components/post/post/post.component';
+import {SubredditComponent} from './components/subreddit/subreddit.component';
 
 
 const routes: Routes = [
@@ -15,6 +16,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent,  canActivate: [AuthGuard]},
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
   { path: 'post', component: PostComponent },
+  { path: 'subreddit', component: SubredditComponent },
 ];
 
 @NgModule({

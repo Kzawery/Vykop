@@ -3,6 +3,8 @@
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
+Hi {{ childProperty }}
+
 <cdk-virtual-scroll-viewport itemSize="3" class="content" style="width: 100%">
   <mat-list>
     <ng-container *cdkVirtualFor="let item of listItems">
@@ -29,7 +31,7 @@
           <mat-button-toggle (click)="likeBtnClick($event.target)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
             <mat-icon>thumb_up</mat-icon> Like
           </mat-button-toggle>
-
+          <button mat-button style="padding: 7px"> <mat-icon> comment</mat-icon>Comments </button>
         </mat-card-actions>
 
       </mat-card>

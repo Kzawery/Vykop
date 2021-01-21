@@ -37,6 +37,7 @@ import {CdkDetailRowDirective} from './cdk-detail-row.directive';
 import {MatPaginatorModule} from '@angular/material/paginator';
 import {MatSortModule} from '@angular/material/sort';
 import {MatRippleModule} from '@angular/material/core';
+import {SubredditComponent} from './components/subreddit/subreddit.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -48,7 +49,8 @@ import {MatRippleModule} from '@angular/material/core';
     UserListComponent,
     UserManagamentComponent,
     CdkDetailRowDirective,
-    PostComponent
+    PostComponent,
+    SubredditComponent
   ],
   imports: [
     MatSnackBarModule,
