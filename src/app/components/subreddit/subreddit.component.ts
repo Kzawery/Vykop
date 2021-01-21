@@ -1,6 +1,9 @@
 import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {timer} from 'rxjs';
+import {MatDialog} from '@angular/material/dialog';
+import {UserManagamentComponent} from '../administration/user-managament/user-managament.component';
+import {PostAddComponent} from '../post/post-add/post-add.component';
 
 @Component({
   selector: 'app-subreddit',
@@ -16,7 +19,7 @@ export class SubredditComponent implements OnInit {
   listItems = [];
   loading = false;
 
-  constructor(private ngZone: NgZone) { }
+  constructor(private ngZone: NgZone, public dialog: MatDialog ) { }
 
 
   subredditConts(name, banner, icon) {
@@ -64,7 +67,6 @@ export class SubredditComponent implements OnInit {
         subreddit: 'subreddit'
       });
     }
-
     this.loading = true;
     timer(1000).subscribe(() => {
       this.loading = false;

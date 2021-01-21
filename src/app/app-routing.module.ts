@@ -19,6 +19,7 @@ const routes: Routes = [
   { path: 'post', component: PostComponent },
   { path: 'subreddit', component: SubredditComponent },
   { path: 'feed', component: FeedComponent },
+  { path: 'post/:id', component: PostComponent},
 ];
 
 @NgModule({

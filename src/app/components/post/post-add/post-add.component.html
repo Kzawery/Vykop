@@ -1,1 +1,20 @@
-<p>post-add works!</p>
+<mat-card class="example-card">
+  <mat-card-title>
+        <textarea class="title" placeholder="Title" [(ngModel)]='title'></textarea>
+  </mat-card-title>
+  <hr>
+  <mat-card-content class="container">
+    <ngx-file-drop (onFileDrop)="dropped($event)" *ngIf="imageURL == null">>
+      <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+        <button mat-raised-button (click)="openFileSelector()" class="button-under">Select File</button>
+      </ng-template>
+    </ngx-file-drop>
+    <div><img [src]="imageURL"  alt="" *ngIf="imageURL != null" class="img"></div>
+    <hr>
+      <textarea class="comment-textarea"  [(ngModel)]='text'></textarea>
+  </mat-card-content>
+  <mat-card-actions style="padding-left: 10px">
+    <mat-icon (click)="removeImg()">delete</mat-icon>
+    <mat-icon (click)="addPost()">save</mat-icon>
+  </mat-card-actions>
+</mat-card>

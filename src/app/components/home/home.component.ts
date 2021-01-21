@@ -7,6 +7,8 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UserService} from '../../services/user.service';
 import {PostService} from '../../services/post.service';
+import {MatDialog} from '@angular/material/dialog';
+import {PostAddComponent} from '../post/post-add/post-add.component';
 
 @Component({
   selector: 'app-home',
@@ -26,6 +28,7 @@ export class HomeComponent implements OnInit {
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');
 
+
   message: string;
   parentData: any;
 
@@ -36,8 +39,9 @@ onScroll() {
   childMsg(event) {
     this.message = event;
   }
-  constructor(fb: FormBuilder, private ngZone: NgZone,   private router: Router,
-              private authenticationService: AuthenticationService, private userService: UserService, private postService: PostService) {
+  constructor(fb: FormBuilder, private ngZone: NgZone,    private router: Router,
+              // tslint:disable-next-line:max-line-length
+              private authenticationService: AuthenticationService, private userService: UserService, private postService: PostService, public dialog: MatDialog) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
       floatLabel: this.floatLabelControl,
@@ -50,6 +54,20 @@ onScroll() {
       this.parentData = data;
     });
   }
+  addPost() {
+    const dialogRef = this.dialog.open(PostAddComponent, {
+      hasBackdrop: true,
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
 
+  fetchMore(): void {
+  }
+
+  logout() {
+    this.authenticationService.logout();
+    this.router.navigate(['/login']);
+  }
 
 }

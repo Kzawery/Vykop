@@ -8,7 +8,7 @@ import {MatCardModule} from '@angular/material/card';
 import {AppRoutingModule} from './app-routing.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
-import {ReactiveFormsModule} from '@angular/forms';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
 import {MatIconModule} from '@angular/material/icon';
 import {RegisterComponent} from './components/register/register.component';
@@ -40,6 +40,7 @@ import {SubredditComponent} from './components/subreddit/subreddit.component';
 import { PostAddComponent } from './components/post/post-add/post-add.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import {InfiniteScrollModule} from 'ngx-infinite-scroll';
+import {NgxFileDropModule} from 'ngx-file-drop';
 @NgModule({
   declarations: [
     AppComponent,
@@ -55,6 +56,7 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
     SubredditComponent,
     PostAddComponent,
     NavbarComponent,
+    SubredditComponent
   ],
   imports: [
     MatSnackBarModule,
@@ -86,7 +88,8 @@ import {InfiniteScrollModule} from 'ngx-infinite-scroll';
     MatSortModule,
     MatRippleModule,
     MatButtonToggleModule,
-
+    NgxFileDropModule,
+    FormsModule,
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

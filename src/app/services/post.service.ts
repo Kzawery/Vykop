@@ -13,4 +13,16 @@ export class PostService {
     return this.http.get<Post[]>(`${environment.apiUrl}/userposts`);
   }
 
+  getPost(id) {
+    return this.http.get<Post>(`${environment.apiUrl}/posts/` + id );
+  }
+
+  addPost(post) {
+    return this.http.post<Post>(`${environment.apiUrl}/posts`, post);
+  }
+  /*
+  addComment(){
+    return this.http.post<Post>(`${environment.apiUrl}/posts`, post);
+  }
+  */
 }
