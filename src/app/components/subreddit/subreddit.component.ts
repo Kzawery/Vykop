@@ -4,8 +4,8 @@ import {timer} from 'rxjs';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UserService} from '../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {SubvykopService} from '../../services/subvykop.service';
 import {SubVykop} from '../../models/subVykop';
+import {SubvykopService} from '../../services/subvykop.service';
 
 @Component({
   selector: 'app-subreddit',
@@ -25,8 +25,6 @@ export class SubredditComponent implements OnInit {
   constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
               private userService: UserService, private subvykopService: SubvykopService,
               private router: Router, private route: ActivatedRoute) { }
-
-
 
   goToPost(event) {
     this.router.navigate(['post/' + event.id]);

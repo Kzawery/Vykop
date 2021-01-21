@@ -47,7 +47,7 @@ export class PostAddComponent implements OnInit {
     }
   }
 
-  public removeImg(){
+  public removeImg() {
     this.formData.delete('file');
     this.imageURL = null;
   }

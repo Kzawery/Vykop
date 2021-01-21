@@ -6,6 +6,7 @@ import {UserService} from '../../services/user.service';
 import {PostService} from '../../services/post.service';
 import {Post} from '../../models/post';
 import {Router} from '@angular/router';
+import {Comment} from '../../models/comment';
 
 @Component({
   selector: 'app-feed',
@@ -19,7 +20,7 @@ export class FeedComponent implements OnInit {
   title = 'Angular Infinite Scrolling List';
   listItems: Post[] = [];
   loading = false;
-
+  i = 0 ;
 
   constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
               private userService: UserService, private postService: PostService, private router: Router) { }
@@ -34,21 +35,31 @@ export class FeedComponent implements OnInit {
     this.fetchMore();
   }
 
-  likeBtnClick(event) {
-    console.log(event);
+  likeBtnClick(element: Post) {
+    this.postService.upvote(element.id).subscribe(resp => {
+      this.refresh(element);
+      // this._snackBar.open('You like this comment', 'hide',  {
+      //   duration: 2000,
+      // });
+    });
   }
-
+  refresh(element: Post): void {
+    this.postService.getPost(element.id).subscribe(p => {
+      element = p;
+    });
+  }
   goToPost(event) {
     this.router.navigate(['post/' + event.id]);
   }
 
   fetchMore(): void {
-    this.postService.getAll().subscribe(data => {
-      console.log(data); // Tu sciaga ci posty dla danego uzytkownika, modele dorobilem takie jak w bazie danych
+    this.postService.getForUser(this.i).subscribe(data => {
       for (const post of data) {
         newItems.push(post);
+        console.log(post);
       }
-
+      this.i += 1;
+      console.log(this.i);
     });
      const newItems = [];
      this.loading = true;
@@ -56,7 +67,6 @@ export class FeedComponent implements OnInit {
       this.loading = false;
       this.listItems = [...this.listItems, ...newItems];
     });
-
   }
 
 }

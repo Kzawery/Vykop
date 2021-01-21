@@ -11,10 +11,21 @@ export class PostService {
   getAll() {
     return this.http.get<Post[]>(`${environment.apiUrl}/userposts?page=0`);
   }
+  getForUser(i) {
+    return this.http.get<Post[]>(`${environment.apiUrl}/userposts?page=` + i);
+  }
+
+  getPostSet(i, name) {
+    return this.http.get<Post[]>(`${environment.apiUrl}/posts/` + name + `?page=` + i);
+  }
+
   getPost(id) {
     return this.http.get<Post>(`${environment.apiUrl}/post?id=` + id );
   }
 
+  upvote(id) {
+    return this.http.post(`${environment.apiUrl}/posts/upvote/` + id, []);
+  }
   addPost(post) {
     return this.http.post<Post>(`${environment.apiUrl}/posts`, post);
   }
