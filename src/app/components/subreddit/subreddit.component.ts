@@ -6,6 +6,10 @@ import {UserService} from '../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SubvykopService} from '../../services/subvykop.service';
 import {SubVykop} from '../../models/subVykop';
+import {PostAddComponent} from '../post/post-add/post-add.component';
+import {MatDialog} from '@angular/material/dialog';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {Post} from '../../models/post';
 
 @Component({
   selector: 'app-subreddit',
@@ -22,9 +26,10 @@ export class SubredditComponent implements OnInit {
   imageURL: string;
   loading = false;
   subredditId: any;
+  isSub = false;
   constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
               private userService: UserService, private subvykopService: SubvykopService,
-              private router: Router, private route: ActivatedRoute) { }
+              private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public _snackbar: MatSnackBar) { }
 
 
 
@@ -32,21 +37,37 @@ export class SubredditComponent implements OnInit {
     this.router.navigate(['post/' + event.id]);
   }
   joinSubVykop() {
-
+    this.subvykopService.subscribe(this.subredditId).subscribe(resp => {
+      if (resp === 'subscribed') {
+      this._snackbar.open('You have joined this community!', 'hide',  {
+        duration: 2000,
+      });         this.isSub = true;
+      } else {
+        this._snackbar.open('You have left the community!', 'hide',  {
+          duration: 2000,
+        });         this.isSub = false;
+      }
+    });
   }
+
+
+  addPost() {
+    const dialogRef = this.dialog.open(PostAddComponent, {
+      hasBackdrop: true,
+      data: this.subreddit.name
+    });
+    dialogRef.afterClosed().subscribe(result => {
+    });
+  }
+
 
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
       this.subredditId = paramMap.get('id');
     });
-
-
-
     this.subvykopService.getSubVykopById(this.subredditId).subscribe(resp => {
       this.subreddit = resp;
       this.imageURL = resp.banner;
-      console.log(resp);
-      console.log(this.subreddit.name);
       this.fetchMore();
     });
   }
@@ -69,17 +90,8 @@ export class SubredditComponent implements OnInit {
     this.subvykopService.getPostBySubVykopName(this.subreddit.name).subscribe(data => {
       console.log(data); // Tu sciaga ci posty dla danego uzytkownika, modele dorobilem takie jak w bazie danych
       for (const post of data) {
-        newItems.push(post);
+        this.listItems.push(post);
       }
-
     });
-    const newItems = [];
-    this.loading = true;
-    timer(1000).subscribe(() => {
-      this.loading = false;
-      this.listItems = [...this.listItems, ...newItems];
-    });
-
   }
-
 }

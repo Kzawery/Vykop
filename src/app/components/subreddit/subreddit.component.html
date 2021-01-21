@@ -15,8 +15,9 @@
         <div style="margin-right: auto; margin-left: 20px; margin-top: auto; margin-bottom: auto">
           <h1 style="margin-bottom: 0px">{{subreddit.name}}</h1>
           <h4 style="margin-bottom: 0px; color: gray">r/{{subreddit.name}}</h4>
-          <button mat-flat-button color="primary" (click)="joinSubVykop()"><mat-icon>add</mat-icon>Join</button>
-          <button mat-flat-button><mat-icon>add</mat-icon>Add Post</button>
+          <button mat-flat-button color="primary" (click)="joinSubVykop()" *ngIf="!isSub"><mat-icon>add</mat-icon>Join</button>
+          <button mat-flat-button color="primary" (click)="joinSubVykop()" *ngIf="isSub"><mat-icon>exit_to_app</mat-icon>Leave</button>
+          <button mat-flat-button (click)="addPost()"><mat-icon>add</mat-icon>Add Post</button>
         </div>
 
       </div>
@@ -64,8 +65,8 @@
 
   <div
     infinite-scroll
-    [infiniteScrollDistance]="2"
-    [infiniteScrollThrottle]="50"
+    [infiniteScrollDistance]="8"
+    [infiniteScrollThrottle]="150"
     (scrolled)="onScroll()"
   >
   </div>
