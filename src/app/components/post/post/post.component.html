@@ -33,17 +33,14 @@
 
     <ng-container>
     <mat-card class="example-card" *ngIf="addCommentField" >
-
       <mat-card-header class="mat-card-header" style="">
         <div mat-card-avatar class="example-header-image"></div>
         <a class="text-center" href="u/{{item.user}}">u/{{item.user}}</a>
       </mat-card-header> <br><br>
       <mat-card-content [class.show]="true" class="container">
-       <textarea class="comment-textarea" placeholder="Comment"></textarea>
+       <textarea class="comment-textarea" placeholder="Comment" [(ngModel)]='comment'></textarea>
       </mat-card-content>
       <button mat-button mdbBtn type="button" style="margin-left: 72%"><mat-icon>comment</mat-icon>Comment</button>
-
-
     </mat-card>
   </ng-container>
 

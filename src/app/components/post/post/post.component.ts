@@ -1,6 +1,9 @@
 import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {timer} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
+import {Post} from '../../../models/post';
+import {PostService} from '../../../services/post.service';
 
 @Component({
   selector: 'app-post',
@@ -15,6 +18,7 @@ export class PostComponent implements OnInit {
   comments = [];
   loading = false;
   addCommentField = false;
+  id_post: any;
   item = {
     title: 'List Item ' + 1,
     content: 'Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60. XX w. wraz z publikacją arkuszy Letrasetu, zawierających fragmenty Lorem Ipsum, a ostatnio z zawierającym różne wersje Lorem Ipsum oprogramowaniem przeznaczonym do realizacji druków na komputerach osobistych, jak Aldus PageMaker',
@@ -24,10 +28,16 @@ export class PostComponent implements OnInit {
     upvoted: true,
     downvoted: false
   };
-
-  constructor(private ngZone: NgZone) { }
+  post: Post;
+  constructor(private ngZone: NgZone, private route: ActivatedRoute, public postService: PostService) { }
 
   ngOnInit(): void {
+    this.route.paramMap.subscribe( paramMap => {
+      this.id_post = paramMap.get('id');
+    });
+    this.postService.getPost(this.id_post).subscribe(p => {
+      this.post = p;
+    });
     this.fetchMore();
   }
   onScroll() {

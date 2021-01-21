@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: '', component: HomeComponent,  canActivate: [AuthGuard]},
   { path: 'users', component: UserListComponent, canActivate: [AuthGuard], data: { roles: [Role.Admin]}},
   { path: 'post', component: PostComponent },
+  { path: 'post/:id', component: PostComponent},
 ];
 
 @NgModule({
