@@ -53,6 +53,7 @@ export class PostAddComponent implements OnInit {
   }
 
   public addPost() {
+    /*
     const form = {
       'content': {
         'text': this.text,
@@ -60,9 +61,11 @@ export class PostAddComponent implements OnInit {
       'author': this.currentUser,
       'title': this.title,
     };
+    */
+
     this.formData.append('title', this.title);
-    this.formData.append('id_author', this.currentUser.id.toString());
     this.formData.append('text', this.text);
+    console.log(this.formData.get('title'));
     this.postService.addPost(this.formData).subscribe(x => {
         this.dialogRef.close();
         this.isLoading = false;
