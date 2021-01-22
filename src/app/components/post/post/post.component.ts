@@ -24,6 +24,8 @@ export class PostComponent implements OnInit {
   id_post: any;
   post: Post = new Post();
   comment: string;
+  toggled: boolean;
+  message: string;
 
   constructor(private ngZone: NgZone, private route: ActivatedRoute, public postService: PostService,
               public auth: AuthenticationService, private _snackBar: MatSnackBar, private dialog: MatDialog) { }
@@ -33,16 +35,15 @@ export class PostComponent implements OnInit {
       this.id_post = paramMap.get('id');
     });
     this.refresh();
-    this.fetchMore();
+    this.comment = '';
   }
-
+  handleSelection(event) {
+    this.comment += event.char;
+  }
   refresh(): void {
     this.postService.getPost(this.id_post).subscribe(p => {
       this.post = p;
     });
-  }
-  onScroll() {
-    this.fetchMore();
   }
 
   likeBtnClick(element: Comment) {
@@ -52,9 +53,6 @@ export class PostComponent implements OnInit {
         duration: 2000,
       });
     });
-  }
-
-  fetchMore(): void {
   }
 
   openDialog(element: Comment): void {

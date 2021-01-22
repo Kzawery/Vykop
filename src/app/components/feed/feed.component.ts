@@ -21,7 +21,7 @@ export class FeedComponent implements OnInit {
   listItems = [];
   loading = false;
   i = 0 ;
-
+  busyGettingData = false;
   constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
               private userService: UserService, private postService: PostService, private router: Router) { }
 
@@ -51,24 +51,9 @@ export class FeedComponent implements OnInit {
   goToPost(event) {
     this.router.navigate(['post/' + event.id]);
   }
-/*
-  fetchMore(): void {
-    this.postService.getForUser(this.i).subscribe(data => {
-      for (const post of data) {
-        newItems.push(post);
-      }
-      this.i += 1;
-      console.log(this.i);
-    });
-     const newItems = [];
-     this.loading = true;
-    timer(1000).subscribe(() => {
-      this.loading = false;
-      this.listItems = [...this.listItems, ...newItems];
-    });
-  }*/
 
   fetchMore(): void {
+    this.busyGettingData = true;
     this.postService.getForUser(this.i).subscribe(data => {
       for (const post of data) {
         this.listItems.push(post);
@@ -76,9 +61,10 @@ export class FeedComponent implements OnInit {
       this.i += 1;
       console.log(this.i);
       console.log(data);
+      this.busyGettingData = false;
     }, error => {
       this.loading = false;
-      console.log("chuju nie ma postow");
+      this.busyGettingData = false;
     });
   }
 

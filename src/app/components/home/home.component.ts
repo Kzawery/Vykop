@@ -21,9 +21,7 @@ export class HomeComponent implements OnInit {
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
 
   title = 'Angular Infinite Scrolling List';
-
   loading = false;
-
   options: FormGroup;
   hideRequiredControl = new FormControl(false);
   floatLabelControl = new FormControl('auto');

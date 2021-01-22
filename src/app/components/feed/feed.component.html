@@ -7,7 +7,7 @@
   [infiniteScrollDistance]="2"
   [infiniteScrollThrottle]="200"
   (scrolled)="onScroll()"
-
+  [infiniteScrollDisabled]="busyGettingData"
 >
 <mat-list>
   <ng-container *ngFor="let item of listItems" >

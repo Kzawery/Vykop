@@ -2,8 +2,14 @@
 <head>
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
-
 <body>
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="3"
+  [infiniteScrollThrottle]="150"
+  (scrolled)="onScroll()"
+  [infiniteScrollDisabled]="busyGettingData"
+>
 <app-navbar></app-navbar>
 <div itemSize="3" class="content" style="width: 100%; height: auto;">
 
@@ -62,20 +68,7 @@
       <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
     </div>
   </mat-list>
-
-  <div
-    infinite-scroll
-    [infiniteScrollDistance]="8"
-    [infiniteScrollThrottle]="150"
-    (scrolled)="onScroll()"
-  >
-  </div>
-
-
-
-
 </mat-list>
-
-
+</div>
 </body>
 </html>

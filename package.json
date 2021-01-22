@@ -23,10 +23,13 @@
     "@angular/router": "~11.0.0",
     "angular-password-strength-meter": "^3.0.1",
     "bootstrap": "3.4.1",
+    "ngx-emoji-picker": "^0.1.5",
     "ngx-file-drop": "^10.1.1",
     "ngx-infinite-scroll": "^10.0.1",
+    "ngx-mat-select-search": "^3.2.0",
     "rxjs": "~6.6.0",
     "tslib": "^2.0.0",
+    "twemoji": "^13.0.1",
     "zone.js": "~0.10.2",
     "zxcvbn": "^4.4.2",
     "zxcvbn3": "^0.1.1"
