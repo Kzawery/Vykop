@@ -14,7 +14,7 @@
       <textarea class="comment-textarea"  [(ngModel)]='text'></textarea>
   </mat-card-content>
   <mat-card-actions style="padding-left: 10px">
-    <mat-icon (click)="removeImg()">delete</mat-icon>
-    <mat-icon (click)="addPost()">save</mat-icon>
+    <button mat-button style="padding: 7px">  <mat-icon (click)="removeImg()">delete</mat-icon> </button>
+    <button mat-button style="float: right; padding: 7px">  <mat-icon (click)="addPost()">save</mat-icon> </button>
   </mat-card-actions>
 </mat-card>
