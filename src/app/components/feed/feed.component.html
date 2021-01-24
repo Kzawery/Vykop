@@ -10,12 +10,12 @@
   [infiniteScrollDisabled]="busyGettingData"
 >
 <mat-list>
-  <ng-container *ngFor="let item of listItems" >
+  <ng-container *ngFor="let item of listItems; let i = index" >
 
     <mat-card class="example-card">
-      <mat-card-title>{{item.title}}</mat-card-title>
+      <mat-card-title class="p">{{item.title}}</mat-card-title>
       <mat-card-header class="mat-card-header" style="">
-        <div mat-card-avatar class="example-header-image"></div>
+        <div mat-card-avatar class="example-header-image" style="background-image: url({{item.author.avatar}})"></div>
         <a href="subVykop/{{item.subVykop.id}}" class="text-center" style="margin-right: 10px">r/{{item.subVykop.name}}</a>
         <p class="text-center" style="margin-right: 10px">Posted by:</p>
         <a class="text-center" href="u/{{item.author.username}}">u/{{item.author.username}}</a>
@@ -24,11 +24,12 @@
       <mat-card-content [class.show]="true" class="container">
         <img [src]="item.content.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-bottom: 10px; display: flex"  *ngIf="item.content.image">
         <mat-video src="{{item.content.video}}" *ngIf="item.content.video"></mat-video>
+        <br>
         <p class="p">{{item.content.text}}</p>
       </mat-card-content>
 
       <mat-card-actions style="padding-left: 46px">
-        <mat-button-toggle (click)="likeBtnClick(item)" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
+        <mat-button-toggle (click)="likeBtnClick(item, i)"  [checked]="item.upvoted" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
           <mat-icon>thumb_up</mat-icon> Like ({{item.votes}})
         </mat-button-toggle>
           <button mat-button style="padding: 7px" (click)="goToPost(item)"> <mat-icon> comment</mat-icon>Comments </button>

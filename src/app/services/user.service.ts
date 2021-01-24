@@ -19,6 +19,13 @@ export class UserService {
   getById(id: number) {
     return this.http.get<User>(`${environment.apiUrl}/users/${id}`);
   }
+  getProfile() {
+    return this.http.get<User>(`${environment.apiUrl}/u/me`);
+  }
+
+  getByUsername(username: String) {
+    return this.http.get<User>(`${environment.apiUrl}/u/` + username);
+  }
 
   register(data) {
     return this.http.post(`${environment.apiUrl}/users/signup`, data);

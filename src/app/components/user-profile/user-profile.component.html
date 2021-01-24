@@ -1,0 +1,53 @@
+<div class="background-div">
+  <mat-card class="example-card" style="text-align: center;">
+    <mat-card-header style="width: 100%; padding-top: 20px; margin-left: 10%; margin-right: 40px">
+        <ngx-file-drop (onFileDrop)="dropped($event)" style="width: 170px; height: 170px; padding-left: 30px">
+          <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
+<!--            <button mat-raised-button (click)="openFileSelector()" class="button-under">Select File</button>-->
+            <img src= "{{userDB.avatar}}"  style="width: 170px; height: 170px; padding-top: 20px; margin-left: 40%; " alt="" (click)="openFileSelector()">
+          </ng-template>
+        </ngx-file-drop>
+
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="registerForm">
+        <mat-form-field appearance="fill">
+          <mat-label >Enter Username</mat-label>
+          <input matInput placeholder="username" formControlName ="form_basic_username" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label >Enter Email</mat-label>
+          <input matInput placeholder="email@gmail.com" formControlName="email" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label >Enter Role</mat-label>
+          <input matInput placeholder="User" formControlName="role" required>
+        </mat-form-field>
+        <mat-form-field appearance="fill">
+          <mat-label >Enter Password</mat-label>
+          <input matInput placeholder="password" formControlName ="form_basic_password" required>
+        </mat-form-field>
+        <div class="meter">
+          <password-strength-meter [password]="this.registerForm.get('form_basic_password').value" enableFeedback="true" ></password-strength-meter>
+        </div>
+      </form>
+
+      <div class="example-button-container">
+        <div class="button-div-right">
+          <button mat-fab color="#6EBFC2" aria-label="Register button" [disabled]="!registerForm.valid" (click)="onSave()" *ngIf="!data">
+            <mat-icon>task_alt</mat-icon>
+          </button>
+          <button mat-fab color="#6EBFC2" aria-label="Register button" [disabled]="!registerForm.valid" (click)="onEdit()" *ngIf="data">
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+        <div class="button-div-left">
+          <button mat-fab color="warn" aria-label="Example icon button with a bookmark icon" (click)="onBack()">
+            <mat-icon>undo</mat-icon>
+          </button>
+        </div>
+        <div class="progress-bar-div" *ngIf="isLoading==true"> <mat-progress-bar mode="indeterminate" > </mat-progress-bar> </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

@@ -9,6 +9,8 @@ import {Role} from './models/role';
 import {PostComponent} from './components/post/post/post.component';
 import {SubredditComponent} from './components/subreddit/subreddit.component';
 import {FeedComponent} from './components/feed/feed.component';
+import {UserComponent} from './components/user/user.component';
+import {UserProfileComponent} from './components/user-profile/user-profile.component';
 
 
 const routes: Routes = [
@@ -20,6 +22,8 @@ const routes: Routes = [
   { path: 'subVykop/:id', component: SubredditComponent },
   { path: 'feed', component: FeedComponent },
   { path: 'post/:id', component: PostComponent},
+  { path: 'u/:username', component: UserComponent},
+  { path: 'profile', component: UserProfileComponent},
 ];
 
 @NgModule({

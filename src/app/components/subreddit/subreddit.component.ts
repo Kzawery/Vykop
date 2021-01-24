@@ -10,6 +10,7 @@ import {PostAddComponent} from '../post/post-add/post-add.component';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {Post} from '../../models/post';
+import {PostService} from '../../services/post.service';
 
 @Component({
   selector: 'app-subreddit',
@@ -30,13 +31,14 @@ export class SubredditComponent implements OnInit {
   busyGettingData = false;
   constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
               private userService: UserService, private subvykopService: SubvykopService,
-              private router: Router, private route: ActivatedRoute, public dialog: MatDialog, public _snackbar: MatSnackBar) { }
+              private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private _snackbar: MatSnackBar, private postService: PostService) { }
 
   goToPost(event) {
     this.router.navigate(['post/' + event.id]);
   }
   joinSubVykop() {
     this.subvykopService.subscribe(this.subredditId).subscribe(resp => {
+      console.log(resp);
       if (resp === 'subscribed') {
       this._snackbar.open('You have joined this community!', 'hide',  {
         duration: 2000,
@@ -69,20 +71,32 @@ export class SubredditComponent implements OnInit {
       this.imageURL = resp.banner;
       this.fetchMore();
     });
-  }
-
-  refresh(): void {
-    // this.subvykopService.getPost(this.subredditId).subscribe(p => {
-    //   // this.post = p;
-    // });
+    this.subvykopService.checkSub(this.subredditId).subscribe(resp => {
+      if (resp) {
+        this.isSub = true;
+      } else {
+        this.isSub = false;
+      }
+    });
   }
 
   onScroll() {
     this.fetchMore();
   }
 
-  likeBtnClick(event) {
-    console.log(event);
+  likeBtnClick(element: Post) {
+    this.postService.upvote(element.id).subscribe(resp => {
+      this.refresh(element);
+      this._snackbar.open('You like this post', 'hide',  {
+        duration: 2000,
+      });
+    });
+  }
+  refresh(element: Post): void {
+    this.postService.getPost(element.id).subscribe(p => {
+      element = p;
+      console.log(p);
+    });
   }
 
   fetchMore(): void {

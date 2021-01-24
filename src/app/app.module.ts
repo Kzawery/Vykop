@@ -44,7 +44,8 @@ import {NgxFileDropModule} from 'ngx-file-drop';
 import {MatSelectModule} from '@angular/material/select';
 import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {NgxEmojiPickerModule} from 'ngx-emoji-picker';
-
+import { UserComponent } from './components/user/user.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -60,7 +61,9 @@ import {NgxEmojiPickerModule} from 'ngx-emoji-picker';
     SubredditComponent,
     PostAddComponent,
     NavbarComponent,
-    SubredditComponent
+    SubredditComponent,
+    UserComponent,
+    UserProfileComponent
   ],
   imports: [
     NgxEmojiPickerModule,

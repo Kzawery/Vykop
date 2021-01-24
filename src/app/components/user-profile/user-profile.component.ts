@@ -1,23 +1,25 @@
 import {Component, Inject, OnInit, Optional} from '@angular/core';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {UserService} from '../../../services/user.service';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {first} from 'rxjs/operators';
-import {User} from '../../../models/user';
+import {User} from '../../models/user';
+import {UserService} from '../../services/user.service';
+import {FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
 
 @Component({
-  selector: 'app-user-managament',
-  templateUrl: './user-managament.component.html',
-  styleUrls: ['./user-managament.component.css']
+  selector: 'app-user-profile',
+  templateUrl: './user-profile.component.html',
+  styleUrls: ['./user-profile.component.css']
 })
-export class UserManagamentComponent implements OnInit {
+export class UserProfileComponent implements OnInit {
 
   // tslint:disable-next-line:max-line-length
-  constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<UserManagamentComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService) {}
+  constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<UserProfileComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService) {}
   isLoading = false;
   hide = true;
   userDB: User;
+  files;
   registerForm = new FormGroup({
     form_basic_username: new FormControl('', [Validators.required]),
     form_basic_password:  new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&].{8,}')]),
@@ -46,6 +48,25 @@ export class UserManagamentComponent implements OnInit {
   onBack(): void {
     this.dialogRef.close();
   }
+
+  public dropped(files: NgxFileDropEntry[]) {
+    this.files = files;
+    for (const droppedFile of files) {
+      if (droppedFile.fileEntry.isFile) {
+        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
+        const reader = new FileReader();
+        fileEntry.file((file: File) => {
+          this.isLoading = true;
+          // this.formData.append('file', file, droppedFile.relativePath);
+          reader.readAsDataURL(file);
+          reader.onload = () => {
+            this.userDB.avatar = reader.result.toString();
+          };
+        });
+      }
+    }
+  }
+
 
   onSave() {
     this.isLoading = true;
