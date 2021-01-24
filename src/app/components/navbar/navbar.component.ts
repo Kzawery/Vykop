@@ -44,15 +44,17 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/users']);
   }
   filter(event: String) {
-    this.subs = [];
     this.subService.searchSubs(event).subscribe( data => {
       let converter: SubVykop[];
       converter = data;
+      this.subs.length = 0;
+      this.subs = [];
+      console.log(data);
       for (const item of converter) {
-        console.log(item);
         this.subs.push(item);
       }
     });
+    this.subs =  this.subs.filter((el, i, a) => i === a.indexOf(el));
   }
 
   goTo(sub: number) {
