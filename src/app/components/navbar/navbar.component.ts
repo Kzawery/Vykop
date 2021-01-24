@@ -49,7 +49,6 @@ export class NavbarComponent implements OnInit {
       converter = data;
       this.subs.length = 0;
       this.subs = [];
-      console.log(data);
       for (const item of converter) {
         this.subs.push(item);
       }

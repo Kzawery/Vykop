@@ -18,7 +18,7 @@ export class UserProfileComponent implements OnInit {
   constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<UserProfileComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService) {}
   isLoading = false;
   hide = true;
-  userDB: User;
+  userDB: User = new User();
   files;
   registerForm = new FormGroup({
     form_basic_username: new FormControl('', [Validators.required]),
@@ -30,6 +30,7 @@ export class UserProfileComponent implements OnInit {
   ngOnInit(): void {
     if (this.data) {
       this.userService.getById(this.data.id).subscribe( u => {
+        console.log(u);
         this.userDB = u;
         this.updateForm();
       });

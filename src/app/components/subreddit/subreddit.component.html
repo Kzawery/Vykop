@@ -64,11 +64,11 @@
 
     </ng-container>
 
-    <div class="spinner-item">
-      <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50"></mat-progress-spinner>
-    </div>
   </mat-list>
 </mat-list>
+</div>
+<div class="spinner-item" *ngIf="noPosts">
+  There are no more posts to load.
 </div>
 </body>
 </html>

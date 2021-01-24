@@ -9,8 +9,8 @@ import {SubVykop} from '../models/subVykop';
 export class SubvykopService {
   constructor(private http: HttpClient) { }
 
-  getPostBySubVykopName(name) {
-    return this.http.get<Post[]>(`${environment.apiUrl}/posts/` + name + `/?page=0`);
+  getPostBySubVykopName(name, index) {
+    return this.http.get<Post[]>(`${environment.apiUrl}/posts/` + name + `/?page=` + index);
   }
 
   searchSubs(name) {

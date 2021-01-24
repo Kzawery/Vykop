@@ -8,10 +8,6 @@
   right: 0;
   top: 10%;
 }
-.example-header-image {
-  background-image: url('https://www.freelogodesign.org/file/app/client/thumb/b41efe8f-280d-486b-b69a-0d7848b4eba3_200x200.png?1608309161937');
-  background-size: contain;
-}
 .background-div{
   background-color: chartreuse;
 }
@@ -24,17 +20,13 @@
   width: 80%;
 }
 
-.img-center{
-  padding-left: 30%;
-}
 
 .button-div-right{
   padding-top: 10%;
   float: right;
 }
 .mat-card-header{
-  width: 200px;
-  height: 200px;
+  margin: auto;
 }
 
 .register-div{

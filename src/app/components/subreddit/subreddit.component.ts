@@ -28,6 +28,8 @@ export class SubredditComponent implements OnInit {
   loading = false;
   subredditId: any;
   isSub = false;
+  index = 0;
+  noPosts: boolean;
   busyGettingData = false;
   constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
               private userService: UserService, private subvykopService: SubvykopService,
@@ -63,6 +65,7 @@ export class SubredditComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.noPosts = false;
     this.route.paramMap.subscribe( paramMap => {
       this.subredditId = paramMap.get('id');
     });
@@ -101,13 +104,18 @@ export class SubredditComponent implements OnInit {
 
   fetchMore(): void {
     this.busyGettingData = true;
-    this.subvykopService.getPostBySubVykopName(this.subreddit.name).subscribe(data => {
-      console.log(data); // Tu sciaga ci posty dla danego uzytkownika, modele dorobilem takie jak w bazie danych
+    this.subvykopService.getPostBySubVykopName(this.subreddit.name, this.index).subscribe(data => {
+      console.log(this.index);
       for (const post of data) {
         this.listItems.push(post);
       }
       this.busyGettingData = false;
-    });
+      this.index ++ ;
+    },
+      error1 => {
+        this.busyGettingData = false;
+        this.noPosts = true;
+      });
   }
 
 }

@@ -1,13 +1,11 @@
 <div class="background-div">
   <mat-card class="example-card" style="text-align: center;">
     <mat-card-header style="width: 100%; padding-top: 20px;">
-        <ngx-file-drop (onFileDrop)="dropped($event)" style="width: 170px; height: 170px; padding-left: 30px; visibility: hidden" >
+        <ngx-file-drop (onFileDrop)="dropped($event)" style="width: 300px; height: 300px; visibility: hidden" >
           <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
-<!--            <button mat-raised-button (click)="openFileSelector()" class="button-under">Select File</button>-->
-            <img src= "{{userDB.avatar}}"  style="width: 170px; height: 170px; padding-left: 30%; padding-right: 30%; marigin-top: 20px; visibility: visible" alt="" (click)="openFileSelector()">
+            <img src= "{{userDB.avatar}}"  style="width: 100%;  padding-top:180px; visibility: visible" alt="" (click)="openFileSelector()">
           </ng-template>
         </ngx-file-drop>
-
     </mat-card-header>
     <mat-card-content>
       <form [formGroup]="registerForm">
@@ -42,7 +40,7 @@
           </button>
         </div>
         <div class="button-div-left">
-          <button mat-fab color="warn" aria-label="Example icon button with a bookmark icon" (click)="onBack()">
+          <button mat-fab color="primary" aria-label="Example icon button with a bookmark icon" (click)="onBack()">
             <mat-icon>undo</mat-icon>
           </button>
         </div>
