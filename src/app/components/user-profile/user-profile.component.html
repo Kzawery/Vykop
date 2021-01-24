@@ -1,10 +1,10 @@
 <div class="background-div">
   <mat-card class="example-card" style="text-align: center;">
-    <mat-card-header style="width: 100%; padding-top: 20px; margin-left: 10%; margin-right: 40px">
-        <ngx-file-drop (onFileDrop)="dropped($event)" style="width: 170px; height: 170px; padding-left: 30px">
+    <mat-card-header style="width: 100%; padding-top: 20px;">
+        <ngx-file-drop (onFileDrop)="dropped($event)" style="width: 170px; height: 170px; padding-left: 30px; visibility: hidden" >
           <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
 <!--            <button mat-raised-button (click)="openFileSelector()" class="button-under">Select File</button>-->
-            <img src= "{{userDB.avatar}}"  style="width: 170px; height: 170px; padding-top: 20px; margin-left: 40%; " alt="" (click)="openFileSelector()">
+            <img src= "{{userDB.avatar}}"  style="width: 170px; height: 170px; padding-left: 30%; padding-right: 30%; marigin-top: 20px; visibility: visible" alt="" (click)="openFileSelector()">
           </ng-template>
         </ngx-file-drop>
 

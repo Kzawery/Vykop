@@ -56,7 +56,7 @@ export class UserProfileComponent implements OnInit {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         const reader = new FileReader();
         fileEntry.file((file: File) => {
-          this.isLoading = true;
+          //this.isLoading = true;
           // this.formData.append('file', file, droppedFile.relativePath);
           reader.readAsDataURL(file);
           reader.onload = () => {
