@@ -18,9 +18,10 @@ export class UserComponent implements OnInit {
   ngOnInit(): void {
     this.route.paramMap.subscribe(paramMap => {
       this.user.username = paramMap.get('username');
-    });
-    this.userService.getByUsername(this.user.username).subscribe(user => {
-      this.user = user;
+      this.userService.getByUsername(this.user.username).subscribe(user => {
+        this.user = user;
+      });
     });
   }
+
 }

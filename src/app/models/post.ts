@@ -12,4 +12,5 @@ export class Post {
   creationDate: Date;
   comments: Set<Comment>;
   subVykop: SubVykop;
+  upvoted: boolean;
 }

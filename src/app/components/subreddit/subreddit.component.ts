@@ -88,18 +88,16 @@ export class SubredditComponent implements OnInit {
     this.fetchMore();
   }
 
-  likeBtnClick(element: Post) {
+  likeBtnClick(element: Post, i) {
     this.postService.upvote(element.id).subscribe(resp => {
-      this.refresh(element);
-      this._snackbar.open('You like this post', 'hide',  {
-        duration: 2000,
+      this.refresh(element, i);
+      console.log(resp);
       });
-    });
   }
-  refresh(element: Post): void {
+  refresh(element: Post, i): void {
     this.postService.getPost(element.id).subscribe(p => {
       element = p;
-      console.log(p);
+      this.listItems[i].votes = element.votes;
     });
   }
 

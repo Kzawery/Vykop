@@ -26,7 +26,7 @@ export class NavbarComponent implements OnInit {
 
               // tslint:disable-next-line:max-line-length
               public authenticationService: AuthenticationService, private userService: UserService,
-              private postService: PostService, private subService: SubvykopService, public dialog: MatDialog){
+              private postService: PostService, private subService: SubvykopService, public dialog: MatDialog) {
               this.options = fb.group({
                 hideRequired: this.hideRequiredControl,
                 floatLabel: this.floatLabelControl,

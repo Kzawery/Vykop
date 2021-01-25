@@ -22,6 +22,7 @@ export class PostComponent implements OnInit {
   loading = false;
   addCommentField = false;
   id_post: any;
+  isToggled: boolean = false;
   post: Post = new Post();
   comment: string;
   toggled: boolean;
@@ -55,6 +56,12 @@ export class PostComponent implements OnInit {
     });
   }
 
+  likeBtnClickPost() {
+    console.log(this.post.upvoted);
+    this.postService.upvote(this.post.id).subscribe(resp => {
+      this.refresh();
+    });
+  }
   openDialog(element: Comment): void {
     const dialogRef = this.dialog.open(DeleteDialogComponent, {
       width: '250px',
@@ -84,6 +91,7 @@ export class PostComponent implements OnInit {
       this._snackBar.open('Comment have been added', 'hide',  {
         duration: 2000,
       });
+      this.isToggled = false;
       }
     );
   }
