@@ -36,7 +36,7 @@ export class UserService {
   }
 
   edit(data) {
-    return this.http.put(`${environment.apiUrl}/users/` + data.id, data);
+    return this.http.put(`${environment.apiUrl}/users/` + data.get('id'), data);
   }
 
 }

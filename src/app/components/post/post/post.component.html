@@ -8,7 +8,7 @@
 <div class="content" style="width: 100%">
   <mat-card class="example-card" *ngIf="this.post.author!=null">
     <mat-card-header class="mat-card-header" style="">
-      <div mat-card-avatar class="example-header-image"></div>
+      <div mat-card-avatar class="example-header-image" style="background-image: url({{this.post.author.avatar}})"></div>
       <a href="subVykop/{{this.post.subVykop.id}}" class="text-center" style="margin-right: 10px">r/{{this.post.subVykop.name}}</a>
       <p class="text-center" style="margin-right: 10px">Posted by:</p>
       <a class="text-center" href="u/{{post.author.username}}">u/{{post.author.username}}</a>
@@ -34,7 +34,7 @@
 
     <mat-card class="example-card" *ngIf="addCommentField" >
       <mat-card-header class="mat-card-header" style="">
-        <div mat-card-avatar class="example-header-image"></div>
+        <div mat-card-avatar class="example-header-image" style="background-image: url({{auth.currentUserValue.avatar}})"></div>
         <a class="text-center" href="u/{{auth.currentUserValue.username}}">u/{{auth.currentUserValue.username}}</a>
       </mat-card-header> <br><br>
       <mat-card-content [class.show]="true" class="container">
@@ -57,7 +57,7 @@
   <ng-container *ngFor="let element of post.comments">
     <mat-card class="example-card" >
       <mat-card-header class="mat-card-header" style="">
-        <div mat-card-avatar class="example-header-image"></div>
+        <div mat-card-avatar class="example-header-image" style="background-image: url({{element.author.avatar}})"></div>
         <a class="text-center" href="u/{{element.author.username}}">u/{{element.author.username}}</a>
       </mat-card-header> <br><br>
       <mat-card-content [class.show]="true" class="container">

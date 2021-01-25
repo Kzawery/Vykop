@@ -17,6 +17,7 @@ export class UserProfileComponent implements OnInit {
   // tslint:disable-next-line:max-line-length
   constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<UserProfileComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService) {}
   isLoading = false;
+  form = new FormData();
   hide = true;
   userDB: User = new User();
   files;
@@ -58,7 +59,7 @@ export class UserProfileComponent implements OnInit {
         const reader = new FileReader();
         fileEntry.file((file: File) => {
           // this.isLoading = true;
-          // this.formData.append('file', file, droppedFile.relativePath);
+          this.form.append('file', file, droppedFile.relativePath);
           reader.readAsDataURL(file);
           reader.onload = () => {
             this.userDB.avatar = reader.result.toString();
@@ -69,40 +70,15 @@ export class UserProfileComponent implements OnInit {
   }
 
 
-  onSave() {
-    this.isLoading = true;
-    const form = {
-      'username': this.registerForm.get('form_basic_username').value,
-      'password': this.registerForm.get('form_basic_password').value,
-      'email':  this.registerForm.get('email').value,
-      'role': this.registerForm.get('role').value
-    };
-    this.userService.add(form)
-      .pipe(first())
-      .subscribe(
-        data => {
-          this.isLoading = false;
-          this.dialogRef.close();
-          this._snackBar.open('User have been added', 'hide',  {
-            duration: 2000,
-          });
-        },
-        error => {
-          this.isLoading = false;
-        });
-  }
-
   onEdit() {
     this.isLoading = true;
-    const form = {
-      'id': this.userDB.id,
-      'username': this.registerForm.get('form_basic_username').value,
-      'password': this.registerForm.get('form_basic_password').value,
-      'registrationDate': this.userDB.registrationDate,
-      'email':  this.registerForm.get('email').value,
-      'role': this.registerForm.get('role').value
-    };
-    this.userService.edit(form)
+    this.form.append('id', this.userDB.id.toString());
+    this.form.append('username', this.registerForm.get('form_basic_username').value);
+    this.form.append('password', this.registerForm.get('form_basic_password').value);
+    this.form.append('registrationDate', this.userDB.registrationDate);
+    this.form.append('email', this.registerForm.get('email').value);
+    console.log(this.form.get('username'));
+    this.userService.edit(this.form)
       .pipe(first())
       .subscribe(
         data => {

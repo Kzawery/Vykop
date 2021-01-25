@@ -1,26 +1,32 @@
 <div class="background-div">
   <mat-card class="example-card" style="text-align: center;">
-    <mat-card-header style="width: 100%; padding-top: 20px; margin: auto">
+    <mat-card-header style="width: 100%; padding-top: 20px;">
 
-      <ngx-file-drop (onFileDrop)="dropped($event)" style="width: 170px; height: 170px; margin:auto">
+      <div style="width: 100%; height: auto; margin-left: 30%; margin-right: 30%">
+        <div>
+          <mat-label>SubVykop Banner: </mat-label>
+        <ngx-file-drop (onFileDrop)="dropped($event)" style="width: 100px; height: 100px; margin:auto; float: none">
 
-        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector" style="margin: auto">
-          <img src="{{subVykop.banner}}"  style="width: 170px; height: 170px; marigin-top: 20px;" alt="" (click)="openFileSelector()" *ngIf="subVykop.banner != null">
-          <button mat-raised-button (click)="openFileSelector()" class="button-under" style="visibility: visible; width: auto; margin-left: 0px; margin-right: 0px" *ngIf="subVykop.banner == null">Select File</button>
-        </ng-template>
+          <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector" style="margin: auto">
+            <img src="{{subVykop.banner}}"  style="width: 170px; height: 170px; marigin-top: 20px;" alt="" (click)="openFileSelector()" *ngIf="subVykop.banner != null">
+            <button mat-raised-button (click)="openFileSelector()" class="button-under" style="visibility: visible; width: auto; margin-left: 0px; margin-right: 0px" *ngIf="subVykop.banner == null">Select File</button>
+          </ng-template>
 
-      </ngx-file-drop>
+        </ngx-file-drop>
+        </div>
+        <div style="padding-top: 20px">
 
-      <ngx-file-drop (onFileDrop)="dropped2($event)" style="width: 170px; height: 170px; margin:auto">
+          <mat-label>SubVykop Avatar: </mat-label>
+          <ngx-file-drop (onFileDrop)="dropped2($event)" style="width: 170px; height: 170px; margin:auto; float: none">
 
-        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector" style="margin: auto">
-          <img src="{{subVykop.avatar}}"  style="width: 170px; height: 170px; marigin-top: 20px;" alt="" (click)="openFileSelector()" *ngIf="subVykop.avatar != null">
-          <button mat-raised-button (click)="openFileSelector()" class="button-under" style="visibility: visible; width: auto; margin-left: 0px; margin-right: 0px" *ngIf="subVykop.avatar == null">Select File</button>
-        </ng-template>
+            <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector" style="margin: auto">
+              <img src="{{subVykop.avatar}}"  style="width: 100px; height: 100px; marigin-top: 20px;" alt="" (click)="openFileSelector()" *ngIf="subVykop.avatar != null">
+              <button mat-raised-button (click)="openFileSelector()" class="button-under" style="visibility: visible; width: auto; margin-left: 0px; margin-right: 0px" *ngIf="subVykop.avatar == null">Select File</button>
+            </ng-template>
 
-      </ngx-file-drop>
-
-
+          </ngx-file-drop>
+        </div>
+      </div>
       <div class="mat-card-header-text"></div>
     </mat-card-header>
 
@@ -30,14 +36,14 @@
           <mat-label >Enter Sub Vykop Name</mat-label>
           <input matInput placeholder="Sub Vykop Name" [(ngModel)]='name' required>
         </mat-form-field>
-          <br>
+
         <hr>
         <textarea class="comment-textarea"  [(ngModel)]='description' placeholder="Description"></textarea>
 
       <div class="example-button-container">
         <div class="button-div-right">
           <button mat-fab color="#6EBFC2" aria-label="Register button" (click)="onEdit()">
-            <mat-icon>save</mat-icon>
+            <mat-icon>add</mat-icon>
           </button>
         </div>
 
