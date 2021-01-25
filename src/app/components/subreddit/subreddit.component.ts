@@ -33,7 +33,8 @@ export class SubredditComponent implements OnInit {
   busyGettingData = false;
   constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
               private userService: UserService, private subvykopService: SubvykopService,
-              private router: Router, private route: ActivatedRoute, public dialog: MatDialog, private _snackbar: MatSnackBar, private postService: PostService) { }
+              private router: Router, private route: ActivatedRoute, public dialog: MatDialog,
+              private _snackbar: MatSnackBar, private postService: PostService) { }
 
   goToPost(event) {
     this.router.navigate(['post/' + event.id]);

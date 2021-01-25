@@ -13,6 +13,11 @@ export class SubvykopService {
     return this.http.get<Post[]>(`${environment.apiUrl}/posts/` + name + `/?page=` + index);
   }
 
+
+  create(subVykop) {
+    return this.http.post(`${environment.apiUrl}/sub_vykop`, subVykop);
+  }
+
   searchSubs(name) {
     return this.http.get<SubVykop[]>(`${environment.apiUrl}/sub_vykop/search?match=` + name);
   }

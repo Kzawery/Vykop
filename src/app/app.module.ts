@@ -46,6 +46,7 @@ import {NgxMatSelectSearchModule} from 'ngx-mat-select-search';
 import {NgxEmojiPickerModule} from 'ngx-emoji-picker';
 import { UserComponent } from './components/user/user.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { AddSubVykopComponent } from './components/add-sub-vykop/add-sub-vykop.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,7 +64,8 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
     NavbarComponent,
     SubredditComponent,
     UserComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    AddSubVykopComponent
   ],
   imports: [
     NgxEmojiPickerModule,

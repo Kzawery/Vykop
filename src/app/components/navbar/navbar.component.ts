@@ -9,6 +9,7 @@ import {SubVykop} from '../../models/subVykop';
 import {UserManagamentComponent} from '../administration/user-managament/user-managament.component';
 import {MatDialog} from '@angular/material/dialog';
 import {UserProfileComponent} from '../user-profile/user-profile.component';
+import {AddSubVykopComponent} from '../add-sub-vykop/add-sub-vykop.component';
 
 @Component({
   selector: 'app-navbar',
@@ -55,9 +56,17 @@ export class NavbarComponent implements OnInit {
     });
     this.subs =  this.subs.filter((el, i, a) => i === a.indexOf(el));
   }
+  addSubVykop() {
+      const addSub = this.dialog.open(AddSubVykopComponent, {
+        hasBackdrop: true,
+      });
+      addSub.afterClosed().subscribe(result => {
+        this.router.navigate(['/subVykop/' ]);
+      });
+  }
 
   goTo(sub: number) {
-    this.router.navigate(['/subVykop/' + 4]);
+    this.router.navigate(['/subVykop/' + sub]);
   }
   profile() {
       this.authenticationService.currentUser.subscribe( user =>

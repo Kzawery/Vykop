@@ -1,0 +1,54 @@
+<div class="background-div">
+  <mat-card class="example-card" style="text-align: center;">
+    <mat-card-header style="width: 100%; padding-top: 20px; margin: auto">
+
+      <ngx-file-drop (onFileDrop)="dropped($event)" style="width: 170px; height: 170px; margin:auto">
+
+        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector" style="margin: auto">
+          <img src="{{subVykop.banner}}"  style="width: 170px; height: 170px; marigin-top: 20px;" alt="" (click)="openFileSelector()" *ngIf="subVykop.banner != null">
+          <button mat-raised-button (click)="openFileSelector()" class="button-under" style="visibility: visible; width: auto; margin-left: 0px; margin-right: 0px" *ngIf="subVykop.banner == null">Select File</button>
+        </ng-template>
+
+      </ngx-file-drop>
+
+      <ngx-file-drop (onFileDrop)="dropped2($event)" style="width: 170px; height: 170px; margin:auto">
+
+        <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector" style="margin: auto">
+          <img src="{{subVykop.avatar}}"  style="width: 170px; height: 170px; marigin-top: 20px;" alt="" (click)="openFileSelector()" *ngIf="subVykop.avatar != null">
+          <button mat-raised-button (click)="openFileSelector()" class="button-under" style="visibility: visible; width: auto; margin-left: 0px; margin-right: 0px" *ngIf="subVykop.avatar == null">Select File</button>
+        </ng-template>
+
+      </ngx-file-drop>
+
+
+      <div class="mat-card-header-text"></div>
+    </mat-card-header>
+
+    <mat-card-content>
+
+        <mat-form-field appearance="fill">
+          <mat-label >Enter Sub Vykop Name</mat-label>
+          <input matInput placeholder="Sub Vykop Name" [(ngModel)]='name' required>
+        </mat-form-field>
+          <br>
+        <hr>
+        <textarea class="comment-textarea"  [(ngModel)]='description' placeholder="Description"></textarea>
+
+      <div class="example-button-container">
+
+        <div class="button-div-right">
+          <button mat-fab color="#6EBFC2" aria-label="Register button" (click)="onEdit()">
+            <mat-icon>save</mat-icon>
+          </button>
+        </div>
+
+        <div class="button-div-left">
+          <button mat-fab color="warn" aria-label="Example icon button with a bookmark icon" (click)="onBack()">
+            <mat-icon>undo</mat-icon>
+          </button>
+        </div>
+        <div class="progress-bar-div" *ngIf="isLoading==true"> <mat-progress-bar mode="indeterminate" > </mat-progress-bar> </div>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>

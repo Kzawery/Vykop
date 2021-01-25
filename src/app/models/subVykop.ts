@@ -3,4 +3,5 @@ export class SubVykop {
   name: string;
   description: string;
   banner: string;
+  avatar: string;
 }
