@@ -7,10 +7,10 @@
       </span>
   </div>
   <span style="width: 35%;"></span>
-  <mat-form-field>
+  <mat-form-field style="width: 400px">
     <mat-select #singleSelect >
       <mat-option>
-        <ngx-mat-select-search ngModel (ngModelChange)="filter($event)" placeholderLabel="seach" noEntriesFoundLabel="no results" ariaLabel="test"></ngx-mat-select-search>
+        <ngx-mat-select-search ngModel (ngModelChange)="filter($event)" placeholderLabel="seach" style="width: 400px"  noEntriesFoundLabel="no results" ariaLabel="test"></ngx-mat-select-search>
       </mat-option>
       <mat-option *ngFor="let sub of subs" [value]="sub" (click)="goTo(sub.id)">
         {{sub.name}}

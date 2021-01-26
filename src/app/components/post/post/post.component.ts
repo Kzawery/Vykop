@@ -21,8 +21,10 @@ export class PostComponent implements OnInit {
   title = 'Angular Infinite Scrolling List';
   loading = false;
   addCommentField = false;
+  upvoted = false;
+  user = this.auth.currentUserValue;
   id_post: any;
-  isToggled: boolean = false;
+  isToggled = false;
   post: Post = new Post();
   comment: string;
   toggled: boolean;
@@ -44,12 +46,14 @@ export class PostComponent implements OnInit {
   refresh(): void {
     this.postService.getPost(this.id_post).subscribe(p => {
       this.post = p;
+      this.upvoted = p.upvoted;
     });
   }
 
   likeBtnClick(element: Comment) {
     this.postService.upvoteComment(element.id).subscribe(resp => {
       this.refresh();
+      // this.post.upvoted = !this.post.upvoted;
       this._snackBar.open('You like this comment', 'hide',  {
         duration: 2000,
       });
@@ -57,7 +61,6 @@ export class PostComponent implements OnInit {
   }
 
   likeBtnClickPost() {
-    console.log(this.post.upvoted);
     this.postService.upvote(this.post.id).subscribe(resp => {
       this.refresh();
     });

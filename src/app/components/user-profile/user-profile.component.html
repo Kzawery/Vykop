@@ -17,13 +17,14 @@
           <mat-label >Enter Email</mat-label>
           <input matInput placeholder="email@gmail.com" formControlName="email" required>
         </mat-form-field>
-        <mat-form-field appearance="fill">
-          <mat-label >Enter Role</mat-label>
-          <input matInput placeholder="User" formControlName="role" required>
-        </mat-form-field>
+<!--        <mat-form-field appearance="fill">-->
+<!--          <mat-label >Enter Role</mat-label>-->
+<!--          <input matInput placeholder="User" formControlName="role" required>-->
+<!--        </mat-form-field>-->
         <mat-form-field appearance="fill">
           <mat-label >Enter Password</mat-label>
-          <input matInput placeholder="password" formControlName ="form_basic_password" required>
+          <input matInput placeholder="password" formControlName ="form_basic_password" required [type]="hide ? 'password' : 'text'">
+          <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
         <div class="meter">
           <password-strength-meter [password]="this.registerForm.get('form_basic_password').value" enableFeedback="true" ></password-strength-meter>

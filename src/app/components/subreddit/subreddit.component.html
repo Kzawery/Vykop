@@ -39,7 +39,7 @@
       <mat-card class="example-card">
         <mat-card-title class="p"> {{item.title}}</mat-card-title>
         <mat-card-header class="mat-card-header" style="">
-          <div mat-card-avatar  class="example-header-image"></div>
+          <div mat-card-avatar  class="example-header-image" style="background-image: url({{item.author.avatar}})"></div>
           <a href="subVykop/{{item.subVykop.id}}" class="text-center" style="margin-right: 10px">r/{{item.subVykop.name}}</a>
           <p class="text-center" style="margin-right: 10px">Posted by:</p>
           <a class="text-center" href="u/{{item.author.username}}">u/{{item.author.username}}</a>

@@ -22,7 +22,7 @@
       </p>
     </mat-card-content>
     <mat-card-actions style="padding-left: 46px">
-      <mat-button-toggle (click)="likeBtnClickPost()" [checked]="post.upvoted" mdbBtn type="button" class="waves-light" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
+      <mat-button-toggle (click)="likeBtnClickPost()" [checked]="upvoted" mdbBtn type="button" class="waves-light" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
         <mat-icon>thumb_up</mat-icon> Like
       </mat-button-toggle>
       <mat-button-toggle (click)="addCommentField=!addCommentField; isToggled = true" [checked]='isToggled' type="button" class="waves-light" color="primary" mdbWavesEffect>
@@ -34,8 +34,8 @@
 
     <mat-card class="example-card" *ngIf="addCommentField" >
       <mat-card-header class="mat-card-header" style="">
-        <div mat-card-avatar class="example-header-image" style="background-image: url({{auth.currentUserValue.avatar}})"></div>
-        <a class="text-center" href="u/{{auth.currentUserValue.username}}">u/{{auth.currentUserValue.username}}</a>
+        <div mat-card-avatar class="example-header-image" style="background-image: url({{user.avatar}})"></div>
+        <a class="text-center" href="u/{{user.username}}">u/{{user.username}}</a>
       </mat-card-header> <br><br>
       <mat-card-content [class.show]="true" class="container">
         <textarea class="comment-textarea" placeholder="Comment" [(ngModel)]='comment'>
@@ -55,7 +55,7 @@
 
 <mat-list>
   <ng-container *ngFor="let element of post.comments">
-    <mat-card class="example-card" >
+    <mat-card class="example-card">
       <mat-card-header class="mat-card-header" style="">
         <div mat-card-avatar class="example-header-image" style="background-image: url({{element.author.avatar}})"></div>
         <a class="text-center" href="u/{{element.author.username}}">u/{{element.author.username}}</a>
@@ -67,7 +67,7 @@
         <mat-button-toggle (click)="likeBtnClick(element)" [checked]="element.upvoted">
           <mat-icon>thumb_up</mat-icon> Like({{element.votes}})
         </mat-button-toggle>
-        <button mat-button (click)="openDialog(element)" *ngIf="element.author.username==auth.currentUserValue.username">
+        <button mat-button (click)="openDialog(element)" *ngIf="element.author.username==user.username">
           <mat-icon>delete</mat-icon>
         </button>
       </mat-card-actions>
