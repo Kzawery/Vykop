@@ -22,8 +22,8 @@
       </p>
     </mat-card-content>
     <mat-card-actions style="padding-left: 46px">
-      <mat-button-toggle (click)="likeBtnClickPost()" [checked]="upvoted" mdbBtn type="button" class="waves-light" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
-        <mat-icon>thumb_up</mat-icon> Like
+      <mat-button-toggle (click)="likeBtnClickPost()" [checked]="post.upvoted" mdbBtn type="button" class="waves-light" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
+        <mat-icon>thumb_up</mat-icon> Like ({{post.votes}})
       </mat-button-toggle>
       <mat-button-toggle (click)="addCommentField=!addCommentField; isToggled = true" [checked]='isToggled' type="button" class="waves-light" color="primary" mdbWavesEffect>
         <mat-icon>comment</mat-icon> Comment
