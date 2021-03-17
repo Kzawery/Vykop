@@ -2,16 +2,9 @@
 <head>
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
-<div
-  infinite-scroll
-  [infiniteScrollDistance]="2"
-  [infiniteScrollThrottle]="200"
-  (scrolled)="onScroll()"
-  [infiniteScrollDisabled]="busyGettingData"
->
-<mat-list>
-  <ng-container *ngFor="let item of listItems; let i = index" >
 
+<mat-list>
+  <ng-container *ngFor="let item of posts; let i = index" >
     <mat-card class="example-card">
       <mat-card-title class="p">{{item.title}}</mat-card-title>
       <mat-card-header class="mat-card-header" style="">
@@ -47,4 +40,3 @@
     There are no more posts to load.
   </div>
 </mat-list>
-</div>

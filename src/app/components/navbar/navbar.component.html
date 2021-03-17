@@ -1,42 +1,33 @@
-<mat-toolbar>
-  <div style="align-content: flex-start;">
-    <span style="width: 10%;">
-      <a href="/">
-          <img class="img-center" src="../../../assets/logo.png" style="height: 150px">
-        </a>
-      </span>
-  </div>
-  <span style="width: 35%;"></span>
-  <mat-form-field style="width: 400px">
-    <mat-select #singleSelect >
+<mat-toolbar class="navbar">
+    <a href="/">
+        <img class="img-center" src="../../../assets/logo.png">
+      </a>
+  <span class="example-spacer"></span>
+  <mat-form-field>
+    <mat-select>
       <mat-option>
-        <ngx-mat-select-search ngModel (ngModelChange)="filter($event)" placeholderLabel="seach" style="width: 400px"  noEntriesFoundLabel="no results" ariaLabel="test"></ngx-mat-select-search>
+        <ngx-mat-select-search ngModel (ngModelChange)="filter($event)" placeholderLabel="seach" noEntriesFoundLabel="no results" ariaLabel="test"></ngx-mat-select-search>
       </mat-option>
       <mat-option *ngFor="let sub of subs" [value]="sub" (click)="goTo(sub.id)">
         {{sub.name}}
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <span style="width: 40%"></span>
-
-<!--  <span style="width: 10%;">-->
-<!--    <button mat-icon-button class="example-icon favorite-icon" aria-label="Example icon-button with heart icon" style="float: right" (click)="manage()" *ngIf="authenticationService.currentUserValue.role == 'admin'">-->
-  <span style="width: 20%;">
-
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Create subvykop" style="float: right" (click)="addSubVykop()">
+  <span class="example-spacer"></span>
+  <span class="button-span">
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Create subvykop" (click)="addSubVykop()">
       <mat-icon>add</mat-icon>
     </button>
 
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Admin panel" style="float: right" (click)="manage()" *ngIf="authenticationService.currentUserValue.role == 'admin'">
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Admin panel" (click)="manage()" *ngIf="authenticationService.currentUserValue.role == 'admin'">
       <mat-icon>admin_panel_settings</mat-icon>
     </button>
 
-    <button mat-icon-button class="example-icon favorite-icon" aria-label=Profile style="float: right" (click)="profile()">
+    <button mat-icon-button class="example-icon favorite-icon" aria-label=Profile (click)="profile()">
       <mat-icon>account_circle</mat-icon>
     </button>
 
-
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Logout" style="float: right" (click)="logout()">
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Logout"(click)="logout()">
       <mat-icon>login</mat-icon>
     </button>
   </span>

@@ -2,8 +2,14 @@
 
 <body class="centered" >
 <app-navbar></app-navbar>
-  <div>
-    <app-feed [childProperty]="parentData">
+<div
+  infinite-scroll
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="200"
+  (scrolled)="onScroll()"
+  [infiniteScrollDisabled]="busyGettingData"
+>
+    <app-feed [posts]="parentData">
     </app-feed>
   </div>
 
