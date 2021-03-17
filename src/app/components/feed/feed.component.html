@@ -1,42 +1,75 @@
-
 <head>
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
-
-<mat-list>
-  <ng-container *ngFor="let item of posts; let i = index" >
-    <mat-card class="example-card">
-      <mat-card-title class="p">{{item.title}}</mat-card-title>
-      <mat-card-header class="mat-card-header" style="">
-        <div mat-card-avatar class="example-header-image" style="background-image: url({{item.author.avatar}})"></div>
-        <a href="subVykop/{{item.subVykop.id}}" class="text-center" style="margin-right: 10px">r/{{item.subVykop.name}}</a>
-        <p class="text-center" style="margin-right: 10px">Posted by:</p>
-        <a class="text-center" href="u/{{item.author.username}}">u/{{item.author.username}}</a>
-      </mat-card-header> <br>
-
-      <mat-card-content [class.show]="true" class="container">
-        <img [src]="item.content.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-bottom: 10px; display: flex"  *ngIf="item.content.image">
-        <mat-video src="{{item.content.video}}" *ngIf="item.content.video"></mat-video>
-        <br>
-        <p class="p">{{item.content.text}}</p>
-      </mat-card-content>
-
-      <mat-card-actions style="padding-left: 46px">
-        <mat-button-toggle (click)="likeBtnClick(item, i)"  [checked]="item.upvoted" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
-          <mat-icon>thumb_up</mat-icon> Like ({{item.votes}})
-        </mat-button-toggle>
-          <button mat-button style="padding: 7px" (click)="goToPost(item)"> <mat-icon> comment</mat-icon>Comments </button>
-
-      </mat-card-actions>
-
-    </mat-card>
-
-  </ng-container>
-
-  <div class="spinner-item">
-    <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50" *ngIf="loading"></mat-progress-spinner>
+<div class="wrapper">
+  <mat-list>
+    <ng-container *ngFor="let item of posts; let i = index" >
+      <mat-card class="example-card">
+        <mat-card-title class="p">{{item.title}}</mat-card-title>
+        <mat-card-header class="mat-card-header" style="">
+          <div mat-card-avatar class="example-header-image" style="background-image: url({{item.author.avatar}})"></div>
+          <a href="subVykop/{{item.subVykop.id}}" class="text-center" style="margin-right: 10px">r/{{item.subVykop.name}}</a>
+          <p class="text-center" style="margin-right: 10px">Posted by:</p>
+          <a class="text-center" href="u/{{item.author.username}}">u/{{item.author.username}}</a>
+        </mat-card-header> <br>
+        <mat-card-content [class.show]="true" class="container">
+          <img [src]="item.content.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-bottom: 10px; display: flex"  *ngIf="item.content.image">
+          <mat-video src="{{item.content.video}}" *ngIf="item.content.video"></mat-video>
+          <br>
+          <p class="p">{{item.content.text}}</p>
+        </mat-card-content>
+        <mat-card-actions style="padding-left: 46px">
+          <mat-button-toggle (click)="likeBtnClick(item, i)"  [checked]="item.upvoted" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
+            <mat-icon>thumb_up</mat-icon> Like ({{item.votes}})
+          </mat-button-toggle>
+            <button mat-button style="padding: 7px" (click)="goToPost(item)"> <mat-icon> comment</mat-icon>Comments </button>
+        </mat-card-actions>
+      </mat-card>
+    </ng-container>
+    <div class="spinner-item">
+      <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50" *ngIf="loading"></mat-progress-spinner>
+    </div>
+    <div class="spinner-item" *ngIf="!loading">
+      There are no more posts to load.
+    </div>
+  </mat-list>
+  <div class="stats">
+    <div class="trending">
+      <div class="header">
+        Trending Communities
+      </div>
+      <div class="trending-item">
+        <div class="logo-trending" style="background-image: url(https://i8.amplience.net/i/office/3973300000_md1.jpg?$newhighres$)"></div>
+        <div class="description">
+          <div class="descriptionName-trending">/Stopy</div>
+          <div class="descriptionUsers-trending">10000 members</div>
+        </div>
+        <button mat-button class="trending-join"> <mat-icon> pest_control_rodent </mat-icon> </button>
+      </div>
+      <div class="trending-item">
+        <div class="logo-trending" style="background-image: url(https://pbs.twimg.com/media/EnxZVXRW4AIkhGe.jpg)"></div>
+        <div class="description">
+          <div class="descriptionName-trending">/Dupy</div>
+          <div class="descriptionUsers-trending">10000 members</div>
+        </div>
+        <button mat-button class="trending-join"> <mat-icon> pest_control_rodent </mat-icon> </button>
+      </div>
+      <div class="trending-item">
+        <div class="logo-trending" style="background-image: url(https://preview.redd.it/gtzgrdbzvl461.jpg?width=1031&format=pjpg&auto=webp&s=791b1f427b074e64fba723b96e804ca7ca2ffe41)"></div>
+        <div class="description">
+          <div class="descriptionName-trending">/Cycuchy</div>
+          <div class="descriptionUsers-trending">10000 members</div>
+        </div>
+        <button mat-button class="trending-join"> <mat-icon> pest_control_rodent </mat-icon> </button>
+      </div>
+      <div class="trending-item">
+        <div class="logo-trending" style="background-image: url(https://i.pinimg.com/474x/90/8b/81/908b8180cdf309919036464a2e8a4600.jpg)"></div>
+        <div class="description">
+          <div class="descriptionName-trending">/Królowa</div>
+          <div class="descriptionUsers-trending">10000 members</div>
+        </div>
+        <button mat-button class="trending-join"> <mat-icon> pest_control_rodent </mat-icon> </button>
+      </div>
+    </div>
   </div>
-  <div class="spinner-item" *ngIf="!loading">
-    There are no more posts to load.
-  </div>
-</mat-list>
+</div>
