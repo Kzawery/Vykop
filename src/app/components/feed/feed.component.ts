@@ -27,6 +27,7 @@ export class FeedComponent implements OnInit {
 
   deleteBtnClick(element: Post) {
     this.postService.deletePost(element.id).subscribe(resp => {
+      window.location.reload();
       this._snackBar.open('You deleted your post', 'hide',  {
         duration: 2000,
       });
