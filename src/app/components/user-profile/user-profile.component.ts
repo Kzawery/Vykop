@@ -30,6 +30,8 @@ export class UserProfileComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.data) {
+      console.log("test")
+      console.log(this.data)
       this.userService.getById(this.data.id).subscribe( u => {
         console.log(u);
         this.userDB = u;

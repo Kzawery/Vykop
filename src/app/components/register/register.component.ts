@@ -13,6 +13,7 @@ export class RegisterComponent implements OnInit {
 
   isLoading = false;
   hide = true;
+  validCredentials = true;
 
   registerForm = new FormGroup({
     form_basic_username: new FormControl('', [Validators.required]),
@@ -36,9 +37,12 @@ export class RegisterComponent implements OnInit {
       .subscribe(
         data => {
           this.isLoading = false;
+          this.validCredentials = true;
           this.router.navigate(['/login']);
         },
         error => {
+          console.log('zajete');
+          this.validCredentials = false;
           this.isLoading = false;
         });
   }

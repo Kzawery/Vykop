@@ -1,6 +1,13 @@
 .example-card {
   max-width: 400px;
 }
+.error-dv{
+  margin-top: 20px;
+}
+.error{
+  color: #e6183b;
+  font-weight: bold;
+}
 .mat-card{
   position: absolute;
   margin: auto;

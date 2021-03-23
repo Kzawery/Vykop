@@ -25,6 +25,9 @@
       <div class="register-div">
         <a class="register-text" (click) ="onLoginClick()">Click here to login</a>
       </div>
+      <div class="error-div" [hidden]='validCredentials'>
+        <span class="error"> User with same credentials already exists </span>
+      </div>
       <div class="example-button-container">
         <div class="button-div-right">
           <button mat-fab color="#6EBFC2" aria-label="Register button" [disabled]="!registerForm.valid" (click)="onSave()">
