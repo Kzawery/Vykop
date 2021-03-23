@@ -38,6 +38,10 @@ export class PostService {
     return this.http.delete<Post>(`${environment.apiUrl}/comments/` + id);
   }
 
+  deletePost(id) {
+    return this.http.delete<Post>(`${environment.apiUrl}/posts/` + id);
+  }
+
   upvoteComment(id) {
     // @ts-ignore
     return this.http.post<any>(`${environment.apiUrl}/comments/upvote/` + id);

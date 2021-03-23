@@ -79,7 +79,6 @@ export class UserProfileComponent implements OnInit {
     this.form.append('password', this.registerForm.get('form_basic_password').value);
     this.form.append('registrationDate', this.userDB.registrationDate);
     this.form.append('email', this.registerForm.get('email').value);
-    console.log(this.form.get('username'));
     this.userService.edit(this.form)
       .pipe(first())
       .subscribe(

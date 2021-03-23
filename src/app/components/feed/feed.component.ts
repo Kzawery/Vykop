@@ -25,6 +25,13 @@ export class FeedComponent implements OnInit {
 
   @Input() posts: [];
 
+  deleteBtnClick(element: Post) {
+    this.postService.deletePost(element.id).subscribe(resp => {
+      this._snackBar.open('You deleted your post', 'hide',  {
+        duration: 2000,
+      });
+    });
+  }
   likeBtnClick(element: Post, i) {
     this.postService.upvote(element.id).subscribe(resp => {
       this.refresh(element, i);
@@ -45,6 +52,5 @@ export class FeedComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log(this.posts);
   }
 }
