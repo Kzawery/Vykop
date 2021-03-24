@@ -38,5 +38,8 @@ export class UserService {
   edit(data) {
     return this.http.put(`${environment.apiUrl}/users/` + data.get('id'), data);
   }
+  getMostPopularUsers() {
+    return this.http.get<User[]>(`${environment.apiUrl}/users/most_popular`);
+  }
 
 }

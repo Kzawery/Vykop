@@ -11,6 +11,7 @@ import {MatDialog} from '@angular/material/dialog';
 import {PostAddComponent} from '../post/post-add/post-add.component';
 import {FeedComponent} from '../feed/feed.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {SubvykopService} from '../../services/subvykop.service';
 
 @Component({
   selector: 'app-home',
@@ -43,7 +44,7 @@ onScroll() {
   }
   constructor(fb: FormBuilder, private ngZone: NgZone, private router: Router,
               private authenticationService: AuthenticationService, private userService: UserService,
-              private postService: PostService, public dialog: MatDialog, private _snackBar: MatSnackBar
+              private postService: PostService, public dialog: MatDialog, private _snackBar: MatSnackBar, public subVykopService: SubvykopService
   ) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
@@ -52,7 +53,7 @@ onScroll() {
   }
 
   ngOnInit(): void {
-  this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService, this.postService, this.router, this._snackBar);
+  this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService, this.postService, this.router, this._snackBar, this.subVykopService);
   this.fetchMore();
   }
   addPost() {

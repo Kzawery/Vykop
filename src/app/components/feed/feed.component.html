@@ -39,83 +39,24 @@
       <div class="header">
         Trending Communities
       </div>
-      <div class="trending-item">
-        <div class="logo-trending" style="background-image: url(https://i8.amplience.net/i/office/3973300000_md1.jpg?$newhighres$)"></div>
+      <div class="trending-item" *ngFor="let item of trendingSubs; let i = index">
+        <div class="logo-trending" style="background-image: url({{item.logo}})"></div>
         <div class="description">
-          <div class="descriptionName-trending">/Stopy</div>
-          <div class="descriptionUsers-trending">10000 members</div>
+          <div class="descriptionName-trending">{{item.name}}</div>
+          <div class="descriptionUsers-trending">{{item.score}} members</div>
         </div>
-        <button mat-button class="trending-join"> <mat-icon> pest_control_rodent </mat-icon> </button>
-      </div>
-      <div class="trending-item">
-        <div class="logo-trending" style="background-image: url(https://pbs.twimg.com/media/EnxZVXRW4AIkhGe.jpg)"></div>
-        <div class="description">
-          <div class="descriptionName-trending">/Dupy</div>
-          <div class="descriptionUsers-trending">10000 members</div>
-        </div>
-        <button mat-button class="trending-join"> <mat-icon> pest_control_rodent </mat-icon> </button>
-      </div>
-      <div class="trending-item">
-        <div class="logo-trending" style="background-image: url(https://preview.redd.it/gtzgrdbzvl461.jpg?width=1031&format=pjpg&auto=webp&s=791b1f427b074e64fba723b96e804ca7ca2ffe41)"></div>
-        <div class="description">
-          <div class="descriptionName-trending">/Cycuchy</div>
-          <div class="descriptionUsers-trending">10000 members</div>
-        </div>
-        <button mat-button class="trending-join"> <mat-icon> pest_control_rodent </mat-icon> </button>
-      </div>
-      <div class="trending-item">
-        <div class="logo-trending" style="background-image: url(https://i.pinimg.com/474x/90/8b/81/908b8180cdf309919036464a2e8a4600.jpg)"></div>
-        <div class="description">
-          <div class="descriptionName-trending">/Królowa</div>
-          <div class="descriptionUsers-trending">10000 members</div>
-        </div>
-        <button mat-button class="trending-join"> <mat-icon> pest_control_rodent </mat-icon> </button>
+        <button mat-button class="trending-join" > <a href="subVykop/{{item.name}}"> <mat-icon> pest_control_rodent </mat-icon> </a> </button>
       </div>
     </div>
     <div class="top-users">
       <div class="header">
-        Top simps
+        Top Users
       </div>
-      <div class="trending-item">
-        <div class="logo-trending" style="background-image: url(https://i.pinimg.com/originals/1b/36/37/1b3637f423e46ae8882f2768bd057681.jpg)"></div>
+      <div class="trending-item" *ngFor="let item of popularUsers; let i = index">
+        <div class="logo-trending" style="background-image: url({{item.logo}})"></div>
         <div class="description">
-          <div class="username">Kondziu</div>
-          <div class="user-comments">1000000 $</div>
-        </div>
-      </div>
-      <div class="trending-item">
-        <div class="logo-trending" style="background-image: url(https://www.nairaland.com/attachments/6927066_muscular_jpeg84ce81063866fd1ccfcd15583b3726d8)"></div>
-        <div class="description">
-          <div class="username">Krzysiu</div>
-          <div class="user-comments">1000000 $</div>
-        </div>
-      </div>
-      <div class="trending-item">
-        <div class="logo-trending" style="background-image: url(https://i.pinimg.com/236x/77/e4/8f/77e48ffc9063cd3038fd0def7fed358d.jpg)"></div>
-        <div class="description">
-          <div class="username">Robert</div>
-          <div class="user-comments">1000000 $</div>
-        </div>
-      </div>
-      <div class="trending-item">
-        <div class="logo-trending" style="background-image: url(https://www.2020mag.com/CMSImagesContent/2014/9/Guy-Nerd-glasses_w.png)"></div>
-        <div class="description">
-          <div class="username">Mateusz</div>
-          <div class="user-comments">1$</div>
-        </div>
-      </div>
-      <div class="trending-item">
-        <div class="logo-trending" style="background-image: url(https://img.wondercostumes.com/products/09-3/nerd-men-costume.jpg)"></div>
-        <div class="description">
-          <div class="username">Michu (Menel)</div>
-          <div class="user-comments">1$</div>
-        </div>
-      </div>
-      <div class="trending-item">
-        <div class="logo-trending" style="background-image: url(https://thumbs.dreamstime.com/b/funny-weak-man-lifting-biceps-tries-to-lift-weight-dumbbells-his-muscle-isoalted-gray-white-nerd-male-exercise-doing-fitness-63985599.jpg)"></div>
-        <div class="description">
-          <div class="username">Kuba</div>
-          <div class="user-comments">1$</div>
+          <div class="username">{{item.name}}</div>
+          <div class="user-comments">Posts: {{item.score}}</div>
         </div>
       </div>
     </div>
