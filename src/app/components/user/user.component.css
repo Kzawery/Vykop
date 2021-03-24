@@ -69,6 +69,7 @@
 
 .p{
   word-break: break-all;
+  padding-left: 50px;
 }
 .comment-textarea{
   margin-top: 10%;
@@ -97,3 +98,9 @@
 .round{
   border-radius: 50%;
 }
+.edit-icon{
+}
+.edit-icon:hover{
+  cursor: pointer;
+}
+
