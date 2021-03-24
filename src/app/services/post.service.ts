@@ -47,8 +47,8 @@ export class PostService {
     return this.http.post<any>(`${environment.apiUrl}/comments/upvote/` + id);
   }
 
-  editComment(id, value) {
-    return this.http.put<Post>(`${environment.apiUrl}/posts/` + id + '/comment', value);
+  editComment(post_id, comment_id, value) {
+    return this.http.put<Post>(`${environment.apiUrl}/posts/` + post_id + '/comment/' + comment_id, value);
   }
 
 }

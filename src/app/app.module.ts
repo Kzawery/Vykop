@@ -47,6 +47,8 @@ import {NgxEmojiPickerModule} from 'ngx-emoji-picker';
 import { UserComponent } from './components/user/user.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AddSubVykopComponent } from './components/add-sub-vykop/add-sub-vykop.component';
+import { EditCommentDialogComponent } from './components/post/edit-comment-dialog/edit-comment-dialog.component';
+import  {  NgxEmojModule  }  from  'ngx-emoj';
 @NgModule({
   declarations: [
     AppComponent,
@@ -65,7 +67,8 @@ import { AddSubVykopComponent } from './components/add-sub-vykop/add-sub-vykop.c
     SubredditComponent,
     UserComponent,
     UserProfileComponent,
-    AddSubVykopComponent
+    AddSubVykopComponent,
+    EditCommentDialogComponent
   ],
   imports: [
     NgxEmojiPickerModule,
@@ -102,6 +105,7 @@ import { AddSubVykopComponent } from './components/add-sub-vykop/add-sub-vykop.c
     FormsModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
+    NgxEmojModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

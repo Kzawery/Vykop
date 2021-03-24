@@ -1,0 +1,14 @@
+<div  mat-dialog-title>
+  Edit Comment
+</div>
+
+
+<textarea class="comment-textarea"  [(ngModel)]='commentText' placeholder="Description"></textarea>
+
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Discard changes</button>
+  <button mat-button (click)="onYesClick()">Save</button>
+</div>
+<!-- Copyright 2020 Google LLC. All Rights Reserved.
+    Use of this source code is governed by an MIT-style license that
+    can be found in the LICENSE file at http://angular.io/license -->

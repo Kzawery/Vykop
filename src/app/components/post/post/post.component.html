@@ -5,6 +5,7 @@
 <body>
 
 <app-navbar></app-navbar>
+
 <div class="content" style="width: 100%">
   <mat-card class="example-card" *ngIf="this.post.author!=null">
     <mat-card-header class="mat-card-header" style="">
@@ -25,40 +26,77 @@
       <mat-button-toggle (click)="likeBtnClickPost()" [checked]="post.upvoted" mdbBtn type="button" class="waves-light" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
         <mat-icon>thumb_up</mat-icon> Like ({{post.votes}})
       </mat-button-toggle>
-      <mat-button-toggle (click)="addCommentField=!addCommentField; isToggled = true" [checked]='isToggled' type="button" class="waves-light" color="primary" mdbWavesEffect>
+      <mat-button-toggle (click)="addCommentField=!addCommentField; isToggled = true; toggled = false" [checked]='isToggled' type="button" class="waves-light" color="primary" mdbWavesEffect>
         <mat-icon>comment</mat-icon> Comment
       </mat-button-toggle>
     </mat-card-actions>
   </mat-card>
   <ng-container>
 
-    <mat-card class="example-card" *ngIf="addCommentField" >
-      <mat-card-header class="mat-card-header" style="">
-        <div mat-card-avatar class="example-header-image" style="background-image: url({{user.avatar}})"></div>
-        <a class="text-center" href="u/{{user.username}}">u/{{user.username}}</a>
-      </mat-card-header> <br><br>
-      <mat-card-content [class.show]="true" class="container">
-        <textarea class="comment-textarea" placeholder="Comment" [(ngModel)]='comment'>
-        </textarea>
-      </mat-card-content>
-      <i style="margin-left: 7%"
-        (click)="toggled = !toggled"
-        [(emojiPickerIf)]="toggled"
-        [emojiPickerDirection]="'bottom' || 'top' || 'left' || 'right'"
-        (emojiPickerSelect)="handleSelection($event)"
-      >😄</i
-      >
-      <button mat-button mdbBtn type="button" style="margin-left: 72%" (click)="addComment()"><mat-icon>comment</mat-icon>Comment</button>
-    </mat-card>
+  <div style="position:relative;">
+    <ngx-emoj *ngIf="toggled"
+              style="position: absolute; left: 20%; top: 10%; z-index: 10;"
+              (onemojipick)="handleEmoji($event)"
+              (onchardelete)="handleCharDelete($event)"
+              width="250px"
+              height="250px"
+              [theme]="      {
+      martShowHeader: true,
+      martShowFooter: true,
+      martHeaderPadding: {x: '0px', y: '0px'},
+      martFooterPadding: {x: '0px', y: '0px'},
+      martHeaderBG: '#e3e7e8',
+      martFooterBG: '#e3e7e8',
+      martBG: '#ebeff2',
+      martCategoryColor: '#94a0a6',
+      martCategoryColorActive:  '#455a64',
+      martActiveCategoryIndicatorColor: '#00897b',
+      martEmojiFontSize: '100%',
+      martCategoryFontSize: '17px',
+      martBorderRadius: '19px',
+      martActiveCategoryIndicatorHeight: '3px',
+      martEmojiPadding: {x: '37px', y: '40px'}
+    }
+  "
+    >
+    </ngx-emoj>
+      <mat-card class="example-card" *ngIf="addCommentField" >
+
+        <mat-card-header class="mat-card-header" style="">
+          <div mat-card-avatar class="example-header-image" style="background-image: url({{user.avatar}})"></div>
+          <a class="text-center" href="u/{{user.username}}">u/{{user.username}}</a>
+        </mat-card-header> <br><br>
+        <mat-card-content [class.show]="true" class="container">
+          <textarea class="comment-textarea" placeholder="Comment" [(ngModel)]='comment'>
+          </textarea>
+        </mat-card-content>
+          <div style="margin-left: 7%; margin-right: 90%"
+               (click)="toggled = !toggled"
+               >😄</div>
+        <button mat-button mdbBtn type="button" style="margin-left: 72%" (click)="addComment()"><mat-icon>comment</mat-icon>Comment</button>
+      </mat-card>
+  </div>
   </ng-container>
 </div>
 
 <mat-list>
   <ng-container *ngFor="let element of post.comments">
     <mat-card class="example-card">
-      <mat-card-header class="mat-card-header" style="">
+      <mat-card-header class="mat-card-header-comment">
+
         <div mat-card-avatar class="example-header-image" style="background-image: url({{element.author.avatar}})"></div>
+
         <a class="text-center" href="u/{{element.author.username}}">u/{{element.author.username}}</a>
+        <div style="width: 80%"></div>
+        <div *ngIf="element.author.username==user.username" style="display: flex;">
+          <button mat-button (click)="openDialog(element)" style="padding: 0px; min-width: 40px">
+            <mat-icon style="color: orangered;">delete</mat-icon>
+          </button>
+          <button mat-button (click)="editComment(element)" style="padding: 0px; min-width: 40px">
+            <mat-icon>mode</mat-icon>
+          </button>
+        </div>
+
       </mat-card-header> <br><br>
       <mat-card-content [class.show]="true" class="container">
         <p>{{element.text}}</p>
@@ -67,9 +105,7 @@
         <mat-button-toggle (click)="likeBtnClick(element)" [checked]="element.upvoted">
           <mat-icon>thumb_up</mat-icon> Like({{element.votes}})
         </mat-button-toggle>
-        <button mat-button (click)="openDialog(element)" *ngIf="element.author.username==user.username">
-          <mat-icon>delete</mat-icon>
-        </button>
+
       </mat-card-actions>
     </mat-card>
   </ng-container>

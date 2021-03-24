@@ -69,6 +69,7 @@ export class NavbarComponent implements OnInit {
     this.router.navigate(['/subVykop/' + sub]);
   }
   profile() {
+
     this.router.navigate(['u/' + this.authenticationService.currentUserValue.username]);
     //   this.authenticationService.currentUser.subscribe( user =>
     //     this.id = user.id,
@@ -83,4 +84,19 @@ export class NavbarComponent implements OnInit {
     //     // this.reloadData();
     //   });
    }
+
+    //   this.authenticationService.currentUser.subscribe( user =>
+    //     this.id = user.id,
+    //   );
+    // console.log(this.id);
+    //   const dialogRef = this.dialog.open(UserProfileComponent, {
+    //     disableClose: false,
+    //     hasBackdrop: true,
+    //     data: {id: this.id},
+    //   });
+    //   dialogRef.afterClosed().subscribe(result => {
+    //     // this.reloadData();
+    //   });
+    // }
+
 }

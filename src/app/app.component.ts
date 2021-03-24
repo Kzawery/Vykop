@@ -3,6 +3,7 @@ import {Router} from '@angular/router';
 import {AuthenticationService} from './services/authentication.service';
 import {User} from './models/user';
 import {Role} from './models/role';
+import {Title} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-root',
@@ -14,10 +15,17 @@ export class AppComponent {
 
   constructor(
     private router: Router,
-    private authenticationService: AuthenticationService
+    private authenticationService: AuthenticationService,
+    private titleService: Title
   ) {
     this.authenticationService.currentUser.subscribe(x => this.currentUser = x);
+    // this.setTitle();
   }
+
+  //
+  // public setTitle() {
+  //   this.titleService.setTitle('Vykop');
+  // }
 
   get isAdmin() {
     return this.currentUser && this.currentUser.role === Role.Admin;

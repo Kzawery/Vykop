@@ -54,6 +54,18 @@
 .mat-card-header{
   float: left;
 }
+
+.example-spacer {
+  flex: 1;
+}
+
+.mat-card-header-comment {
+  /*justify-content: space-between;*/
+  /*justify-items: end;*/
+  width: 100%;
+  display: flex;
+}
+
 .text-center{
   text-align: center;
   display: flex;

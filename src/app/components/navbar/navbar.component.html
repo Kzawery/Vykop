@@ -1,9 +1,9 @@
-<mat-toolbar ng sclass="navbar">
+<mat-toolbar class="navbar">
     <a href="/">
         <img class="img-center" src="../../../assets/logo.png">
       </a>
   <span class="example-spacer"></span>
-  <mat-form-field>
+  <mat-form-field floatLabel="always">
     <mat-select>
       <mat-option>
         <ngx-mat-select-search ngModel (ngModelChange)="filter($event)" placeholderLabel="seach" noEntriesFoundLabel="no results" ariaLabel="test"></ngx-mat-select-search>
@@ -13,6 +13,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
+
   <span class="example-spacer"></span>
   <span class="button-span">
     <button mat-icon-button class="example-icon favorite-icon" aria-label="Create subvykop" (click)="addSubVykop()">

@@ -10,7 +10,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 
 export class DeleteDialogComponent implements OnInit {
-  constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<DeleteDialogComponent>, @Inject(MAT_DIALOG_DATA) public data: any) {}
+  constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<DeleteDialogComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any) {}
   id: number = this.data.id;
   model: String = this.data.model;
   onNoClick(): void {
@@ -19,7 +20,7 @@ export class DeleteDialogComponent implements OnInit {
 
   onYesClick(): void {
     this.dialogRef.close(true);
-    this._snackBar.open('Deletion have been completed','', {
+    this._snackBar.open('Deletion have been completed', '', {
       duration: 2000,
     });
   }

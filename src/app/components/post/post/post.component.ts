@@ -1,6 +1,5 @@
 import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {timer} from 'rxjs';
 import {ActivatedRoute} from '@angular/router';
 import {Post} from '../../../models/post';
 import {PostService} from '../../../services/post.service';
@@ -9,12 +8,16 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Comment} from '../../../models/comment';
 import {DeleteDialogComponent} from '../../delete-dialog/delete-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
+import {EditCommentDialogComponent} from '../edit-comment-dialog/edit-comment-dialog.component';
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
   styleUrls: ['./post.component.css']
 })
 export class PostComponent implements OnInit {
+
+  constructor(private ngZone: NgZone, private route: ActivatedRoute, public postService: PostService,
+              public auth: AuthenticationService, private _snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
 
@@ -30,8 +33,7 @@ export class PostComponent implements OnInit {
   toggled: boolean;
   message: string;
 
-  constructor(private ngZone: NgZone, private route: ActivatedRoute, public postService: PostService,
-              public auth: AuthenticationService, private _snackBar: MatSnackBar, private dialog: MatDialog) { }
+  text  =  '';
 
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
@@ -48,6 +50,17 @@ export class PostComponent implements OnInit {
       this.post = p;
       this.upvoted = p.upvoted;
     });
+  }
+
+  handleEmoji(e)  {
+    this.comment +=  e.char;
+    console.log('Emoji Name',  e.name);
+  }
+
+  handleCharDelete(e)  {
+    if (this.text.length >  0) {
+      this.text =  this.text.substr(0,  this.text.length -  2);
+    }
   }
 
   likeBtnClick(element: Comment) {
@@ -77,6 +90,16 @@ export class PostComponent implements OnInit {
         this.deleteComment(element);
       }
     });
+  }
+
+  editComment(element: Comment, post_id: number): void {
+    const dialogRef = this.dialog.open(EditCommentDialogComponent, {
+      width: '450px',
+      disableClose: false,
+      hasBackdrop: true,
+      data: {id: element.id, model: element.text, post_id: post_id},
+    });
+
   }
 
   deleteComment(element: Comment): void {
