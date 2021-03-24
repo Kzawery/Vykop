@@ -28,6 +28,7 @@ export class SubredditComponent implements OnInit {
   loading = false;
   subredditId: any;
   isSub = false;
+  parentData: any;
   index = 0;
   noPosts: boolean;
   busyGettingData = false;
@@ -108,6 +109,7 @@ export class SubredditComponent implements OnInit {
       for (const post of data) {
         this.listItems.push(post);
       }
+      this.parentData = this.listItems;
       this.busyGettingData = false;
       this.index ++ ;
     },

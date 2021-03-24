@@ -6,4 +6,5 @@ export class Comment {
     votes: number;
     author: User;
     upvoted: boolean;
+    isEdited = false;
 }

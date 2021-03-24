@@ -32,8 +32,9 @@ export class PostComponent implements OnInit {
   comment: string;
   toggled: boolean;
   message: string;
-
+  isEdited: boolean;
   text  =  '';
+  editedText = '';
 
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
@@ -54,7 +55,7 @@ export class PostComponent implements OnInit {
 
   handleEmoji(e)  {
     this.comment +=  e.char;
-    console.log('Emoji Name',  e.name);
+    // console.log('Emoji Name',  e);
   }
 
   handleCharDelete(e)  {
@@ -92,14 +93,21 @@ export class PostComponent implements OnInit {
     });
   }
 
-  editComment(element: Comment, post_id: number): void {
-    const dialogRef = this.dialog.open(EditCommentDialogComponent, {
-      width: '450px',
-      disableClose: false,
-      hasBackdrop: true,
-      data: {id: element.id, model: element.text, post_id: post_id},
-    });
+  editComment(element: Comment): void {
+    element.isEdited = !element.isEdited;
+    this.editedText = element.text;
+    if (!element.isEdited) {
+        const dialogRef = this.dialog.open(EditCommentDialogComponent, {
+          width: '250px',
+          disableClose: false,
+          hasBackdrop: true,
+          data: {id: element.id, model: element.text, post_id: this.post.id},
+        });
+    }
+  }
 
+  editCommentSave(element: Comment): void {
+    element.isEdited = !element.isEdited;
   }
 
   deleteComment(element: Comment): void {
