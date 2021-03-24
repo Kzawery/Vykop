@@ -68,6 +68,15 @@ export class FeedComponent implements OnInit {
       }
     });
     this.userService.getMostPopularUsers().subscribe(r => {
+      console.log(r);
+      for ( const item of r) {
+        const model = new StatsItem();
+        model.name = Object.keys(item)[0];
+        model.score = Object.values(item)[0];
+        model.logo = 'https://pbs.twimg.com/media/EnxZVXRW4AIkhGe.jpg';
+        this.popularUsers.push(model);
+      }
+      console.log(this.popularUsers);
     });
   }
 }
