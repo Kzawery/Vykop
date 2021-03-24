@@ -13,7 +13,9 @@ export class SubvykopService {
     return this.http.get<Post[]>(`${environment.apiUrl}/posts/` + name + `/?page=` + index);
   }
 
-
+  getMostPopularSubVykops() {
+    return this.http.get<SubVykop[]>(`${environment.apiUrl}/sub_vykop/most_popular`);
+  }
   create(subVykop) {
     return this.http.post(`${environment.apiUrl}/sub_vykop`, subVykop);
   }

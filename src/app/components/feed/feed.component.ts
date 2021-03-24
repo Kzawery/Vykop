@@ -6,6 +6,9 @@ import {PostService} from '../../services/post.service';
 import {Post} from '../../models/post';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {SubvykopService} from '../../services/subvykop.service';
+import {User} from '../../models/user';
+import {StatsItem} from '../../models/statsItem';
 
 @Component({
   selector: 'app-feed',
@@ -16,12 +19,14 @@ export class FeedComponent implements OnInit {
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   title = 'Angular Infinite Scrolling List';
   listItems = [];
+  trendingSubs = [];
+  popularUsers = [];
   loading = false;
   i = 0 ;
   busyGettingData = false;
   constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
               private userService: UserService, private postService: PostService,
-              private router: Router, private _snackBar: MatSnackBar) { }
+              private router: Router, private _snackBar: MatSnackBar, private subVykopService: SubvykopService) { }
 
   @Input() posts: [];
 
@@ -53,5 +58,16 @@ export class FeedComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.subVykopService.getMostPopularSubVykops().subscribe(r => {
+      for ( const item of r) {
+        const model = new StatsItem();
+        model.name = Object.keys(item)[0];
+        model.score = Object.values(item)[0];
+        model.logo = 'https://pbs.twimg.com/media/EnxZVXRW4AIkhGe.jpg';
+        this.trendingSubs.push(model);
+      }
+    });
+    this.userService.getMostPopularUsers().subscribe(r => {
+    });
   }
 }
