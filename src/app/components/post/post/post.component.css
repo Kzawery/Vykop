@@ -21,6 +21,21 @@
   margin-bottom: 10px;
 }
 
+.centered-div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.emoji-div {
+  margin: auto;
+  cursor: pointer;
+  font-size: 17px;
+}
+
+.emoji-div:hover{
+  cursor: pointer;
+}
 
 .container {
   max-width: 520px;
@@ -45,6 +60,8 @@
   margin-right: 0px;
 }
 .centered {
+  padding-top: 10px;
+  padding-bottom: 10px;
   max-width: 500px;
   margin: auto;
 }
@@ -53,6 +70,12 @@
 }
 .mat-card-header{
   float: left;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto;
+  padding: 10px;
 }
 
 .example-spacer {
@@ -72,7 +95,8 @@
   justify-content: center;
   align-items: center;
   margin-bottom: auto;
-  margin-top: auto ;
+  margin-top: auto;
+  margin-right: 10px;
 }
 
 .mat-button-toggle-label-content {

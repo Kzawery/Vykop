@@ -10,7 +10,7 @@
   <mat-card class="example-card" *ngIf="this.post.author!=null">
     <mat-card-header class="mat-card-header" style="">
       <div mat-card-avatar class="example-header-image" style="background-image: url({{this.post.author.avatar}})"></div>
-      <a href="subVykop/{{this.post.subVykop.id}}" class="text-center" style="margin-right: 10px">r/{{this.post.subVykop.name}}</a>
+      <a href="subVykop/{{this.post.subVykop.id}}" class="text-center" >r/{{this.post.subVykop.name}}</a>
       <p class="text-center" style="margin-right: 10px">Posted by:</p>
       <a class="text-center" href="u/{{post.author.username}}">u/{{post.author.username}}</a>
     </mat-card-header> <br><br>
@@ -23,7 +23,7 @@
       </p>
     </mat-card-content>
     <mat-card-actions style="padding-left: 46px">
-      <mat-button-toggle (click)="likeBtnClickPost()" [checked]="post.upvoted" mdbBtn type="button" class="waves-light" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
+      <mat-button-toggle (click)="likeBtnClickPost()" [checked]="post.upvoted" mdbBtn type="button" style="margin: 5px" color="primary">
         <mat-icon>thumb_up</mat-icon> Like ({{post.votes}})
       </mat-button-toggle>
       <mat-button-toggle (click)="addCommentField=!addCommentField; isToggled = true; toggled = false" [checked]='isToggled' type="button" class="waves-light" color="primary" mdbWavesEffect>
@@ -45,19 +45,18 @@
         <mat-card-content [class.show]="true" class="container">
           <textarea class="comment-textarea" placeholder="Comment" [(ngModel)]='comment'>
           </textarea>
-        </mat-card-content>
-          <div style="display:flex; margin-left: 7%">
-            <div mat-button mdbBtn
+
+          <div style="display:flex;" class="centered">
+            <div mat-button mdbBtn class="emoji-div"
                  (click)="toggled = !toggled">😄</div>
-            <button mat-button mdbBtn type="button" style="margin-left: 60%" (click)="addComment()"><mat-icon>comment</mat-icon>Comment</button>
+            <button mat-button mdbBtn type="button" style="margin-left: 60%" (click)="addComment()"><mat-icon>send</mat-icon></button>
           </div>
         <ngx-emoj *ngIf="toggled"
                   (onemojipick)="handleEmoji($event)"
                   (onchardelete)="handleCharDelete($event)"
-                  width="80%"
                   [theme]=" {
                   martShowHeader: true,
-                  martShowFooter: false,
+                  martShowFooter: true,
                   martHeaderPadding: {x: '0px', y: '0px'},
                   martFooterPadding: {x: '0px', y: '0px'},
                   martHeaderBG: '#e3e7e8',
@@ -67,13 +66,13 @@
                   martCategoryColorActive:  '#455a64',
                   martActiveCategoryIndicatorColor: '#00897b',
                   martEmojiFontSize: '100%',
-                  martCategoryFontSize: '17px',
-                  martBorderRadius: '19px',
+                  martCategoryFontSize: '13px',
+                  martBorderRadius: '17px',
                   martActiveCategoryIndicatorHeight: '3px',
                   martEmojiPadding: {x: '37px', y: '40px'}
                   }">
         </ngx-emoj>
-
+        </mat-card-content>
       </mat-card>
   </div>
   </ng-container>
@@ -91,10 +90,6 @@
         <div style="width: 80%"></div>
         <div *ngIf="element.author.username==user.username" style="display: flex;">
 
-          <button *ngIf="element.isEdited" mat-button (click)="editCommentSave(element)" style="padding: 0px; min-width: 40px">
-            <mat-icon style="color: blue;">save</mat-icon>
-          </button>
-
           <button mat-button (click)="openDialog(element)" style="padding: 0px; min-width: 40px">
             <mat-icon style="color: orangered;">delete</mat-icon>
           </button>
@@ -105,15 +100,44 @@
 
       </mat-card-header> <br><br>
       <mat-card-content [class.show]="true" class="container">
-        <textarea *ngIf="element.isEdited" class="comment-textarea" [(ngModel)]="editedText">
+        <textarea *ngIf="element.isEdited" class="comment-textarea" [(ngModel)]="element.text">
         </textarea>
+
+        <div style="display:flex;" class="centered" *ngIf="element.isEdited">
+          <div mat-button mdbBtn class="emoji-div"
+               (click)="element.isToggled = !element.isToggled">😄</div>
+          <button mat-button mdbBtn type="button" style="margin-left: 60%" (click)="editCommentSave(element)"><mat-icon>save</mat-icon></button>
+          </div>
+        <ngx-emoj *ngIf="element.isToggled"
+                  (onemojipick)="handleEmoji($event)"
+                  (onchardelete)="handleCharDelete($event)"
+                  [theme]=" {
+                  martShowHeader: true,
+                  martShowFooter: true,
+                  martHeaderPadding: {x: '0px', y: '0px'},
+                  martFooterPadding: {x: '0px', y: '0px'},
+                  martHeaderBG: '#e3e7e8',
+                  martFooterBG: '#e3e7e8',
+                  martBG: '#ebeff2',
+                  martCategoryColor: '#94a0a6',
+                  martCategoryColorActive:  '#455a64',
+                  martActiveCategoryIndicatorColor: '#00897b',
+                  martEmojiFontSize: '100%',
+                  martCategoryFontSize: '13px',
+                  martBorderRadius: '17px',
+                  martActiveCategoryIndicatorHeight: '3px',
+                  martEmojiPadding: {x: '37px', y: '40px'}
+                  }">
+        </ngx-emoj>
+
         <p *ngIf="!element.isEdited">{{element.text}}</p>
+
+
       </mat-card-content>
-      <mat-card-actions style="padding-left: 46px;">
+      <mat-card-actions *ngIf="!element.isEdited" style="padding-left: 46px;">
         <mat-button-toggle (click)="likeBtnClick(element)" [checked]="element.upvoted">
           <mat-icon>thumb_up</mat-icon> Like({{element.votes}})
         </mat-button-toggle>
-
       </mat-card-actions>
     </mat-card>
 

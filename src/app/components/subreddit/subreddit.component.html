@@ -5,8 +5,6 @@
 <body>
 <app-navbar></app-navbar>
 <div itemSize="3" class="content" style="width: 100%; height: auto;">
-
-  <!--  <img [src]="imageURL"  alt="" *ngIf="imageURL != null" class="img" style="height: 200px;">-->
   <div style="background:#0079d3 url({{subreddit.banner}}) no-repeat center / cover;background-position:center top;height:200px"> </div>
   <div style="background: white; height: 100px">
     <div style="display: flex;">
@@ -35,44 +33,5 @@
   </app-feed>
 </div>
 
-
-<!--<mat-list>-->
-
-<!--  <mat-list>-->
-<!--    <ng-container *ngFor="let item of listItems; let i = index" >-->
-
-<!--      <mat-card class="example-card">-->
-<!--        <mat-card-title class="p"> {{item.title}}</mat-card-title>-->
-<!--        <mat-card-header class="mat-card-header" style="">-->
-<!--          <div mat-card-avatar  class="example-header-image" style="background-image: url({{item.author.avatar}})"></div>-->
-<!--          <a href="subVykop/{{item.subVykop.id}}" class="text-center" style="margin-right: 10px">r/{{item.subVykop.name}}</a>-->
-<!--          <p class="text-center" style="margin-right: 10px">Posted by:</p>-->
-<!--          <a class="text-center" href="u/{{item.author.username}}">u/{{item.author.username}}</a>-->
-<!--        </mat-card-header> <br>-->
-
-<!--        <mat-card-content [class.show]="true" class="container">-->
-<!--          <img [src]="item.content.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-top: 20px; display: flex">-->
-<!--          <p class="p">{{item.content.text}}-->
-<!--          </p>-->
-
-<!--        </mat-card-content>-->
-
-<!--        <mat-card-actions style="padding-left: 46px">-->
-<!--          <mat-button-toggle (click)="likeBtnClick(item, i)" [checked]="item.upvoted" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>-->
-<!--            <mat-icon>thumb_up</mat-icon> Like ({{item.votes}})-->
-<!--          </mat-button-toggle>-->
-<!--          <button mat-button style="padding: 7px" (click)="goToPost(item)"> <mat-icon> comment</mat-icon>Comments </button>-->
-<!--        </mat-card-actions>-->
-
-<!--      </mat-card>-->
-
-<!--    </ng-container>-->
-
-<!--  </mat-list>-->
-<!--</mat-list>-->
-<!--</div>-->
-<!--<div class="spinner-item" *ngIf="noPosts">-->
-<!--  There are no more posts to load.-->
-<!--</div>-->
 </body>
 </html>

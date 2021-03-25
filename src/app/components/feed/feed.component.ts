@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, HostListener, Input, NgZone, OnInit, Output, ViewChild} from '@angular/core';
+import {Component, Input, NgZone, OnInit, ViewChild} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UserService} from '../../services/user.service';
@@ -7,7 +7,6 @@ import {Post} from '../../models/post';
 import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SubvykopService} from '../../services/subvykop.service';
-import {User} from '../../models/user';
 import {StatsItem} from '../../models/statsItem';
 
 @Component({
@@ -28,7 +27,7 @@ export class FeedComponent implements OnInit {
               private userService: UserService, private postService: PostService,
               private router: Router, private _snackBar: MatSnackBar, private subVykopService: SubvykopService) { }
 
-  @Input() posts: [];
+  @Input() posts: any[];
 
   deleteBtnClick(element: Post) {
     this.postService.deletePost(element.id).subscribe(resp => {
@@ -39,18 +38,25 @@ export class FeedComponent implements OnInit {
     });
   }
   likeBtnClick(element: Post, i) {
+    if (element.upvoted) {
+      this.posts[i].votes -= 1;
+      element.upvoted = false;
+    } else {
+      this.posts[i].votes += 1;
+      element.upvoted = true;
+    }
     this.postService.upvote(element.id).subscribe(resp => {
-      this.refresh(element, i);
-      console.log(resp);
-      this._snackBar.open('You like this post', 'hide',  {
-        duration: 2000,
-      });
+      // this.refresh(element, i);
+      // console.log(resp);
+      // this._snackBar.open('You like this post', 'hide',  {
+      //   duration: 2000,
+      // });
     });
   }
   refresh(element: Post, i): void {
     this.postService.getPost(element.id).subscribe(p => {
       element = p;
-      this.listItems[i].votes = element.votes;
+      // this.posts[i].votes = element.votes;
     });
   }
   goToPost(event) {

@@ -32,9 +32,7 @@ export class PostComponent implements OnInit {
   comment: string;
   toggled: boolean;
   message: string;
-  isEdited: boolean;
   text  =  '';
-  editedText = '';
 
   ngOnInit(): void {
     this.route.paramMap.subscribe( paramMap => {
@@ -55,8 +53,7 @@ export class PostComponent implements OnInit {
 
   handleEmoji(e)  {
     this.comment +=  e.char;
-    // console.log('Emoji Name',  e);
-  }
+    }
 
   handleCharDelete(e)  {
     if (this.text.length >  0) {
@@ -67,7 +64,6 @@ export class PostComponent implements OnInit {
   likeBtnClick(element: Comment) {
     this.postService.upvoteComment(element.id).subscribe(resp => {
       this.refresh();
-      // this.post.upvoted = !this.post.upvoted;
       this._snackBar.open('You like this comment', 'hide',  {
         duration: 2000,
       });
@@ -92,22 +88,22 @@ export class PostComponent implements OnInit {
       }
     });
   }
-
+  // otwieranie pola edycji komentarza
   editComment(element: Comment): void {
     element.isEdited = !element.isEdited;
-    this.editedText = element.text;
-    if (!element.isEdited) {
-        const dialogRef = this.dialog.open(EditCommentDialogComponent, {
-          width: '250px',
-          disableClose: false,
-          hasBackdrop: true,
-          data: {id: element.id, model: element.text, post_id: this.post.id},
-        });
-    }
+    // if (!element.isEdited) {
+    //     const dialogRef = this.dialog.open(EditCommentDialogComponent, {
+    //       width: '250px',
+    //       disableClose: false,
+    //       hasBackdrop: true,
+    //       data: {id: element.id, model: element.text, post_id: this.post.id},
+    //     });
+    // }
   }
 
   editCommentSave(element: Comment): void {
     element.isEdited = !element.isEdited;
+    // TODO: Zapisywanie zmian
   }
 
   deleteComment(element: Comment): void {

@@ -7,4 +7,5 @@ export class Comment {
     author: User;
     upvoted: boolean;
     isEdited = false;
+    isToggled = false;
 }

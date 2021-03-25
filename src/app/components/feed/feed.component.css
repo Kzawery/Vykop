@@ -17,6 +17,7 @@
 .spinner-item {
   display: grid;
   margin-top: 10px;
+  margin-left: 40%;
 }
 
 .example-card {
