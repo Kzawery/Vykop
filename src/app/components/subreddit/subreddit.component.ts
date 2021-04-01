@@ -41,8 +41,7 @@ export class SubredditComponent implements OnInit {
     this.router.navigate(['post/' + event.id]);
   }
   joinSubVykop() {
-    this.subvykopService.subscribe(this.subredditId).subscribe(resp => {
-      console.log(resp);
+    this.subvykopService.subscribe(this.subreddit.id).subscribe(resp => {
       if (resp === 'subscribed') {
       this._snackbar.open('You have joined this community!', 'hide',  {
         duration: 2000,
