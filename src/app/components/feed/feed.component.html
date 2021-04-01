@@ -2,7 +2,7 @@
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <div class="wrapper">
-  <mat-list [@listAnimation]="posts.length">
+  <mat-list [@listAnimation]="posts.length" class="posts">
     <ng-container *ngFor="let item of posts; let i = index" >
       <mat-card class="example-card">
         <mat-card-title class="p">{{item.title}}</mat-card-title>
@@ -35,7 +35,7 @@
       <mat-spinner></mat-spinner>
     </div>
   </mat-list>
-  <div class="stats">
+  <div class="stats" *ngIf="postLoaded">
     <div class="trending">
       <div class="header">
         Trending Communities

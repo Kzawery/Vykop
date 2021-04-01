@@ -1,4 +1,4 @@
-import {Component, Input, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, NgZone, OnInit, SimpleChanges, ViewChild, OnChanges} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UserService} from '../../services/user.service';
@@ -38,6 +38,7 @@ export class FeedComponent implements OnInit {
   loading = false;
   i = 0 ;
   busyGettingData = false;
+  postLoaded = true;
   constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
               private userService: UserService, private postService: PostService,
               private router: Router, private _snackBar: MatSnackBar, private subVykopService: SubvykopService) { }
@@ -97,5 +98,11 @@ export class FeedComponent implements OnInit {
         this.popularUsers.push(model);
       }
     });
+  }
+
+  ngOnChanges(changes: any) {
+   if ( changes.posts.length > 0) {
+     this.postLoaded = false;
+   }
   }
 }
