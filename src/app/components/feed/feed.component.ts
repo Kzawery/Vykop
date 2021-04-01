@@ -8,11 +8,26 @@ import {Router} from '@angular/router';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SubvykopService} from '../../services/subvykop.service';
 import {StatsItem} from '../../models/statsItem';
+import {animate, query, stagger, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-feed',
   templateUrl: './feed.component.html',
-  styleUrls: ['./feed.component.css']
+  styleUrls: ['./feed.component.css'],
+  animations: [
+    trigger('listAnimation', [
+      transition('* <=> *', [
+        query(':enter',
+          [style({ opacity: 0 }), stagger('200ms', animate('600ms ease-out', style({ opacity: 1 })))],
+          { optional: true }
+        ),
+        query(':leave',
+          animate('200ms', style({ opacity: 0 })),
+          { optional: true }
+        )
+      ])
+    ])
+  ]
 })
 export class FeedComponent implements OnInit {
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;

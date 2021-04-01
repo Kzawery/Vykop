@@ -2,7 +2,7 @@
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <div class="wrapper">
-  <mat-list>
+  <mat-list [@listAnimation]="posts.length">
     <ng-container *ngFor="let item of posts; let i = index" >
       <mat-card class="example-card">
         <mat-card-title class="p">{{item.title}}</mat-card-title>
@@ -40,24 +40,28 @@
       <div class="header">
         Trending Communities
       </div>
-      <div class="trending-item" *ngFor="let item of trendingSubs; let i = index">
-        <div class="logo-trending" style="background-image: url({{item.logo}})"></div>
-        <div class="description">
-          <div class="descriptionName-trending">{{item.name}}</div>
-          <div class="descriptionUsers-trending">{{item.score}} members</div>
+      <div [@listAnimation]="trendingSubs.length">
+        <div class="trending-item" *ngFor="let item of trendingSubs; let i = index">
+          <div class="logo-trending" style="background-image: url({{item.logo}})"></div>
+          <div class="description">
+            <div class="descriptionName-trending">{{item.name}}</div>
+            <div class="descriptionUsers-trending">{{item.score}} members</div>
+          </div>
+          <button mat-button class="trending-join" > <a href="subVykop/{{item.name}}"> <mat-icon> pest_control_rodent </mat-icon> </a> </button>
         </div>
-        <button mat-button class="trending-join" > <a href="subVykop/{{item.name}}"> <mat-icon> pest_control_rodent </mat-icon> </a> </button>
       </div>
     </div>
     <div class="top-users">
       <div class="header">
         Top Users
       </div>
-      <div class="trending-item" *ngFor="let item of popularUsers; let i = index">
-        <div class="logo-trending" style="background-image: url({{item.logo}})"></div>
-        <div class="description">
-          <div class="username">{{item.name}}</div>
-          <div class="user-comments">Posts: {{item.score}}</div>
+      <div [@listAnimation]="popularUsers.length">
+        <div class="trending-item" *ngFor="let item of popularUsers; let i = index">
+          <div class="logo-trending" style="background-image: url({{item.logo}})"></div>
+          <div class="description">
+            <div class="username">{{item.name}}</div>
+            <div class="user-comments">Posts: {{item.score}}</div>
+          </div>
         </div>
       </div>
     </div>
