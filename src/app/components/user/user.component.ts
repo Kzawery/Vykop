@@ -56,6 +56,9 @@ export class UserComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authenticationService.currentUser.subscribe( user =>
+      this.id = user.id,
+    );
     this.route.paramMap.subscribe(paramMap => {
       this.user.username = paramMap.get('username');
       this.userService.getByUsername(this.user.username).subscribe(user => {
@@ -107,9 +110,6 @@ export class UserComponent implements OnInit {
   }
 
   profile() {
-      this.authenticationService.currentUser.subscribe( user =>
-        this.id = user.id,
-      );
       const dialogRef = this.dialog.open(UserProfileComponent, {
         disableClose: true,
         hasBackdrop: true,

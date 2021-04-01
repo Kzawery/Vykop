@@ -9,7 +9,7 @@
       <div class="float-child2">
         <p>Registration Date: {{user.registrationDate}}</p>
         <p *ngIf="user.username == authenticationService.currentUserValue.username">Email: {{user.email}}</p>
-        <mat-icon  class="edit-icon" (click)="profile()"> edit </mat-icon>
+        <mat-icon *ngIf="id == user.id" class="edit-icon" (click)="profile()"> edit </mat-icon>
       </div>
     </div>
   </mat-card-content>
