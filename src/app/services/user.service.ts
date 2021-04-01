@@ -27,6 +27,10 @@ export class UserService {
     return this.http.get<User>(`${environment.apiUrl}/u/` + username);
   }
 
+  getStatsByUsername(username: String) {
+    return this.http.get(`${environment.apiUrl}/users/${username}/stats`);
+  }
+
   register(data) {
     return this.http.post(`${environment.apiUrl}/users/signup`, data);
   }

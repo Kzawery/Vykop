@@ -109,8 +109,9 @@
   -moz-box-shadow: 0 0 3px #272626;
   -webkit-box-shadow: 0 0 3px #252525;
   box-shadow: 0 0 3px #272626;
-  height: 500px;
+  height: 350px;
   max-width: 600px;
   margin: auto;
+  padding: 20px 20px 20px 20px;
 }
 

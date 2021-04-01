@@ -23,6 +23,7 @@
     "@angular/router": "~11.0.0",
     "angular-password-strength-meter": "^3.0.1",
     "bootstrap": "3.4.1",
+    "chart.js": "^2.9.4",
     "emoji-picker-react": "^3.4.3",
     "ngx-emoj": "0.0.7",
     "ngx-emoji-picker": "^0.1.5",
