@@ -103,4 +103,14 @@
 .edit-icon:hover{
   cursor: pointer;
 }
+.stats{
+  border-radius: 5px;
+  background-color: #FFFFFF;
+  -moz-box-shadow: 0 0 3px #272626;
+  -webkit-box-shadow: 0 0 3px #252525;
+  box-shadow: 0 0 3px #272626;
+  height: 500px;
+  max-width: 600px;
+  margin: auto;
+}
 

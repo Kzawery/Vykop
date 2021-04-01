@@ -5,11 +5,37 @@ import {ActivatedRoute} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UserProfileComponent} from '../user-profile/user-profile.component';
 import {MatDialog} from '@angular/material/dialog';
+import {animate, style, transition, trigger} from '@angular/animations';
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.css']
+  styleUrls: ['./user.component.css'],
+  animations: [
+    trigger('statsAnim', [
+      transition('void => *', [
+        style({
+          height: 0,
+          opacity: 0,
+          transform: 'scale(0.50)',
+          'margin-bottom': 0,
+          paddingTop: 0,
+          paddingBottom: 0,
+          paddingRight: 0,
+          paddingLeft: 0,
+        }),
+        animate('500ms', style({
+          height: '*',
+          'margin-bottom': '*',
+          paddingTop: '*',
+          paddingBottom: '*',
+          paddingRight:  '*',
+          paddingLeft: '*',
+        })),
+        animate(100)
+      ])
+    ]),
+  ]
 })
 export class UserComponent implements OnInit {
 
