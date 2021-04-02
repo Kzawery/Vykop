@@ -22,7 +22,7 @@ import { Client, Message } from '@stomp/stompjs';
   styleUrls: ['./home.component.css'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit{
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
 
@@ -40,9 +40,8 @@ export class HomeComponent implements OnInit {
   clinet = new Client();
   msgTest =
     {
-      'to': 'admin',
+      'to': 'user1',
       'content': 'Potezny chuj',
-      'from': 'admin'
     };
 
 onScroll() {
@@ -67,6 +66,9 @@ onScroll() {
   this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService, this.postService, this.router, this._snackBar, this.subVykopService);
   this.fetchMore();
   this.init();
+  }
+  ngAfterViewInit(): void {
+    this.clinet.subscribe('/messages/' + this.authenticationService.currentUserValue.username + '/queue', this.callback);
   }
   addPost() {
     const dialogRef = this.dialog.open(PostAddComponent, {
@@ -122,17 +124,16 @@ onScroll() {
       console.log('Broker reported error: ' + frame.headers['message']);
       console.log('Additional details: ' + frame.body);
     };
-
     this.clinet.activate();
   }
 
   sendMsg() {
-    this.clinet.subscribe('/user/admin/queue', this.callback);
     this.clinet.publish({
       destination: '/chat/send',
       body: JSON.stringify(this.msgTest),
     });
   }
-  callback(){
+  callback(message) {
+    console.log(JSON.parse(message.body));
   }
 }
