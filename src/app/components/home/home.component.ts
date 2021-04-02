@@ -40,8 +40,9 @@ export class HomeComponent implements OnInit {
   clinet = new Client();
   msgTest =
     {
-      'to': 'user1',
+      'to': 'admin',
       'content': 'Potezny chuj',
+      'from': 'admin'
     };
 
 onScroll() {
@@ -62,6 +63,7 @@ onScroll() {
   }
 
   ngOnInit(): void {
+  console.log(this.msgTest);
   this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService, this.postService, this.router, this._snackBar, this.subVykopService);
   this.fetchMore();
   this.init();
@@ -96,7 +98,7 @@ onScroll() {
 
   init() {
     const client = new Client({
-      brokerURL: 'ws://localhost:8080/ws',
+      brokerURL: 'ws://localhost:8080/ws/websocket',
       connectHeaders: {
         login: 'admin',
         passcode: '!Password123',
@@ -110,8 +112,6 @@ onScroll() {
     });
     this.clinet = client;
     this.clinet.onConnect = function (frame) {
-      // Do something, all subscribes must be done is this callback
-      // This is needed because this will be executed after a (re)connect
     };
 
     this.clinet.onStompError = function (frame) {
@@ -127,11 +127,12 @@ onScroll() {
   }
 
   sendMsg() {
+    this.clinet.subscribe('/user/admin/queue', this.callback);
     this.clinet.publish({
-      destination: '/messages/send',
+      destination: '/chat/send',
       body: JSON.stringify(this.msgTest),
-      headers: { Authorization: 'Bearer ' + localStorage.getItem('token')},
     });
   }
-
+  callback(){
+  }
 }
