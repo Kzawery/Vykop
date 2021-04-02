@@ -110,7 +110,8 @@ import  {  NgxEmojModule  }  from  'ngx-emoj';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}}
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false},
+    }
   ],
   bootstrap: [AppComponent],
   entryComponents: [DeleteDialogComponent, UserListComponent]

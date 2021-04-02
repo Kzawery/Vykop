@@ -4,6 +4,9 @@ import {AuthenticationService} from '../../services/authentication.service';
 import {first} from 'rxjs/operators';
 import {AppRoutingModule} from '../../app-routing.module';
 import {Router} from '@angular/router';
+import {WebSocketAPI} from '../../services/WebSocketApi.service';
+import {WebsocketService} from '../../services/websocket.service';
+
 
 @Component({
   selector: 'app-login',
@@ -20,7 +23,7 @@ export class LoginComponent implements OnInit {
     form_basic_username: new FormControl('', [Validators.required]),
     form_basic_password: new FormControl('', [Validators.required])
   });
-  constructor(  private authenticationService: AuthenticationService, private router: Router) { }
+  constructor(  private authenticationService: AuthenticationService, private router: Router, private webSocket: WebsocketService) { }
   ngOnInit( ): void {
   }
 

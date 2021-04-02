@@ -13,6 +13,7 @@ import {FeedComponent} from '../feed/feed.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SubvykopService} from '../../services/subvykop.service';
 import { Client, Message } from '@stomp/stompjs';
+import {WebsocketService} from '../../services/websocket.service';
 
 
 
@@ -37,12 +38,6 @@ export class HomeComponent implements OnInit, AfterViewInit{
   listItems2 = [];
   i = 0;
   private feed: FeedComponent;
-  clinet = new Client();
-  msgTest =
-    {
-      'to': 'user1',
-      'content': 'Potezny chuj',
-    };
 
 onScroll() {
   this.fetchMore();
@@ -53,7 +48,7 @@ onScroll() {
   }
   constructor(fb: FormBuilder, private ngZone: NgZone, private router: Router,
               private authenticationService: AuthenticationService, private userService: UserService,
-              private postService: PostService, public dialog: MatDialog, private _snackBar: MatSnackBar, public subVykopService: SubvykopService
+              private postService: PostService, public dialog: MatDialog, private _snackBar: MatSnackBar, public subVykopService: SubvykopService, private webSocket: WebsocketService
   ) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
@@ -62,13 +57,12 @@ onScroll() {
   }
 
   ngOnInit(): void {
-  console.log(this.msgTest);
   this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService, this.postService, this.router, this._snackBar, this.subVykopService);
   this.fetchMore();
-  this.init();
+  this.webSocket.init();
   }
   ngAfterViewInit(): void {
-    this.clinet.subscribe('/messages/' + this.authenticationService.currentUserValue.username + '/queue', this.callback);
+  this.webSocket.afterInit();
   }
   addPost() {
     const dialogRef = this.dialog.open(PostAddComponent, {
@@ -98,42 +92,4 @@ onScroll() {
     this.router.navigate(['/login']);
   }
 
-  init() {
-    const client = new Client({
-      brokerURL: 'ws://localhost:8080/ws/websocket',
-      connectHeaders: {
-        login: 'admin',
-        passcode: '!Password123',
-      },
-      debug: function (str) {
-        console.log(str);
-      },
-      reconnectDelay: 5000,
-      heartbeatIncoming: 4000,
-      heartbeatOutgoing: 4000,
-    });
-    this.clinet = client;
-    this.clinet.onConnect = function (frame) {
-    };
-
-    this.clinet.onStompError = function (frame) {
-      // Will be invoked in case of error encountered at Broker
-      // Bad login/passcode typically will cause an error
-      // Complaint brokers will set `message` header with a brief message. Body may contain details.
-      // Compliant brokers will terminate the connection after any error
-      console.log('Broker reported error: ' + frame.headers['message']);
-      console.log('Additional details: ' + frame.body);
-    };
-    this.clinet.activate();
-  }
-
-  sendMsg() {
-    this.clinet.publish({
-      destination: '/chat/send',
-      body: JSON.stringify(this.msgTest),
-    });
-  }
-  callback(message) {
-    console.log(JSON.parse(message.body));
-  }
 }
