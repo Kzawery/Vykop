@@ -2,6 +2,9 @@
 
 <body class="centered" >
 <app-navbar></app-navbar>
+<button mat-icon-button class="example-icon favorite-icon" aria-label="Logout" (click)="sendMsg()">
+  <mat-icon>login</mat-icon>
+</button>
 <div
   infinite-scroll
   [infiniteScrollDistance]="2"

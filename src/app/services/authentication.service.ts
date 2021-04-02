@@ -26,7 +26,6 @@ export class AuthenticationService {
       .pipe(map(resp => {
         if (resp.body.user) {
           localStorage.setItem('currentUser', JSON.stringify(resp.body.user));
-          console.log(resp.body.user);
           localStorage.setItem('token', resp.body.token);
           this.currentUserSubject.next(resp.body);
         }

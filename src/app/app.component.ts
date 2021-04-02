@@ -4,6 +4,8 @@ import {AuthenticationService} from './services/authentication.service';
 import {User} from './models/user';
 import {Role} from './models/role';
 import {Title} from '@angular/platform-browser';
+import {OnInit} from '@angular/core';
+import {FeedComponent} from './components/feed/feed.component';
 
 @Component({
   selector: 'app-root',
@@ -22,17 +24,4 @@ export class AppComponent {
     // this.setTitle();
   }
 
-  //
-  // public setTitle() {
-  //   this.titleService.setTitle('Vykop');
-  // }
-
-  get isAdmin() {
-    return this.currentUser && this.currentUser.role === Role.Admin;
-  }
-
-  logout() {
-    this.authenticationService.logout();
-    this.router.navigate(['/login']);
-  }
 }

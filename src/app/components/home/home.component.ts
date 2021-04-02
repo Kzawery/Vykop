@@ -12,6 +12,9 @@ import {PostAddComponent} from '../post/post-add/post-add.component';
 import {FeedComponent} from '../feed/feed.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SubvykopService} from '../../services/subvykop.service';
+import { Client, Message } from '@stomp/stompjs';
+
+
 
 @Component({
   selector: 'app-home',
@@ -34,6 +37,12 @@ export class HomeComponent implements OnInit {
   listItems2 = [];
   i = 0;
   private feed: FeedComponent;
+  clinet = new Client();
+  msgTest =
+    {
+      'to': 'user1',
+      'content': 'Potezny chuj',
+    };
 
 onScroll() {
   this.fetchMore();
@@ -55,6 +64,7 @@ onScroll() {
   ngOnInit(): void {
   this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService, this.postService, this.router, this._snackBar, this.subVykopService);
   this.fetchMore();
+  this.init();
   }
   addPost() {
     const dialogRef = this.dialog.open(PostAddComponent, {
@@ -82,6 +92,46 @@ onScroll() {
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
+  }
+
+  init() {
+    const client = new Client({
+      brokerURL: 'ws://localhost:8080/ws',
+      connectHeaders: {
+        login: 'admin',
+        passcode: '!Password123',
+      },
+      debug: function (str) {
+        console.log(str);
+      },
+      reconnectDelay: 5000,
+      heartbeatIncoming: 4000,
+      heartbeatOutgoing: 4000,
+    });
+    this.clinet = client;
+    this.clinet.onConnect = function (frame) {
+      // Do something, all subscribes must be done is this callback
+      // This is needed because this will be executed after a (re)connect
+    };
+
+    this.clinet.onStompError = function (frame) {
+      // Will be invoked in case of error encountered at Broker
+      // Bad login/passcode typically will cause an error
+      // Complaint brokers will set `message` header with a brief message. Body may contain details.
+      // Compliant brokers will terminate the connection after any error
+      console.log('Broker reported error: ' + frame.headers['message']);
+      console.log('Additional details: ' + frame.body);
+    };
+
+    this.clinet.activate();
+  }
+
+  sendMsg() {
+    this.clinet.publish({
+      destination: '/messages/send',
+      body: JSON.stringify(this.msgTest),
+      headers: { Authorization: 'Bearer ' + localStorage.getItem('token')},
+    });
   }
 
 }
