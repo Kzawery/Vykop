@@ -49,6 +49,7 @@ import { UserProfileComponent } from './components/user-profile/user-profile.com
 import { AddSubVykopComponent } from './components/add-sub-vykop/add-sub-vykop.component';
 import { EditCommentDialogComponent } from './components/post/edit-comment-dialog/edit-comment-dialog.component';
 import  {  NgxEmojModule  }  from  'ngx-emoj';
+import { ChatComponent } from './components/chat/chat.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -68,7 +69,8 @@ import  {  NgxEmojModule  }  from  'ngx-emoj';
     UserComponent,
     UserProfileComponent,
     AddSubVykopComponent,
-    EditCommentDialogComponent
+    EditCommentDialogComponent,
+    ChatComponent
   ],
   imports: [
     NgxEmojiPickerModule,

@@ -38,7 +38,7 @@ export class WebsocketService {
     this.client.activate();
   }
 
-  afterInit(){
+  afterInit() {
     this.client.subscribe('/messages/' + this.authenticationService.currentUserValue.username + '/queue', this.callback);
   }
   sendMsg() {

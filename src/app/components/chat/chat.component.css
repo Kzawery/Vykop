@@ -1,0 +1,22 @@
+.chat-border {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  width: 600px;
+  height: 400px;
+  border: 1px black solid;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+}
+.chat-list{
+  height: 400px;
+  width: 270px;
+  border: 1px blue solid;
+  padding-right: 200px;
+}
+.chat-messages{
+  height: 400px;
+  width: 270px;
+  border: 1px brown solid;
+}
