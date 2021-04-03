@@ -13,6 +13,7 @@ import {FeedComponent} from '../feed/feed.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SubvykopService} from '../../services/subvykop.service';
 import { Client, Message } from '@stomp/stompjs';
+import {WebsocketService} from '../../services/websocket.service';
 
 
 
@@ -22,7 +23,7 @@ import { Client, Message } from '@stomp/stompjs';
   styleUrls: ['./home.component.css'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class HomeComponent implements OnInit {
+export class HomeComponent implements OnInit, AfterViewInit{
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
 
@@ -37,13 +38,6 @@ export class HomeComponent implements OnInit {
   listItems2 = [];
   i = 0;
   private feed: FeedComponent;
-  clinet = new Client();
-  msgTest =
-    {
-      'to': 'admin',
-      'content': 'Potezny chuj',
-      'from': 'admin'
-    };
 
 onScroll() {
   this.fetchMore();
@@ -54,8 +48,12 @@ onScroll() {
   }
   constructor(fb: FormBuilder, private ngZone: NgZone, private router: Router,
               private authenticationService: AuthenticationService, private userService: UserService,
+<<<<<<< HEAD
               private postService: PostService, public dialog: MatDialog, private _snackBar: MatSnackBar,
               public subVykopService: SubvykopService
+=======
+              private postService: PostService, public dialog: MatDialog, private _snackBar: MatSnackBar, public subVykopService: SubvykopService, private webSocket: WebsocketService
+>>>>>>> a0b971fc608267034084b484cdf254190d55074a
   ) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
@@ -64,11 +62,18 @@ onScroll() {
   }
 
   ngOnInit(): void {
+<<<<<<< HEAD
   console.log(this.msgTest);
   this.feed = new FeedComponent(this.ngZone, this.authenticationService,
     this.userService, this.postService, this.router, this._snackBar, this.subVykopService);
+=======
+  this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService, this.postService, this.router, this._snackBar, this.subVykopService);
+>>>>>>> a0b971fc608267034084b484cdf254190d55074a
   this.fetchMore();
-  this.init();
+  this.webSocket.init();
+  }
+  ngAfterViewInit(): void {
+  this.webSocket.afterInit();
   }
   addPost() {
     const dialogRef = this.dialog.open(PostAddComponent, {
@@ -98,6 +103,7 @@ onScroll() {
     this.router.navigate(['/login']);
   }
 
+<<<<<<< HEAD
   init() {
     const client = new Client({
       brokerURL: 'ws://localhost:8080/ws/websocket',
@@ -137,4 +143,6 @@ onScroll() {
   }
   callback() {
   }
+=======
+>>>>>>> a0b971fc608267034084b484cdf254190d55074a
 }
