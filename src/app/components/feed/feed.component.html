@@ -1,8 +1,8 @@
 <head>
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
-<div class="wrapper">
-  <mat-list [@listAnimation]="posts.length" class="posts">
+<div class="wrapper" *ngIf="posts">
+  <mat-list [@listAnimation]="posts.length" class="posts" >
     <ng-container *ngFor="let item of posts; let i = index" >
       <mat-card class="example-card">
         <mat-card-title class="p">{{item.title}}</mat-card-title>

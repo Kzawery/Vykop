@@ -48,8 +48,9 @@ import { UserComponent } from './components/user/user.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { AddSubVykopComponent } from './components/add-sub-vykop/add-sub-vykop.component';
 import { EditCommentDialogComponent } from './components/post/edit-comment-dialog/edit-comment-dialog.component';
-import  {  NgxEmojModule  }  from  'ngx-emoj';
-import { ChatComponent } from './components/chat/chat.component';
+import {  NgxEmojModule } from 'ngx-emoj';
+import {MatAutocompleteModule} from '@angular/material/autocomplete';
+import {ChatComponent} from './components/chat/chat.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -107,7 +108,8 @@ import { ChatComponent } from './components/chat/chat.component';
     FormsModule,
     MatSelectModule,
     NgxMatSelectSearchModule,
-    NgxEmojModule
+    NgxEmojModule,
+    MatAutocompleteModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

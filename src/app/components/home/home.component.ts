@@ -39,16 +39,18 @@ export class HomeComponent implements OnInit, AfterViewInit{
   i = 0;
   private feed: FeedComponent;
 
-onScroll() {
-  this.fetchMore();
-}
+  onScroll() {
+    this.fetchMore();
+  }
 
   childMsg(event) {
     this.message = event;
   }
   constructor(fb: FormBuilder, private ngZone: NgZone, private router: Router,
               private authenticationService: AuthenticationService, private userService: UserService,
-              private postService: PostService, public dialog: MatDialog, private _snackBar: MatSnackBar, public subVykopService: SubvykopService, private webSocket: WebsocketService
+              private postService: PostService, public dialog: MatDialog,
+              private _snackBar: MatSnackBar, public subVykopService: SubvykopService,
+              private webSocket: WebsocketService
   ) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
@@ -57,12 +59,13 @@ onScroll() {
   }
 
   ngOnInit(): void {
-  this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService, this.postService, this.router, this._snackBar, this.subVykopService);
-  this.fetchMore();
-  this.webSocket.init();
+    this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService,
+      this.postService, this.router, this._snackBar, this.subVykopService);
+    this.fetchMore();
+    this.webSocket.init();
   }
   ngAfterViewInit(): void {
-  this.webSocket.afterInit();
+    this.webSocket.afterInit();
   }
   addPost() {
     const dialogRef = this.dialog.open(PostAddComponent, {
