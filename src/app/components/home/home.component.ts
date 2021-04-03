@@ -39,21 +39,18 @@ export class HomeComponent implements OnInit, AfterViewInit{
   i = 0;
   private feed: FeedComponent;
 
-onScroll() {
-  this.fetchMore();
-}
+  onScroll() {
+    this.fetchMore();
+  }
 
   childMsg(event) {
     this.message = event;
   }
   constructor(fb: FormBuilder, private ngZone: NgZone, private router: Router,
               private authenticationService: AuthenticationService, private userService: UserService,
-<<<<<<< HEAD
-              private postService: PostService, public dialog: MatDialog, private _snackBar: MatSnackBar,
-              public subVykopService: SubvykopService
-=======
-              private postService: PostService, public dialog: MatDialog, private _snackBar: MatSnackBar, public subVykopService: SubvykopService, private webSocket: WebsocketService
->>>>>>> a0b971fc608267034084b484cdf254190d55074a
+              private postService: PostService, public dialog: MatDialog,
+              private _snackBar: MatSnackBar, public subVykopService: SubvykopService,
+              private webSocket: WebsocketService
   ) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
@@ -62,18 +59,13 @@ onScroll() {
   }
 
   ngOnInit(): void {
-<<<<<<< HEAD
-  console.log(this.msgTest);
-  this.feed = new FeedComponent(this.ngZone, this.authenticationService,
-    this.userService, this.postService, this.router, this._snackBar, this.subVykopService);
-=======
-  this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService, this.postService, this.router, this._snackBar, this.subVykopService);
->>>>>>> a0b971fc608267034084b484cdf254190d55074a
-  this.fetchMore();
-  this.webSocket.init();
+    this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService,
+      this.postService, this.router, this._snackBar, this.subVykopService);
+    this.fetchMore();
+    this.webSocket.init();
   }
   ngAfterViewInit(): void {
-  this.webSocket.afterInit();
+    this.webSocket.afterInit();
   }
   addPost() {
     const dialogRef = this.dialog.open(PostAddComponent, {
@@ -103,46 +95,4 @@ onScroll() {
     this.router.navigate(['/login']);
   }
 
-<<<<<<< HEAD
-  init() {
-    const client = new Client({
-      brokerURL: 'ws://localhost:8080/ws/websocket',
-      connectHeaders: {
-        login: 'admin',
-        passcode: '!Password123',
-      },
-      debug: function (str) {
-        console.log(str);
-      },
-      reconnectDelay: 5000,
-      heartbeatIncoming: 4000,
-      heartbeatOutgoing: 4000,
-    });
-    this.clinet = client;
-    this.clinet.onConnect = function (frame) {
-    };
-
-    this.clinet.onStompError = function (frame) {
-      // Will be invoked in case of error encountered at Broker
-      // Bad login/passcode typically will cause an error
-      // Complaint brokers will set `message` header with a brief message. Body may contain details.
-      // Compliant brokers will terminate the connection after any error
-      console.log('Broker reported error: ' + frame.headers['message']);
-      console.log('Additional details: ' + frame.body);
-    };
-
-    this.clinet.activate();
-  }
-
-  sendMsg() {
-    this.clinet.subscribe('/user/admin/queue', this.callback);
-    this.clinet.publish({
-      destination: '/chat/send',
-      body: JSON.stringify(this.msgTest),
-    });
-  }
-  callback() {
-  }
-=======
->>>>>>> a0b971fc608267034084b484cdf254190d55074a
 }
