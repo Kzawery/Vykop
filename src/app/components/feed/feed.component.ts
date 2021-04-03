@@ -43,7 +43,7 @@ export class FeedComponent implements OnInit {
               private userService: UserService, private postService: PostService,
               private router: Router, private _snackBar: MatSnackBar, private subVykopService: SubvykopService) { }
 
-  @Input() posts: any[];
+  @Input() posts: any[] = [];
 
   deleteBtnClick(element: Post) {
     this.postService.deletePost(element.id).subscribe(resp => {

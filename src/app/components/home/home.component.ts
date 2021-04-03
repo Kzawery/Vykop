@@ -54,7 +54,8 @@ onScroll() {
   }
   constructor(fb: FormBuilder, private ngZone: NgZone, private router: Router,
               private authenticationService: AuthenticationService, private userService: UserService,
-              private postService: PostService, public dialog: MatDialog, private _snackBar: MatSnackBar, public subVykopService: SubvykopService
+              private postService: PostService, public dialog: MatDialog, private _snackBar: MatSnackBar,
+              public subVykopService: SubvykopService
   ) {
     this.options = fb.group({
       hideRequired: this.hideRequiredControl,
@@ -64,7 +65,8 @@ onScroll() {
 
   ngOnInit(): void {
   console.log(this.msgTest);
-  this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService, this.postService, this.router, this._snackBar, this.subVykopService);
+  this.feed = new FeedComponent(this.ngZone, this.authenticationService,
+    this.userService, this.postService, this.router, this._snackBar, this.subVykopService);
   this.fetchMore();
   this.init();
   }
@@ -133,6 +135,6 @@ onScroll() {
       body: JSON.stringify(this.msgTest),
     });
   }
-  callback(){
+  callback() {
   }
 }

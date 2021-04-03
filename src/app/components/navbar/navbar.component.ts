@@ -23,8 +23,6 @@ export class NavbarComponent implements OnInit {
   floatLabelControl = new FormControl('auto');
   public subs: SubVykop[] = [];
   constructor(fb: FormBuilder, private ngZone: NgZone,    private router: Router,
-
-              // tslint:disable-next-line:max-line-length
               public authenticationService: AuthenticationService, private userService: UserService,
               private postService: PostService, private subService: SubvykopService, public dialog: MatDialog) {
               this.options = fb.group({
@@ -34,6 +32,7 @@ export class NavbarComponent implements OnInit {
   }
   ngOnInit(): void {
     console.log(this.authenticationService.currentUserValue.role);
+    this.filter('');
   }
 
   logout() {
@@ -65,7 +64,12 @@ export class NavbarComponent implements OnInit {
       });
   }
 
-  goTo(sub: number) {
+  goTo(sub: string) {
+    console.log('sub: ' + sub);
+    if (this.router.url.includes('subVykop')) {
+      console.log('zawiera subvykop');
+      this.router.navigate(['../subVykop/' + sub]);
+    }
     this.router.navigate(['/subVykop/' + sub]);
   }
   profile() {
