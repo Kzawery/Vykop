@@ -120,12 +120,59 @@
   border-radius:50px;
   width:40px;
   height:40px;
-  margin-left: 2px;
+  margin-left: 10px;
   margin-top: 10px;
   margin-right: 10px;
 }
 .msg-content{
   background-color: white;
   width: auto;
-  height: 380px;
+  height: 300px;
+  overflow: auto;
+}
+.msg-message{
+  margin-top: 10px;
+  display: flex;
+  border-radius: 15px;
+}
+.msg-message-user{
+  margin-top: 10px;
+  border-radius: 15px;
+  display: flex;
+  flex-flow: row-reverse;
+}
+.msg-single-message{
+  border-radius: 5px;
+  background-color: #dde2e1;
+  padding: 2px 5px;
+  word-wrap: break-word;
+  max-width: 160px;
+}
+.msg-single-message-user{
+  border-radius: 5px;
+  padding: 2px 5px;
+  margin-right: 10px;
+  background-color: #93cbee;
+  margin-left: 10px;
+  word-wrap: break-word;
+}
+.msg-write{
+  height: 38px;
+  background-color: #f9f9f9;
+  display: flex;
+}
+.textarea{
+  width: 220px;
+  height: 25px;
+  margin-top: 8px;
+  background-color: white;
+  border: none;
+  font-size: 14px;
+  user-select: text;
+  display: block;
+  cursor: text;
+  resize: none;
+  margin-left: 10px;
+  border-radius: 10px;
+  padding-left: 10px;
 }

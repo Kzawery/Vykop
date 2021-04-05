@@ -59,10 +59,10 @@ export class HomeComponent implements OnInit, AfterViewInit{
   }
 
   ngOnInit(): void {
+    this.webSocket.init();
     this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService,
       this.postService, this.router, this._snackBar, this.subVykopService);
     this.fetchMore();
-    this.webSocket.init();
   }
   ngAfterViewInit(): void {
     this.webSocket.afterInit();
@@ -93,6 +93,13 @@ export class HomeComponent implements OnInit, AfterViewInit{
   logout() {
     this.authenticationService.logout();
     this.router.navigate(['/login']);
+  }
+  arseJwt = (token) => {
+    try {
+      return JSON.parse(atob(token.split('.')[1]));
+    } catch (e) {
+      return null;
+    }
   }
 
 }

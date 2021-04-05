@@ -2,6 +2,7 @@ import {Component, HostBinding, OnInit} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {animate, group, state, style, transition, trigger} from '@angular/animations';
 import {delay} from 'rxjs/operators';
+import {WebsocketService} from '../../services/websocket.service';
 
 @Component({
   selector: 'app-chat',
@@ -31,13 +32,14 @@ import {delay} from 'rxjs/operators';
   ]
 })
 export class ChatComponent implements OnInit {
-  constructor(private userService: UserService) { }
+  constructor(private userService: UserService, private webSocket: WebsocketService) { }
   chatToogle = false;
   chatToogleUp = true;
   userMessages = [];
   msgToogle = false;
   msgReceiver: any;
   chatMessages = [];
+  text: String;
   private delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -57,10 +59,32 @@ export class ChatComponent implements OnInit {
     this.chatToogleUp = !this.chatToogleUp;
   }
   toogleMsg(user: any) {
-    console.log(user);
     this.msgToogle = !this.msgToogle;
-    this.msgReceiver = user;
+    if (this.msgToogle) {
+      this.msgReceiver = user;
+      this.getMsg()
+    }
   }
-
-
+  send() {
+    const msg = {
+        'to': this.msgReceiver.username,
+        'content': this.text,
+      };
+    this.webSocket.sendMsg(msg);
+    this.text = '';
+    this.getMsg();
+  }
+  getMsg() {
+    this.userService.getMsg(this.msgReceiver.username).subscribe( r =>{
+      this.chatMessages = r;
+      console.log(this.chatMessages);
+    });
+  }
+  /*
+    msgTest =
+    {
+      'to': 'admin',
+      'content': 'krolowa poki',
+    };
+   */
 }

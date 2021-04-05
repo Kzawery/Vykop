@@ -10,7 +10,18 @@
       </button>
     </div>
     <div class="msg-content">
-
+      <div [ngClass]="item.from==msgReceiver.username ? 'msg-message': 'msg-message-user'" *ngFor="let item of chatMessages; let i = index">
+        <div class="msg-logo" *ngIf="item.from==msgReceiver.username" style="background-image: url({{msgReceiver.avatar}})"></div>
+        <div>
+          <div [ngClass]="item.from==msgReceiver.username ? 'msg-single-message': 'msg-single-message-user'">{{item.content}}</div>
+        </div>
+      </div>
+    </div>
+    <div class="msg-write">
+        <textarea class="textarea" [(ngModel)]='text'></textarea>
+       <button mat-icon-button class="example-icon favorite-icon" (click)="send()">
+        <mat-icon>send</mat-icon>
+       </button>
     </div>
   </div>
   <div class="chat-toogle" *ngIf="chatToogleUp" (click)="toogleChat()">

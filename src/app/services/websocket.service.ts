@@ -8,17 +8,15 @@ import {AuthenticationService} from './authentication.service';
 export class WebsocketService {
   constructor(private authenticationService: AuthenticationService) { }
   client = new Client();
-  msgTest =
-    {
-      'to': 'user1',
-      'content': 'Potezny chuj',
-    };
+  static callback(message) {
+    console.log(JSON.parse(message.body));
+  }
   init() {
     const client = new Client({
       brokerURL: 'ws://localhost:8080/ws/websocket',
       connectHeaders: {
-        login: 'admin',
-        passcode: '!Password123',
+        login: this.authenticationService.currentUserValue.username,
+        passcode: localStorage.getItem('password')
       },
       debug: function (str) {
         console.log(str);
@@ -39,15 +37,13 @@ export class WebsocketService {
   }
 
   afterInit() {
-    this.client.subscribe('/messages/' + this.authenticationService.currentUserValue.username + '/queue', this.callback);
+    this.client.subscribe('/messages/' + this.authenticationService.currentUserValue.username + '/queue', WebsocketService.callback);
   }
-  sendMsg() {
+  sendMsg(msg) {
     this.client.publish({
       destination: '/chat/send',
-      body: JSON.stringify(this.msgTest),
+      body: JSON.stringify(msg),
     });
   }
-  callback(message) {
-    console.log(JSON.parse(message.body));
-  }
 }
+
