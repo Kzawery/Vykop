@@ -46,4 +46,8 @@ export class UserService {
     return this.http.get<User[]>(`${environment.apiUrl}/users/most_popular`);
   }
 
+  getContactedUsers() {
+    return this.http.get<any>(`${environment.apiUrl}/chat/contacted_users`);
+  }
+
 }

@@ -1,8 +1,34 @@
 <div class="chat-border">
-  <div class="chat-list">
+  <div class="chat-messages" *ngIf="msgToogle" [@slideInOut]>
+    <div class="chat-list-title">
+      <div class="msg-description">
+        <div class="msg-logo" style="background-image: url({{msgReceiver.avatar}})"></div>
+        <div class="msg-username">{{msgReceiver.username}}</div>
+      </div>
+      <button mat-icon-button class="example-icon favorite-icon" aria-label="Close chat" (click)="toogleMsg()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="msg-content">
 
+    </div>
   </div>
-  <div class="chat-messages">
-
+  <div class="chat-toogle" *ngIf="chatToogleUp" (click)="toogleChat()">
+    <div class="messenger-label">Messenger</div>
+  </div>
+  <div class="chat-list" *ngIf="chatToogle" [@slideInOut]>
+    <div class="chat-list-title">
+      <div class="messenger-label">Messenger</div>
+      <button mat-icon-button class="example-icon favorite-icon chat-title-button" aria-label="Close chat" (click)="toogleChatOff()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+    <div class="trending-item" *ngFor="let item of userMessages; let i = index" (click)="toogleMsg(item)">
+      <div class="logo-trending" style="background-image: url({{item.avatar}})"></div>
+      <div class="description">
+        <div class="username">{{item.username}}</div>
+        <div class="user-comments">{{item.message.content}}</div>
+      </div>
+    </div>
   </div>
 </div>
