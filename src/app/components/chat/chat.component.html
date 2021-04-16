@@ -9,7 +9,7 @@
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <div class="msg-content">
+    <div class="msg-content" #scrollMe [scrollTop]="scrollMe.scrollHeight">
       <div [ngClass]="item.from==msgReceiver.username ? 'msg-message': 'msg-message-user'" *ngFor="let item of chatMessages; let i = index">
         <div class="msg-logo" *ngIf="item.from==msgReceiver.username" style="background-image: url({{msgReceiver.avatar}})"></div>
         <div>
@@ -34,7 +34,7 @@
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <div class="trending-item" *ngFor="let item of userMessages; let i = index" (click)="toogleMsg(item)">
+    <div class="trending-item" *ngFor="let item of userMessages; let i = index" (click)="toogleMsg(item)" >
       <div class="logo-trending" style="background-image: url({{item.avatar}})"></div>
       <div class="description">
         <div class="username">{{item.username}}</div>

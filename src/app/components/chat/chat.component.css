@@ -128,7 +128,7 @@
   background-color: white;
   width: auto;
   height: 300px;
-  overflow: auto;
+  overflow: scroll;
 }
 .msg-message{
   margin-top: 10px;

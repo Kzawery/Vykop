@@ -1,4 +1,4 @@
-import {Component, HostBinding, OnInit} from '@angular/core';
+import {Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {animate, group, state, style, transition, trigger} from '@angular/animations';
 import {delay} from 'rxjs/operators';
@@ -32,7 +32,7 @@ import {WebsocketService} from '../../services/websocket.service';
   ]
 })
 export class ChatComponent implements OnInit {
-  constructor(private userService: UserService, private webSocket: WebsocketService) { }
+  constructor(private userService: UserService, private webSocket: WebsocketService) {}
   chatToogle = false;
   chatToogleUp = true;
   userMessages = [];
@@ -40,6 +40,7 @@ export class ChatComponent implements OnInit {
   msgReceiver: any;
   chatMessages = [];
   text: String;
+  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   private delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -47,8 +48,12 @@ export class ChatComponent implements OnInit {
     this.userService.getContactedUsers().subscribe(r => {
       this.userMessages = r;
     });
+    this.webSocket.missionConfirmed$.subscribe(
+      msg => {
+        this.chatMessages.push(msg);
+        this.myScrollContainer.nativeElement.scrollIntoView();
+      });
   }
-
   async toogleChatOff() {
     this.chatToogle = !this.chatToogle;
     await this.delay(350);
@@ -62,7 +67,7 @@ export class ChatComponent implements OnInit {
     this.msgToogle = !this.msgToogle;
     if (this.msgToogle) {
       this.msgReceiver = user;
-      this.getMsg()
+      this.getMsg();
     }
   }
   send() {
@@ -72,19 +77,10 @@ export class ChatComponent implements OnInit {
       };
     this.webSocket.sendMsg(msg);
     this.text = '';
-    this.getMsg();
   }
   getMsg() {
     this.userService.getMsg(this.msgReceiver.username).subscribe( r =>{
       this.chatMessages = r;
-      console.log(this.chatMessages);
     });
   }
-  /*
-    msgTest =
-    {
-      'to': 'admin',
-      'content': 'krolowa poki',
-    };
-   */
 }
