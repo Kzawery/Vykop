@@ -51,6 +51,7 @@ import { EditCommentDialogComponent } from './components/post/edit-comment-dialo
 import {  NgxEmojModule } from 'ngx-emoj';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {ChatComponent} from './components/chat/chat.component';
+import {WebsocketService} from './services/websocket.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -114,8 +115,8 @@ import {ChatComponent} from './components/chat/chat.component';
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false},
-    }
+    {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
+    WebsocketService
   ],
   bootstrap: [AppComponent],
   entryComponents: [DeleteDialogComponent, UserListComponent]

@@ -1,15 +1,21 @@
-import { Injectable } from '@angular/core';
+import {EventEmitter, Injectable} from '@angular/core';
 import {Client} from '@stomp/stompjs';
 import {HttpClient} from '@angular/common/http';
 import {AuthenticationService} from './authentication.service';
+import {Observable, Subject} from 'rxjs';
 @Injectable({
   providedIn: 'root'
 })
 export class WebsocketService {
-  constructor(private authenticationService: AuthenticationService) { }
+  public missionConfirmedSource: Subject<any>;
+  missionConfirmed$;
+  constructor(private authenticationService: AuthenticationService) {
+    this.missionConfirmedSource = new Subject<string>();
+    this.missionConfirmed$ = this.missionConfirmedSource.asObservable();
+  }
   client = new Client();
-  static callback(message) {
-    console.log(JSON.parse(message.body));
+  private delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
   }
   init() {
     const client = new Client({
@@ -36,8 +42,9 @@ export class WebsocketService {
     this.client.activate();
   }
 
-  afterInit() {
-    this.client.subscribe('/messages/' + this.authenticationService.currentUserValue.username + '/queue', WebsocketService.callback);
+  async afterInit() {
+    await this.delay(4000);
+    this.client.subscribe('/messages/' + this.authenticationService.currentUserValue.username + '/queue', this.callback);
   }
   sendMsg(msg) {
     this.client.publish({
@@ -45,5 +52,13 @@ export class WebsocketService {
       body: JSON.stringify(msg),
     });
   }
+  confirmMission(astronaut: string) {
+    this.missionConfirmedSource.next(astronaut);
+  }
+  callback = (message) => {
+    const _this = this;
+    this.confirmMission(JSON.parse(message.body));
+  }
 }
+
 
