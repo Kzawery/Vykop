@@ -50,6 +50,10 @@ export class UserService {
     return this.http.get<any>(`${environment.apiUrl}/chat/contacted_users`);
   }
 
+  getLoggedUsers() {
+    return this.http.get<any>(`${environment.apiUrl}/chat/logged_users`);
+  }
+
   getMsg(data) {
     return this.http.get<any>(`${environment.apiUrl}/messages/${data}?page=0`);
   }

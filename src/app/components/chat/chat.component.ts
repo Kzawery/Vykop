@@ -47,11 +47,43 @@ export class ChatComponent implements OnInit {
   ngOnInit(): void {
     this.userService.getContactedUsers().subscribe(r => {
       this.userMessages = r;
+      this.userService.getLoggedUsers().subscribe(res => {
+        const messages = this.userMessages.reduce(function(previousValue, currentValue) {
+          if (res.includes(currentValue.username)) {
+            currentValue.online = true;
+          }
+          previousValue.push(currentValue);
+          return previousValue;
+        }, []);
+      });
     });
     this.webSocket.missionConfirmed$.subscribe(
       msg => {
+        const messages = this.userMessages.reduce(function(previousValue, currentValue) {
+          if (msg.includes(currentValue.username)) {
+            currentValue.online = true;
+          }
+          previousValue.push(currentValue);
+          return previousValue;
+        }, []);
         this.chatMessages.push(msg);
         this.myScrollContainer.nativeElement.scrollIntoView();
+      });
+    this.webSocket.LogConfirmedSource$.subscribe(
+      msg => {
+        this.userMessages.forEach( el => {
+          if (el.username === msg) {
+            el.online = true;
+          }
+        });
+      });
+    this.webSocket.LogoutConfirmedSource$.subscribe(
+      msg => {
+        this.userMessages.forEach( el => {
+          if (el.username === msg) {
+            el.online = false;
+          }
+        });
       });
   }
   async toogleChatOff() {
