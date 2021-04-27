@@ -59,13 +59,6 @@ export class ChatComponent implements OnInit {
     });
     this.webSocket.missionConfirmed$.subscribe(
       msg => {
-        const messages = this.userMessages.reduce(function(previousValue, currentValue) {
-          if (msg.includes(currentValue.username)) {
-            currentValue.online = true;
-          }
-          previousValue.push(currentValue);
-          return previousValue;
-        }, []);
         this.chatMessages.push(msg);
         this.myScrollContainer.nativeElement.scrollIntoView();
       });
