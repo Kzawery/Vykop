@@ -26,7 +26,7 @@ import { PasswordStrengthMeterModule } from 'angular-password-strength-meter';
 import {FeedComponent} from './components/feed/feed.component';
 import {MatButtonToggle, MatButtonToggleGroup, MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
-import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule} from '@angular/material/dialog';
+import {MAT_DIALOG_DEFAULT_OPTIONS, MatDialogModule, MatDialogRef} from '@angular/material/dialog';
 import {CdkTableModule} from '@angular/cdk/table';
 import {UserListComponent} from './components/administration/user-list/user-list.component';
 import { PostComponent } from './components/post/post/post.component';
@@ -116,7 +116,8 @@ import {WebsocketService} from './services/websocket.service';
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     {provide: MAT_DIALOG_DEFAULT_OPTIONS, useValue: {hasBackdrop: false}},
-    WebsocketService
+    WebsocketService,
+    { provide: MatDialogRef, useValue: {} },
   ],
   bootstrap: [AppComponent],
   entryComponents: [DeleteDialogComponent, UserListComponent]
