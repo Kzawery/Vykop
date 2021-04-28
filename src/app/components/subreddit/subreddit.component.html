@@ -3,8 +3,9 @@
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
+
 <app-navbar></app-navbar>
-<div itemSize="3" class="content" style="width: 100%; height: auto;">
+<div itemSize="3" class="content">
   <div style="background:#0079d3 url({{subreddit.banner}}) no-repeat center / cover;background-position:center top;height:200px"> </div>
   <div style="background: white; height: 100px">
     <div style="display: flex;">
@@ -29,7 +30,7 @@
   (scrolled)="onScroll()"
   [infiniteScrollDisabled]="busyGettingData"
 >
-  <app-feed [posts]="parentData">
+  <app-feed [posts]="parentData" [noPosts]="noPosts">
   </app-feed>
 </div>
 

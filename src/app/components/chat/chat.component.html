@@ -1,15 +1,16 @@
 <div class="chat-border">
-  <div class="chat-messages" *ngIf="msgToogle" [@slideInOut]>
+  <div class="chat-messages" *ngIf="msgToggle" [@slideInOut]>
     <div class="chat-list-title">
       <div class="msg-description">
         <div class="msg-logo" style="background-image: url({{msgReceiver.avatar}})"></div>
         <div class="msg-username">{{msgReceiver.username}}</div>
       </div>
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Close chat" (click)="toogleMsg()">
+      <button mat-icon-button class="example-icon favorite-icon" aria-label="Close chat" (click)="msgToggle = false">
         <mat-icon>close</mat-icon>
       </button>
     </div>
     <div class="msg-content" #scrollMe [scrollTop]="scrollMe.scrollHeight">
+
       <div [ngClass]="item.from==msgReceiver.username ? 'msg-message': 'msg-message-user'" *ngFor="let item of chatMessages; let i = index">
         <div class="msg-logo" *ngIf="item.from==msgReceiver.username" style="background-image: url({{msgReceiver.avatar}})"></div>
         <div>
@@ -24,23 +25,39 @@
        </button>
     </div>
   </div>
-  <div class="chat-toogle" *ngIf="chatToogleUp" (click)="toogleChat()">
+  <div class="chat-toogle" *ngIf="chatToggleUp" (click)="toggleChat()">
     <div class="messenger-label">Messenger</div>
   </div>
-  <div class="chat-list" *ngIf="chatToogle" [@slideInOut]>
+  <div class="chat-list" *ngIf="chatToggle" [@slideInOut]>
     <div class="chat-list-title">
       <div class="messenger-label">Messenger</div>
-      <button mat-icon-button class="example-icon favorite-icon chat-title-button" aria-label="Close chat" (click)="toogleChatOff()">
+      <button mat-icon-button class="example-icon favorite-icon chat-title-button" aria-label="Close chat" (click)="toggleChatOff()">
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <div class="trending-item" *ngFor="let item of userMessages; let i = index" (click)="toogleMsg(item)" >
+
+    <div class="chat-searchbar">
+      <input class="search" #inputElement matInput (input)="filter($event.target.value)" placeholder="Search">
+    </div>
+
+    <div *ngIf="searchedUsers.length != 0">
+      <div class="trending-item" style="width: 100%; height: fit-content" *ngFor="let user of searchedUsers" (click)="toggleMsg(user); searchedUsers = []; inputElement.value = null">
+        <div class="logo-trending" style="background-image: url({{user.avatar}})"></div>
+        <div class="description">
+          <div class="username">{{user.username}}</div>
+        </div>
+
+      </div>
+    </div>
+    <div *ngIf="searchedUsers.length == 0">
+    <div class="trending-item" *ngFor="let item of userMessages; let i = index" (click)="toggleMsg(item)" >
       <div class="logo-trending" style="background-image: url({{item.avatar}})"></div>
       <div class="description">
         <div class="username">{{item.username}}</div>
         <div class="user-comments">{{item.message.content}}</div>
       </div>
       <div class="dot" *ngIf="item.online"></div>
+    </div>
     </div>
   </div>
 </div>

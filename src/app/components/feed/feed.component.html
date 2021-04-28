@@ -16,7 +16,7 @@
           <img [src]="item.content.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-bottom: 10px; display: flex"  *ngIf="item.content.image">
           <mat-video src="{{item.content.video}}" *ngIf="item.content.video"></mat-video>
           <br>
-          <p class="p">{{item.content.text}}</p>
+          <p class="p" *ngIf="!!item.content.text">{{item.content.text}}</p>
         </mat-card-content>
         <mat-card-actions style="padding-left: 46px">
           <mat-button-toggle (click)="likeBtnClick(item, i)"  [checked]="item.upvoted" mdbBtn type="button" color="primary" autocomplete="off" mdbCheckbox btnCheckboxTrue="1" btnCheckboxFalse="0" mdbWavesEffect>
@@ -24,6 +24,7 @@
           </mat-button-toggle>
             <button mat-button style="padding: 7px" (click)="goToPost(item)"> <mat-icon> comment</mat-icon>Comments </button>
             <button mat-button style="padding: 7px" (click)="deleteBtnClick(item)" *ngIf="item.author.username == authenticationService.currentUserValue.username"> <mat-icon > delete </mat-icon> Delete </button>
+            <button mat-button style="padding: 7px" (click)="editBtnClick(item)" *ngIf="item.author.username == authenticationService.currentUserValue.username"> <mat-icon > edit </mat-icon> Edit </button>
         </mat-card-actions>
       </mat-card>
     </ng-container>
@@ -32,7 +33,8 @@
     </div>
     <div class="spinner-item" *ngIf="!loading">
 <!--      There are no more posts to load.-->
-      <mat-spinner></mat-spinner>
+      <mat-spinner *ngIf="!noPosts"></mat-spinner>
+      <p *ngIf="noPosts">There are no more posts to load.</p>
     </div>
   </mat-list>
   <div class="stats" *ngIf="postLoaded">

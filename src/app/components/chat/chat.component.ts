@@ -3,6 +3,7 @@ import {UserService} from '../../services/user.service';
 import {animate, group, state, style, transition, trigger} from '@angular/animations';
 import {delay} from 'rxjs/operators';
 import {WebsocketService} from '../../services/websocket.service';
+import {WebSocketAPI} from '../../services/WebSocketApi.service';
 
 @Component({
   selector: 'app-chat',
@@ -32,13 +33,14 @@ import {WebsocketService} from '../../services/websocket.service';
   ]
 })
 export class ChatComponent implements OnInit {
-  constructor(private userService: UserService, private webSocket: WebsocketService) {}
-  chatToogle = false;
-  chatToogleUp = true;
+  constructor(private userService: UserService, private webSocket: WebsocketService, private webSocketApi: WebSocketAPI) {}
+  chatToggle = false;
+  chatToggleUp = true;
   userMessages = [];
-  msgToogle = false;
+  msgToggle = false;
   msgReceiver: any;
   chatMessages = [];
+  searchedUsers = [];
   text: String;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
   private delay(ms: number) {
@@ -79,21 +81,19 @@ export class ChatComponent implements OnInit {
         });
       });
   }
-  async toogleChatOff() {
-    this.chatToogle = !this.chatToogle;
+  async toggleChatOff() {
+    this.chatToggle = !this.chatToggle;
     await this.delay(350);
-    this.chatToogleUp = !this.chatToogleUp;
+    this.chatToggleUp = !this.chatToggleUp;
   }
-  toogleChat() {
-    this.chatToogle = !this.chatToogle;
-    this.chatToogleUp = !this.chatToogleUp;
+  toggleChat() {
+    this.chatToggle = !this.chatToggle;
+    this.chatToggleUp = !this.chatToggleUp;
   }
-  toogleMsg(user: any) {
-    this.msgToogle = !this.msgToogle;
-    if (this.msgToogle) {
+  toggleMsg(user: any) {
+    this.msgToggle = true;
       this.msgReceiver = user;
       this.getMsg();
-    }
   }
   send() {
     const msg = {
@@ -104,8 +104,15 @@ export class ChatComponent implements OnInit {
     this.text = '';
   }
   getMsg() {
-    this.userService.getMsg(this.msgReceiver.username).subscribe( r =>{
+    this.userService.getMsg(this.msgReceiver.username).subscribe( r => {
       this.chatMessages = r;
+    }, error => {
+      this.chatMessages = null;
+    });
+  }
+  filter(name: String) {
+    this.webSocketApi.getUsersByName(name).subscribe(r => {
+      this.searchedUsers = r;
     });
   }
 }

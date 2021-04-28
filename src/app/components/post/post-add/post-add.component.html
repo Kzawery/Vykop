@@ -1,20 +1,30 @@
 <mat-card class="example-card">
   <mat-card-title>
         <textarea class="title" placeholder="Title" [(ngModel)]='title'></textarea>
+    <hr>
   </mat-card-title>
-  <hr>
-  <mat-card-content class="container">
-    <ngx-file-drop (onFileDrop)="dropped($event)" *ngIf="imageURL == null">>
+
+  <mat-card-content class="content">
+    <div style="position: relative; margin: auto; display: table">
+      <div *ngIf="imageURL != null" style="display: inline-flex">
+        <img [src]="imageURL"  alt=""  class="img">
+        <mat-icon (click)="removeImg()" style="cursor:pointer; color: gray">close</mat-icon>
+      </div>
+    </div>
+    <ngx-file-drop accept=".png, .jpg" (onFileDrop)="dropped($event)" *ngIf="imageURL == null">>
       <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector">
         <button mat-raised-button (click)="openFileSelector()" class="button-under">Select File</button>
       </ng-template>
     </ngx-file-drop>
-    <div><img [src]="imageURL"  alt="" *ngIf="imageURL != null" class="img"></div>
+
     <hr>
-      <textarea class="comment-textarea"  [(ngModel)]='text'></textarea>
+
+    <textarea class="comment-textarea"  [(ngModel)]='text'></textarea>
+
   </mat-card-content>
-  <mat-card-actions style="padding-left: 10px">
-    <button mat-button style="padding: 7px">  <mat-icon (click)="removeImg()">delete</mat-icon> </button>
+  <mat-card-actions class="actions">
+    <button mat-button style="padding: 7px">  <mat-icon (click)="closeDialog()">delete</mat-icon> </button>
     <button mat-button style="float: right; padding: 7px">  <mat-icon (click)="addPost()">save</mat-icon> </button>
+
   </mat-card-actions>
 </mat-card>

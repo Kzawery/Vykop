@@ -26,7 +26,7 @@ export class EditCommentDialogComponent implements OnInit {
     this._snackBar.open('You\'ve edited comment!', '', {
       duration: 2000,
     });
-    // this.postService.editComment(this.post_id, this.id, this.commentText);
+    this.postService.editComment(this.post_id, this.id, this.commentText);
     console.log(this.id + ' ' + this.commentText);
   }
 

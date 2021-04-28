@@ -7,7 +7,7 @@
   (scrolled)="onScroll()"
   [infiniteScrollDisabled]="busyGettingData"
 >
-    <app-feed [posts]="parentData">
+    <app-feed [posts]="parentData" [noPosts]="noPosts">
     </app-feed>
   </div>
 </body>

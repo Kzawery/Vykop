@@ -4,8 +4,9 @@
 }
 
 .content {
-  height: calc(100vh - 64px);
   overflow: auto;
+  width: 100%;
+  height: auto;
 }
 
 .spinner-item {
@@ -68,3 +69,5 @@
 .p{
   word-break: break-all;
 }
+
+

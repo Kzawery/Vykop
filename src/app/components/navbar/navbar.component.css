@@ -18,7 +18,6 @@
   }
 }
 
-
 mat-form-field  {
   width: 200px;
 }
@@ -33,4 +32,32 @@ ngx-mat-select-search {
 }
 .mat-select-search-inner.mat-typography.mat-datepicker-content.mat-tab-header{
   width: 200px;
+}
+
+.search {
+  padding: 0 20px;
+  max-width: 400px;
+  height: 40px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box
+}
+
+
+.submit {
+  cursor: pointer;
+  border: none;
+  background-color: #0079d3;
+  background-size: 35px 35px;
+  border-radius: 0 20px 20px 0;
+  /*padding: 15px 25px;*/
+
+  display: inline-block;
+  width: 40px;
+  height: 40px;
+}
+
+.wrapper {
+  max-width: 550px;
+  width: 80%;
 }

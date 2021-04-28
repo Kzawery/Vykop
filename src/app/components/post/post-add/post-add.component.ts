@@ -5,8 +5,6 @@ import {FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
 import {PostService} from '../../../services/post.service';
 import {AuthenticationService} from '../../../services/authentication.service';
 import {Post} from '../../../models/post';
-import {Container} from '@angular/compiler/src/i18n/i18n_ast';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-post-add',
@@ -24,12 +22,24 @@ export class PostAddComponent implements OnInit {
   title: string;
   text: string;
   subVykop: string;
+  edited = false;
 
-  // tslint:disable-next-line:max-line-length
-  constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<PostAddComponent>, @Inject(MAT_DIALOG_DATA) public data: any, public postService: PostService, private authenticationService: AuthenticationService) { }
+
+  constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<PostAddComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: any, public postService: PostService,
+              private authenticationService: AuthenticationService) { }
 
   ngOnInit(): void {
-    this.subVykop = this.data;
+    if (this.data.id !== undefined) {
+      this.post = this.data;
+      this.subVykop = this.data.subVykop.name;
+      this.imageURL = this.post.content.image;
+      this.title = this.post.title;
+      this.text = this.post.content.text;
+      this.edited = true;
+    } else {
+      this.subVykop = this.data;
+    }
   }
   public dropped(files: NgxFileDropEntry[]) {
     this.files = files;
@@ -54,10 +64,26 @@ export class PostAddComponent implements OnInit {
     this.imageURL = null;
   }
 
+  public closeDialog() {
+    this.dialogRef.close();
+  }
+
   public addPost() {
     this.formData.append('title', this.title);
-    this.formData.append('text', this.text);
+    this.formData.append('text', this.text !== undefined ? this.text : '');
     this.formData.append('subVykop', this.subVykop);
+    if (this.edited) {
+      this.postService.editPost(this.post.id, this.formData).subscribe( x => {
+        this.dialogRef.close();
+        this._snackBar.open('Post have been edited', 'hide',  {
+          duration: 2000,
+        });
+      }, error => {
+        this._snackBar.open('Sorry, there was an error with your post', 'hide',  {
+          duration: 2000,
+        });
+      });
+    } else {
     this.postService.addPost(this.formData).subscribe(x => {
         this.dialogRef.close();
         this.isLoading = false;
@@ -70,5 +96,5 @@ export class PostAddComponent implements OnInit {
           duration: 2000,
         });
       });
-  }
+  }}
 }

@@ -1,4 +1,4 @@
-import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, Input, NgZone, OnInit, ViewChild} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {ActivatedRoute} from '@angular/router';
 import {Post} from '../../../models/post';
@@ -8,7 +8,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {Comment} from '../../../models/comment';
 import {DeleteDialogComponent} from '../../delete-dialog/delete-dialog.component';
 import {MatDialog} from '@angular/material/dialog';
-import {EditCommentDialogComponent} from '../edit-comment-dialog/edit-comment-dialog.component';
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -20,7 +20,7 @@ export class PostComponent implements OnInit {
               public auth: AuthenticationService, private _snackBar: MatSnackBar, private dialog: MatDialog) { }
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
-
+  @Input() commnets: any[] = [];
   title = 'Angular Infinite Scrolling List';
   loading = false;
   addCommentField = false;
@@ -41,9 +41,7 @@ export class PostComponent implements OnInit {
     this.refresh();
     this.comment = '';
   }
-  handleSelection(event) {
-    this.comment += event.char;
-  }
+
   refresh(): void {
     this.postService.getPost(this.id_post).subscribe(p => {
       this.post = p;
@@ -61,13 +59,16 @@ export class PostComponent implements OnInit {
     }
   }
 
-  likeBtnClick(element: Comment) {
-    this.postService.upvoteComment(element.id).subscribe(resp => {
-      this.refresh();
-      this._snackBar.open('You like this comment', 'hide',  {
-        duration: 2000,
-      });
-    });
+  likeBtnClick(element: Comment, i: number) {
+    if (element.upvoted) {
+      this.commnets[i].votes -= 1;
+      element.upvoted = false;
+    } else {
+      this.commnets[i].votes += 1;
+      element.upvoted = true;
+    }
+
+    this.postService.upvoteComment(element.id).subscribe();
   }
 
   likeBtnClickPost() {
@@ -88,22 +89,19 @@ export class PostComponent implements OnInit {
       }
     });
   }
-  // otwieranie pola edycji komentarza
+
   editComment(element: Comment): void {
     element.isEdited = !element.isEdited;
-    // if (!element.isEdited) {
-    //     const dialogRef = this.dialog.open(EditCommentDialogComponent, {
-    //       width: '250px',
-    //       disableClose: false,
-    //       hasBackdrop: true,
-    //       data: {id: element.id, model: element.text, post_id: this.post.id},
-    //     });
-    // }
   }
 
   editCommentSave(element: Comment): void {
     element.isEdited = !element.isEdited;
-    // TODO: Zapisywanie zmian
+    console.log('text: ' + element.text);
+    console.log('id: ' + element.id);
+    console.log('id post: ' + this.post.id);
+    this.postService.editComment(this.post.id, element.id, element.text).subscribe(resp => {
+      console.log(resp);
+    });
   }
 
   deleteComment(element: Comment): void {

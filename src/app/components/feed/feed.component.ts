@@ -9,6 +9,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 import {SubvykopService} from '../../services/subvykop.service';
 import {StatsItem} from '../../models/statsItem';
 import {animate, query, stagger, style, transition, trigger} from '@angular/animations';
+import {PostAddComponent} from '../post/post-add/post-add.component';
+import {MatDialog} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-feed',
@@ -32,7 +34,6 @@ import {animate, query, stagger, style, transition, trigger} from '@angular/anim
 export class FeedComponent implements OnInit {
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   title = 'Angular Infinite Scrolling List';
-  listItems = [];
   trendingSubs = [];
   popularUsers = [];
   loading = false;
@@ -41,18 +42,40 @@ export class FeedComponent implements OnInit {
   postLoaded = true;
   constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
               private userService: UserService, private postService: PostService,
-              private router: Router, private _snackBar: MatSnackBar, private subVykopService: SubvykopService) { }
+              private router: Router, private _snackBar: MatSnackBar,
+              private subVykopService: SubvykopService, public dialog: MatDialog) { }
 
   @Input() posts: any[] = [];
-
+  @Input() noPosts = false;
   deleteBtnClick(element: Post) {
     this.postService.deletePost(element.id).subscribe(resp => {
-      window.location.reload();
+      this.posts.forEach((el, index) => {
+        if (el.id === element.id) { this.posts.splice(index, 1); }
+      });
       this._snackBar.open('You deleted your post', 'hide',  {
         duration: 2000,
       });
     });
   }
+  editBtnClick(element: Post) {
+    const dialogRef = this.dialog.open(PostAddComponent, {
+      hasBackdrop: true,
+      data: element
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      for (let index = 0; index < this.posts.length; index++) {
+          if (this.posts[index].id === element.id) {
+              this.postService.getPost(element.id).subscribe(resp => {
+                this.posts[index].title = resp.title;
+                this.posts[index].content.text = resp.content.text;
+                this.posts[index].content.image  =  resp.content.image;
+                console.log(resp.content.image);
+              });
+        }
+      }
+    });
+  }
+
   likeBtnClick(element: Post, i) {
     if (element.upvoted) {
       this.posts[i].votes -= 1;
@@ -61,20 +84,9 @@ export class FeedComponent implements OnInit {
       this.posts[i].votes += 1;
       element.upvoted = true;
     }
-    this.postService.upvote(element.id).subscribe(resp => {
-      // this.refresh(element, i);
-      // console.log(resp);
-      // this._snackBar.open('You like this post', 'hide',  {
-      //   duration: 2000,
-      // });
-    });
+    this.postService.upvote(element.id).subscribe();
   }
-  refresh(element: Post, i): void {
-    this.postService.getPost(element.id).subscribe(p => {
-      element = p;
-      // this.posts[i].votes = element.votes;
-    });
-  }
+
   goToPost(event) {
     this.router.navigate(['post/' + event.id]);
   }

@@ -65,12 +65,16 @@ export class NavbarComponent implements OnInit {
   }
 
   goTo(sub: string) {
-    console.log('sub: ' + sub);
     if (this.router.url.includes('subVykop')) {
-      console.log('zawiera subvykop');
-      this.router.navigate(['../subVykop/' + sub]);
+      this.router
+        .routeReuseStrategy
+        .shouldReuseRoute = function () {
+        return false;
+      } ;
+      this.router.navigateByUrl('/subVykop/' + sub)
+    } else {
+       this.router.navigate(['/subVykop/' + sub]);
     }
-    this.router.navigate(['/subVykop/' + sub]);
   }
   profile() {
 

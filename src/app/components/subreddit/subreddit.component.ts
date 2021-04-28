@@ -26,7 +26,7 @@ export class SubredditComponent implements OnInit {
   listItems = [];
   imageURL: string;
   loading = false;
-  subredditId: any;
+  subredditName: any;
   isSub = false;
   parentData: any;
   index = 0;
@@ -37,9 +37,6 @@ export class SubredditComponent implements OnInit {
               private router: Router, private route: ActivatedRoute, public dialog: MatDialog,
               private _snackbar: MatSnackBar, private postService: PostService) { }
 
-  goToPost(event) {
-    this.router.navigate(['post/' + event.id]);
-  }
   joinSubVykop() {
     this.subvykopService.subscribe(this.subreddit.id).subscribe(resp => {
       if (resp === 'subscribed') {
@@ -68,19 +65,20 @@ export class SubredditComponent implements OnInit {
   ngOnInit(): void {
     this.noPosts = false;
     this.route.paramMap.subscribe( paramMap => {
-      this.subredditId = paramMap.get('id');
+      this.subredditName = paramMap.get('id');
     });
-    this.subvykopService.getSubVykopById(this.subredditId).subscribe(resp => {
-      this.subreddit = resp;
-      this.imageURL = resp.banner;
+    this.subvykopService.searchSubs(this.subredditName).subscribe(resp => {
+      this.subreddit = resp[0];
+      this.imageURL = resp[0].banner;
+      this.checkSub();
       this.fetchMore();
     });
-    this.subvykopService.checkSub(this.subredditId).subscribe(resp => {
-      if (resp) {
-        this.isSub = true;
-      } else {
-        this.isSub = false;
-      }
+  }
+
+  checkSub() {
+    this.subvykopService.checkSub(this.subreddit.id).subscribe(resp => {
+      this.isSub = !!resp;
+      console.log('sub: ' + this.isSub);
     });
   }
 
@@ -103,8 +101,8 @@ export class SubredditComponent implements OnInit {
 
   fetchMore(): void {
     this.busyGettingData = true;
+    console.log('index:' + this.index);
     this.subvykopService.getPostBySubVykopName(this.subreddit.name, this.index).subscribe(data => {
-      console.log(this.index);
       for (const post of data) {
         this.listItems.push(post);
       }
@@ -113,6 +111,7 @@ export class SubredditComponent implements OnInit {
       this.index ++ ;
     },
       error1 => {
+        console.log('error');
         this.busyGettingData = false;
         this.noPosts = true;
       });

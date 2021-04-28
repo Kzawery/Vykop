@@ -30,6 +30,10 @@ export class PostService {
     return this.http.post<Post>(`${environment.apiUrl}/posts`, post);
   }
 
+  editPost(id, post) {
+    return this.http.post<Post>(`${environment.apiUrl}/posts/edit/` + id, post);
+  }
+
   addComment(id, value) {
     return this.http.post<Post>(`${environment.apiUrl}/posts/` + id + '/comment', value);
   }
@@ -48,7 +52,7 @@ export class PostService {
   }
 
   editComment(post_id, comment_id, value) {
-    return this.http.put<Post>(`${environment.apiUrl}/posts/` + post_id + '/comment/' + comment_id, value);
+    return this.http.post<Post>(`${environment.apiUrl}/posts/` + post_id + '/comment/' + comment_id, value);
   }
 
 }

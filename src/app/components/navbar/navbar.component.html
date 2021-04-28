@@ -3,26 +3,16 @@
         <img class="img-center" src="../../../assets/logo.png">
       </a>
   <span class="example-spacer"></span>
-<!--  <mat-form-field floatLabel="always">-->
-<!--    <mat-select>-->
-<!--      <mat-option>-->
-<!--        <ngx-mat-select-search ngModel (ngModelChange)="filter($event)" placeholderLabel="seach" noEntriesFoundLabel="no results" ariaLabel="test"></ngx-mat-select-search>-->
-<!--      </mat-option>-->
-<!--      <mat-option *ngFor="let sub of subs" [value]="sub" (click)="goTo(sub.id)">-->
-<!--        {{sub.name}}-->
-<!--      </mat-option>-->
-<!--    </mat-select>-->
-<!--  </mat-form-field>-->
 
-  <mat-form-field style="height: 65px; width: 300px">
-    <input matInput placeholder="Search" aria-label="State" [matAutocomplete]="auto" formControlName="searchBar" (input)="filter($event.target.value)">
-    <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let sub of subs" [value]="sub" (click)="goTo(sub.name)">
-          <span>{{ sub.name }}</span>
-        </mat-option>
-    </mat-autocomplete>
-  </mat-form-field>
+  <input class="search" #inputElement matInput placeholder="Search" aria-label="State" [matAutocomplete]="auto" (keyup.enter)="goTo($event.target.value)" (input)="filter($event.target.value)" >
 
+  <mat-icon style="color: gray; margin: 10px; cursor: pointer" (click)="goTo(inputElement.value) ">search</mat-icon>
+
+  <mat-autocomplete #auto="matAutocomplete">
+    <mat-option *ngFor="let sub of subs" [value]="sub.name" (click)="goTo(sub.name)">
+      <span>{{ sub.name }}</span>
+    </mat-option>
+  </mat-autocomplete>
 
   <span class="example-spacer"></span>
   <span class="button-span">

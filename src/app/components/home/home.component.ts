@@ -35,6 +35,7 @@ export class HomeComponent implements OnInit, AfterViewInit{
   busyGettingData = false;
   message: string;
   parentData: any;
+  noPosts = false;
   listItems2 = [];
   i = 0;
   private feed: FeedComponent;
@@ -61,7 +62,7 @@ export class HomeComponent implements OnInit, AfterViewInit{
   ngOnInit(): void {
     this.webSocket.init();
     this.feed = new FeedComponent(this.ngZone, this.authenticationService, this.userService,
-      this.postService, this.router, this._snackBar, this.subVykopService);
+      this.postService, this.router, this._snackBar, this.subVykopService, this.dialog);
     this.fetchMore();
   }
   ngAfterViewInit(): void {
@@ -81,8 +82,11 @@ export class HomeComponent implements OnInit, AfterViewInit{
         this.listItems2.push(post);
       }
       this.i += 1;
-      console.log(this.feed.i);
-      console.log(data);
+      if (data.length === 0) {
+          this.noPosts = true;
+      }
+
+
       this.parentData = this.listItems2;
       this.feed.busyGettingData = false;
     }, error => {
