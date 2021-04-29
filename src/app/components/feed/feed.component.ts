@@ -57,22 +57,18 @@ export class FeedComponent implements OnInit {
       });
     });
   }
-  editBtnClick(element: Post) {
+  editBtnClick(element: Post, index: number) {
     const dialogRef = this.dialog.open(PostAddComponent, {
       hasBackdrop: true,
       data: element
     });
     dialogRef.afterClosed().subscribe(result => {
-      for (let index = 0; index < this.posts.length; index++) {
-          if (this.posts[index].id === element.id) {
-              this.postService.getPost(element.id).subscribe(resp => {
-                this.posts[index].title = resp.title;
-                this.posts[index].content.text = resp.content.text;
-                this.posts[index].content.image  =  resp.content.image;
-                console.log(resp.content.image);
-              });
-        }
-      }
+          this.postService.getPost(element.id).subscribe(resp => {
+            this.posts[index].title = resp.title;
+            this.posts[index].content.text = resp.content.text;
+            this.posts[index].content.image  =  resp.content.image;
+            console.log(resp.content.image);
+          });
     });
   }
 
