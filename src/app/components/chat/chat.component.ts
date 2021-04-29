@@ -4,6 +4,7 @@ import {animate, group, state, style, transition, trigger} from '@angular/animat
 import {delay} from 'rxjs/operators';
 import {WebsocketService} from '../../services/websocket.service';
 import {WebSocketAPI} from '../../services/WebSocketApi.service';
+import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-chat',
@@ -43,6 +44,7 @@ export class ChatComponent implements OnInit {
   searchedUsers = [];
   text: String;
   @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   private delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -81,6 +83,15 @@ export class ChatComponent implements OnInit {
         });
       });
   }
+  onScroll() {
+    console.log('scrolled up');
+    this.userService.getMsgByPage(this.msgReceiver.username, 0).subscribe( r => {
+      r.forEach(v => {
+        this.chatMessages.push(v);
+      });
+      console.log(this.chatMessages);
+    });
+  }
   async toggleChatOff() {
     this.chatToggle = !this.chatToggle;
     await this.delay(350);
@@ -111,7 +122,7 @@ export class ChatComponent implements OnInit {
     });
   }
   filter(name: String) {
-    this.webSocketApi.getUsersByName(name).subscribe(r => {
+    this.userService.getUsersByName(name).subscribe(r => {
       this.searchedUsers = r;
     });
   }

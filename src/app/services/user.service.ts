@@ -38,7 +38,9 @@ export class UserService {
   add(data) {
     return this.http.post(`${environment.apiUrl}/users`, data);
   }
-
+  getUsersByName(name) {
+    return this.http.get<User[]>(`${environment.apiUrl}/users/search?match=` + name);
+  }
   edit(data) {
     return this.http.put(`${environment.apiUrl}/users/` + data.get('id'), data);
   }
@@ -58,5 +60,8 @@ export class UserService {
     return this.http.get<any>(`${environment.apiUrl}/messages/${data}?page=0`);
   }
 
+  getMsgByPage(data, page) {
+    return this.http.get<any>(`${environment.apiUrl}/messages/${data}?page=${page}`);
+  }
 
 }
