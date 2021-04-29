@@ -85,7 +85,7 @@ export class ChatComponent implements OnInit {
   }
   onScroll() {
     console.log('scrolled up');
-    this.userService.getMsgByPage(this.msgReceiver.username, 0).subscribe( r => {
+    this.userService.getMsgByPage(this.msgReceiver.username, 1).subscribe( r => {
       r.forEach(v => {
         this.chatMessages.push(v);
       });
@@ -101,10 +101,16 @@ export class ChatComponent implements OnInit {
     this.chatToggle = !this.chatToggle;
     this.chatToggleUp = !this.chatToggleUp;
   }
-  toggleMsg(user: any) {
-    this.msgToggle = true;
+  async toggleMsg(user: any) {
+    this.msgToggle = false;
+    if (this.msgReceiver === user) {
+      this.msgReceiver = null;
+    } else {
+      await this.delay(350);
+      this.msgToggle = true;
       this.msgReceiver = user;
       this.getMsg();
+    }
   }
   send() {
     const msg = {
