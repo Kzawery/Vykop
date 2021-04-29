@@ -106,10 +106,10 @@ export class ChatComponent implements OnInit {
     if (this.msgReceiver === user) {
       this.msgReceiver = null;
     } else {
-      await this.delay(350);
-      this.msgToggle = true;
       this.msgReceiver = user;
       this.getMsg();
+      await this.delay(350);
+      this.msgToggle = true;
     }
   }
   send() {
