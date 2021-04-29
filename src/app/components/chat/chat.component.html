@@ -5,19 +5,11 @@
         <div class="msg-logo" style="background-image: url({{msgReceiver.avatar}})"></div>
         <div class="msg-username">{{msgReceiver.username}}</div>
       </div>
-      <button mat-icon-button class="example-icon favorite-icon" aria-label="Close chat" (click)="msgToggle = false">
+      <button mat-icon-button class="example-icon favorite-icon" aria-label="Close chat" (click)="msgToggle = false; this.msgReceiver = null;">
         <mat-icon>close</mat-icon>
       </button>
     </div>
-    <div class="msg-content"
-         infinite-scroll
-         alwaysCallback="true"
-         [infiniteScrollDistance]="2"
-         [infiniteScrollThrottle]="50"
-         [scrollWindow]="false"
-         (scrolledUp)="onScroll()"
-          #scrollMe [scrollTop]="scrollMe.scrollHeight">
-
+    <div class="msg-content" (scroll)="onScroll($event)" #scrollMe>
 
       <div [ngClass]="item.from==msgReceiver.username ? 'msg-message': 'msg-message-user'" *ngFor="let item of chatMessages; let i = index">
         <div class="msg-logo" *ngIf="item.from==msgReceiver.username" style="background-image: url({{msgReceiver.avatar}})"></div>

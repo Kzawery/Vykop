@@ -34,7 +34,7 @@ import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
   ]
 })
 export class ChatComponent implements OnInit {
-  constructor(private userService: UserService, private webSocket: WebsocketService, private webSocketApi: WebSocketAPI) {}
+  constructor(private userService: UserService, private webSocket: WebsocketService) {}
   chatToggle = false;
   chatToggleUp = true;
   userMessages = [];
@@ -42,8 +42,12 @@ export class ChatComponent implements OnInit {
   msgReceiver: any;
   chatMessages = [];
   searchedUsers = [];
+  isLoading = false;
+  page = 0;
   text: String;
-  @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  scrollHeight = 0;
+  // @ViewChild('scrollMe') private myScrollContainer: ElementRef;
+  @ViewChild('scrollMe', { static: false }) myScrollContainer: ElementRef;
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   private delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -83,14 +87,30 @@ export class ChatComponent implements OnInit {
         });
       });
   }
-  onScroll() {
-    console.log('scrolled up');
-    this.userService.getMsgByPage(this.msgReceiver.username, 1).subscribe( r => {
-      r.forEach(v => {
-        this.chatMessages.push(v);
+  onScroll($event) {
+
+    const elem: HTMLElement = $event.srcElement;
+
+    if (elem.scrollTop < 1) { elem.scrollTo(0, 1); }
+
+    if (this.isLoading) { return; }
+
+    if (elem.scrollTop < 20) {
+      this.isLoading = true;
+      this.userService.getMsgByPage(this.msgReceiver.username, this.page).subscribe( r => {
+        this.page++;
+        r = r.reverse();
+        r.forEach(v => {
+          this.chatMessages.unshift(v);
+        });
+        this.isLoading = false;
+        console.log(this.chatMessages);
+        elem.scrollTo(0, 1);
+      }, error => {
+        console.log('No new messages');
+        this.isLoading = false;
       });
-      console.log(this.chatMessages);
-    });
+    }
   }
   async toggleChatOff() {
     this.chatToggle = !this.chatToggle;
@@ -110,6 +130,8 @@ export class ChatComponent implements OnInit {
       this.getMsg();
       await this.delay(350);
       this.msgToggle = true;
+      await this.delay(50);
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     }
   }
   send() {
@@ -123,6 +145,7 @@ export class ChatComponent implements OnInit {
   getMsg() {
     this.userService.getMsg(this.msgReceiver.username).subscribe( r => {
       this.chatMessages = r;
+      this.page = 1;
     }, error => {
       this.chatMessages = null;
     });
