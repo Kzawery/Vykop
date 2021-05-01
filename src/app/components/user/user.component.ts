@@ -57,7 +57,7 @@ export class UserComponent implements OnInit {
 
   ngOnInit(): void {
     this.authenticationService.currentUser.subscribe( user =>
-      this.id = user.id,
+      this.id = user?.id,
     );
     this.route.paramMap.subscribe(paramMap => {
       this.user.username = paramMap.get('username');
