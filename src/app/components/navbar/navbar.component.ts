@@ -1,5 +1,4 @@
 import {Component, NgZone, OnInit} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UserService} from '../../services/user.service';
@@ -17,21 +16,13 @@ import {AddSubVykopComponent} from '../add-sub-vykop/add-sub-vykop.component';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  options: FormGroup;
-  hideRequiredControl = new FormControl(false);
   id: number;
-  floatLabelControl = new FormControl('auto');
   public subs: SubVykop[] = [];
-  constructor(fb: FormBuilder, private ngZone: NgZone,    private router: Router,
+  constructor(private ngZone: NgZone,    private router: Router,
               public authenticationService: AuthenticationService, private userService: UserService,
               private postService: PostService, private subService: SubvykopService, public dialog: MatDialog) {
-              this.options = fb.group({
-                hideRequired: this.hideRequiredControl,
-                floatLabel: this.floatLabelControl,
-    });
   }
   ngOnInit(): void {
-    console.log(this.authenticationService.currentUserValue.role);
     this.filter('');
   }
 
@@ -71,7 +62,7 @@ export class NavbarComponent implements OnInit {
         .shouldReuseRoute = function () {
         return false;
       } ;
-      this.router.navigateByUrl('/subVykop/' + sub)
+      this.router.navigateByUrl('/subVykop/' + sub);
     } else {
        this.router.navigate(['/subVykop/' + sub]);
     }
