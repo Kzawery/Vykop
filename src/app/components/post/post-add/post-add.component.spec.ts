@@ -3,6 +3,7 @@ import {  MatSnackBarModule } from '@angular/material/snack-bar';
 import { PostAddComponent } from './post-add.component';
 import {MAT_DIALOG_DATA, MatDialogRef} from '@angular/material/dialog';
 import {HttpClient} from '@angular/common/http';
+import {ActivatedRoute} from '@angular/router';
 
 describe('PostAddComponent', () => {
   let component: PostAddComponent;
@@ -16,6 +17,7 @@ describe('PostAddComponent', () => {
         { provide: MatDialogRef, useValue: {}},
         { provide: MAT_DIALOG_DATA, useValue: {}},
         { provide: HttpClient, useValue: {}},
+        { provide: ActivatedRoute, useValue: {} }
         ],
     })
     .compileComponents();
