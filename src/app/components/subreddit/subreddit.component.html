@@ -3,24 +3,21 @@
   <script src="https://code.jquery.com/jquery-3.5.0.js"></script>
 </head>
 <body>
-
 <app-navbar></app-navbar>
 <div itemSize="3" class="content">
 <!--  <div style="background: url({{subreddit.banner}}) no-repeat center / cover;background-position:center top;height:200px"> </div>-->
-  <section style="height:200px;width:100%;" [ngStyle]="{'background': 'url(' + banner + ') no-repeat center / cover'}"></section>
-  <div style="background: white; height: 100px">
-    <div style="display: flex;">
-      <img src="{{subreddit.avatar}}" style="margin-left: auto; margin-right: 20px; height: 100px; width: auto;">
-      <div style="margin-right: auto; margin-left: 20px; margin-top: auto; margin-bottom: auto">
-        <h1 style="margin-bottom: 0px">{{subreddit.name}}</h1>
-        <h4 style="margin-bottom: 0px; color: gray">r/{{subreddit.name}}</h4>
+  <section class="banner" [ngStyle]="{'background': 'url(' + banner + ') no-repeat center / cover'}"></section>
+  <div class="under-banner">
+    <div class="flex">
+      <img src="{{subreddit.avatar}}" class="avatar">
+      <div class="header-div">
+        <h1 class="header1">{{subreddit.name}}</h1>
+        <h4 class="header4">r/{{subreddit.name}}</h4>
         <button mat-flat-button color="primary" (click)="joinSubVykop()" *ngIf="!isSub"><mat-icon>add</mat-icon>Join</button>
         <button mat-flat-button color="primary" (click)="joinSubVykop()" *ngIf="isSub"><mat-icon>exit_to_app</mat-icon>Leave</button>
         <button mat-flat-button (click)="addPost()"><mat-icon>add</mat-icon>Add Post</button>
       </div>
-
     </div>
-
   </div>
 </div>
 
@@ -34,6 +31,5 @@
   <app-feed [posts]="parentData" [noPosts]="noPosts">
   </app-feed>
 </div>
-
 </body>
 </html>

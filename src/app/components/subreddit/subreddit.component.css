@@ -1,73 +1,36 @@
-.example-spacer {
-  /*flex: 1 1 auto;*/
-  /*flex-grow: 1*/
+.header1 {
+  margin-bottom: 0px;
 }
-
+.header4 {
+  margin-bottom: 0px;
+  color: gray;
+}
 .content {
   overflow: auto;
   width: 100%;
   height: auto;
 }
-
-.spinner-item {
-  display: grid;
-  place-items: center;
-  margin-top: 10px;
+.header-div {
+  margin-right: auto;
+  margin-left: 20px;
+  margin-top: auto;
+  margin-bottom: auto
 }
-
-.example-card {
-  max-width: 600px;
-  margin: auto;
-  margin-bottom: 10px;
+.banner {
+  height:200px;
+  width:100%;
 }
-
-
-.container {
-  max-width: 520px;
-  height: 400px;
-  overflow: hidden;
+.under-banner {
+  background: white;
+  height: 100px
 }
-
-.show {
-  overflow: visible;
-  height: auto;
-}
-
-.show {
-  overflow: visible;
-  height: auto;
-}
-
-.example-header-image {
-  height: 30px;
-  width: 30px;
-  background-size: cover;
-  margin-right: 0px;
-}
-.centered {
-  max-width: 500px;
-  margin: auto;
-}
-.mat-card-image{
-  padding: 10px;
-}
-.mat-card-header{
-  float: left;
-}
-.text-center{
-  text-align: center;
+.flex {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-bottom: auto;
-  margin-top: auto ;
 }
-
-.mat-button-toggle-label-content {
-  line-height: 10px !important;
+.avatar {
+  margin-left: auto;
+  margin-right: 20px;
+  height: 100px;
+  width: auto;
 }
-.p{
-  word-break: break-all;
-}
-
 

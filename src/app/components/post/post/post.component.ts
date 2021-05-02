@@ -31,7 +31,6 @@ export class PostComponent implements OnInit {
   post: Post = new Post();
   comment: string;
   toggled: boolean;
-  message: string;
   text  =  '';
 
   ngOnInit(): void {
@@ -55,7 +54,7 @@ export class PostComponent implements OnInit {
     } else {
       this.comment += e.char;
     }
-    }
+  }
 
   handleCharDelete(e, element)  {
     if (element != null) {

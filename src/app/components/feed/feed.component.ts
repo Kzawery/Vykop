@@ -106,10 +106,4 @@ export class FeedComponent implements OnInit {
       }
     });
   }
-
-  // ngOnChanges(changes: any) {
-  //  if ( changes.posts.length > 0) {
-  //    this.postLoaded = false;
-  //  }
-  // }
 }

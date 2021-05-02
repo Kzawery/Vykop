@@ -40,7 +40,7 @@ export class RegisterComponent implements OnInit {
           this.validCredentials = true;
           this.router.navigate(['/login']);
         },
-        error => {
+        () => {
           this.validCredentials = false;
           this.isLoading = false;
         });

@@ -11,7 +11,6 @@ import {PostAddComponent} from '../post/post-add/post-add.component';
 import {FeedComponent} from '../feed/feed.component';
 import {MatSnackBar} from '@angular/material/snack-bar';
 import {SubvykopService} from '../../services/subvykop.service';
-import { Client, Message } from '@stomp/stompjs';
 import {WebsocketService} from '../../services/websocket.service';
 
 @Component({
@@ -23,8 +22,6 @@ import {WebsocketService} from '../../services/websocket.service';
 export class HomeComponent implements OnInit, AfterViewInit {
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
-
-  title = 'Angular Infinite Scrolling List';
   loading = false;
   busyGettingData = false;
   message: string;
@@ -79,7 +76,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
       }
       this.parentData = this.listItems2;
       this.feed.busyGettingData = false;
-    }, error => {
+    }, () => {
       this.noPosts = true;
       this.feed.busyGettingData = false;
     });

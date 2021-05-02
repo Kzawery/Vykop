@@ -59,8 +59,6 @@ export class AddSubVykopComponent implements OnInit {
        this.onBack();
      });
   }
-
-
   public dropped2(files: NgxFileDropEntry[]) {
     this.files = files;
     for (const droppedFile of files) {
