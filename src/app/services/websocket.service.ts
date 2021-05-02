@@ -66,17 +66,14 @@ export class WebsocketService {
     this.missionConfirmedSource.next(astronaut);
   }
   callback = (message) => {
-    console.log("test")
     const _this = this;
     this.confirmMission(JSON.parse(message.body));
   }
   callbackLog = (message) => {
-    console.log("test")
     const _this = this;
     this.LogConfirmedSource.next(JSON.parse(message.body));
   }
   callbackLogout = (message) => {
-    console.log("test")
     const _this = this;
     this.LogoutConfirmedSource.next(JSON.parse(message.body));
   }

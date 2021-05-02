@@ -1,5 +1,4 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, NgZone, OnInit, ViewChild} from '@angular/core';
-import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {filter, map, pairwise, throttleTime} from 'rxjs/operators';
 import {timer} from 'rxjs';
@@ -15,23 +14,18 @@ import {SubvykopService} from '../../services/subvykop.service';
 import { Client, Message } from '@stomp/stompjs';
 import {WebsocketService} from '../../services/websocket.service';
 
-
-
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   changeDetection: ChangeDetectionStrategy.Default
 })
-export class HomeComponent implements OnInit, AfterViewInit{
+export class HomeComponent implements OnInit, AfterViewInit {
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
 
   title = 'Angular Infinite Scrolling List';
   loading = false;
-  options: FormGroup;
-  hideRequiredControl = new FormControl(false);
-  floatLabelControl = new FormControl('auto');
   busyGettingData = false;
   message: string;
   parentData: any;
@@ -47,16 +41,12 @@ export class HomeComponent implements OnInit, AfterViewInit{
   childMsg(event) {
     this.message = event;
   }
-  constructor(fb: FormBuilder, private ngZone: NgZone, private router: Router,
+  constructor( private ngZone: NgZone, private router: Router,
               private authenticationService: AuthenticationService, private userService: UserService,
               private postService: PostService, public dialog: MatDialog,
               private _snackBar: MatSnackBar, public subVykopService: SubvykopService,
               private webSocket: WebsocketService
   ) {
-    this.options = fb.group({
-      hideRequired: this.hideRequiredControl,
-      floatLabel: this.floatLabelControl,
-    });
   }
 
   ngOnInit(): void {
