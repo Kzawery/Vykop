@@ -19,7 +19,7 @@
       </div>
     </div>
     <div class="msg-write">
-        <textarea class="textarea" [(ngModel)]='text'></textarea>
+        <textarea class="textarea" [(ngModel)]='text' (keyup.enter)="send()" ></textarea>
        <button mat-icon-button class="example-icon favorite-icon" (click)="send()">
         <mat-icon>send</mat-icon>
        </button>
@@ -29,6 +29,7 @@
     <div class="messenger-label">Messenger</div>
   </div>
   <div class="chat-list" *ngIf="chatToggle" [@slideInOut]>
+
     <div class="chat-list-title">
       <div class="messenger-label">Messenger</div>
       <button mat-icon-button class="example-icon favorite-icon chat-title-button" aria-label="Close chat" (click)="toggleChatOff()">
@@ -39,8 +40,8 @@
     <div class="chat-searchbar">
       <input class="search" #inputElement matInput (input)="filter($event.target.value)" placeholder="Search">
     </div>
-
-    <div *ngIf="searchedUsers.length != 0">
+    <div>
+    <div *ngIf="searchedUsers.length != 0" style="overflow-y: scroll; height: 555px">
       <div class="trending-item" style="width: 100%; height: fit-content" *ngFor="let user of searchedUsers" (click)="toggleMsg(user); searchedUsers = []; inputElement.value = null">
         <div class="logo-trending" style="background-image: url({{user.avatar}})"></div>
         <div class="description">
@@ -49,7 +50,8 @@
 
       </div>
     </div>
-    <div *ngIf="searchedUsers.length == 0">
+    </div>
+    <div *ngIf="searchedUsers.length == 0" style="overflow-y: scroll; height: 555px">
     <div class="trending-item" *ngFor="let item of userMessages; let i = index" (click)="toggleMsg(item)" >
       <div class="logo-trending" style="background-image: url({{item.avatar}})"></div>
       <div class="description">

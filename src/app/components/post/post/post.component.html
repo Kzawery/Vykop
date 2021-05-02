@@ -46,32 +46,36 @@
           <textarea class="comment-textarea" placeholder="Comment" [(ngModel)]='comment'>
           </textarea>
 
-          <div style="display:flex;" class="centered">
+          <ngx-emoj style="height: 300px" *ngIf="toggled"
+                    (onemojipick)="handleEmoji($event, null)"
+                    (onchardelete)="handleCharDelete($event, null)"
+                    [height]="'250px'"
+                    [theme]=" {
+                    martShowHeader: true,
+                    martShowFooter: true,
+                    martHeaderPadding: {x: '0px', y: '0px'},
+                    martFooterPadding: {x: '0px', y: '0px'},
+                    martHeaderBG: '#e3e7e8',
+                    martFooterBG: '#e3e7e8',
+                    martBG: '#ebeff2',
+                    martCategoryColor: '#94a0a6',
+                    martCategoryColorActive:  '#455a64',
+                    martActiveCategoryIndicatorColor: '#00897b',
+                    martEmojiFontSize: '100%',
+                    martCategoryFontSize: '13px',
+                    martBorderRadius: '0px',
+                    martActiveCategoryIndicatorHeight: '3px',
+                    martEmojiPadding: {x: '37px', y: '40px'}
+                  }">
+          </ngx-emoj>
+
+
+          <div style="display:flex;">
             <div mat-button mdbBtn class="emoji-div"
                  (click)="toggled = !toggled">😄</div>
             <button mat-button mdbBtn type="button" style="margin-left: 60%" (click)="addComment()"><mat-icon>send</mat-icon></button>
           </div>
-        <ngx-emoj *ngIf="toggled"
-                  (onemojipick)="handleEmoji($event)"
-                  (onchardelete)="handleCharDelete($event)"
-                  [theme]=" {
-                  martShowHeader: true,
-                  martShowFooter: true,
-                  martHeaderPadding: {x: '0px', y: '0px'},
-                  martFooterPadding: {x: '0px', y: '0px'},
-                  martHeaderBG: '#e3e7e8',
-                  martFooterBG: '#e3e7e8',
-                  martBG: '#ebeff2',
-                  martCategoryColor: '#94a0a6',
-                  martCategoryColorActive:  '#455a64',
-                  martActiveCategoryIndicatorColor: '#00897b',
-                  martEmojiFontSize: '100%',
-                  martCategoryFontSize: '13px',
-                  martBorderRadius: '17px',
-                  martActiveCategoryIndicatorHeight: '3px',
-                  martEmojiPadding: {x: '37px', y: '40px'}
-                  }">
-        </ngx-emoj>
+
         </mat-card-content>
       </mat-card>
   </div>
@@ -107,10 +111,10 @@
           <div mat-button mdbBtn class="emoji-div"
                (click)="element.isToggled = !element.isToggled">😄</div>
           <button mat-button mdbBtn type="button" style="margin-left: 60%" (click)="editCommentSave(element)"><mat-icon>save</mat-icon></button>
-          </div>
+        </div>
         <ngx-emoj *ngIf="element.isToggled"
-                  (onemojipick)="handleEmoji($event)"
-                  (onchardelete)="handleCharDelete($event)"
+                  (onemojipick)="handleEmoji($event, element)"
+                  (onchardelete)="handleCharDelete($event, element)"
                   [theme]=" {
                   martShowHeader: true,
                   martShowFooter: true,
@@ -146,3 +150,4 @@
 
 </body>
 </html>
+<app-chat></app-chat>

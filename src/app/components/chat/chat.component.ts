@@ -46,8 +46,8 @@ export class ChatComponent implements OnInit {
   page = 0;
   text: String;
   scrollHeight = 0;
-  // @ViewChild('scrollMe') private myScrollContainer: ElementRef;
-  @ViewChild('scrollMe', { static: false }) myScrollContainer: ElementRef;
+  offset = 0;
+  @ViewChild('scrollMe') myScrollContainer: ElementRef;
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   private delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -97,8 +97,10 @@ export class ChatComponent implements OnInit {
 
     if (elem.scrollTop < 20) {
       this.isLoading = true;
+
       this.userService.getMsgByPage(this.msgReceiver.username, this.page).subscribe( r => {
         this.page++;
+        r = r.slice(0, r.length - this.offset);
         r = r.reverse();
         r.forEach(v => {
           this.chatMessages.unshift(v);
@@ -141,11 +143,17 @@ export class ChatComponent implements OnInit {
       };
     this.webSocket.sendMsg(msg);
     this.text = '';
+    this.offset ++;
+    if (this.offset % 20 === 0) {
+      this.page ++;
+      this.offset = 0;
+    }
   }
   getMsg() {
     this.userService.getMsg(this.msgReceiver.username).subscribe( r => {
       this.chatMessages = r;
       this.page = 1;
+      this.offset = 0;
     }, error => {
       this.chatMessages = null;
     });

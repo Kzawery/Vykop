@@ -1,6 +1,13 @@
 .example-card {
   max-width: 400px;
 }
+
+.drop-zone {
+  height: 300px;
+  width: 300px;
+  background-color: red;
+}
+
 .mat-card{
   position: absolute;
   margin: auto;

@@ -6,10 +6,11 @@
 
 <app-navbar></app-navbar>
 <div itemSize="3" class="content">
-  <div style="background:#0079d3 url({{subreddit.banner}}) no-repeat center / cover;background-position:center top;height:200px"> </div>
+<!--  <div style="background: url({{subreddit.banner}}) no-repeat center / cover;background-position:center top;height:200px"> </div>-->
+  <section style="height:200px;width:100%;" [ngStyle]="{'background': 'url(' + banner + ') no-repeat center / cover'}"></section>
   <div style="background: white; height: 100px">
     <div style="display: flex;">
-      <img src="{{subreddit.banner}}" style="margin-left: auto; margin-right: 20px; height: 100px; width: auto;">
+      <img src="{{subreddit.avatar}}" style="margin-left: auto; margin-right: 20px; height: 100px; width: auto;">
       <div style="margin-right: auto; margin-left: 20px; margin-top: auto; margin-bottom: auto">
         <h1 style="margin-bottom: 0px">{{subreddit.name}}</h1>
         <h4 style="margin-bottom: 0px; color: gray">r/{{subreddit.name}}</h4>
@@ -25,8 +26,8 @@
 
 <div
   infinite-scroll
-  [infiniteScrollDistance]="3"
-  [infiniteScrollThrottle]="150"
+  [infiniteScrollDistance]="2"
+  [infiniteScrollThrottle]="200"
   (scrolled)="onScroll()"
   [infiniteScrollDisabled]="busyGettingData"
 >

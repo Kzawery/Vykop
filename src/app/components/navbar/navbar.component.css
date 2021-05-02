@@ -1,29 +1,19 @@
 .navbar {
-  /*display: flex;*/
-  /*justify-content: space-between;*/
-  /*justify-items: end;*/
   position: sticky;
   position: -webkit-sticky;
   top: 0;
   z-index: 1000;
   margin-bottom: 0px;
 }
-.logo-span {
-
-}
-
 @media only screen and (max-width: 470px) {
   .button-span {
     display: none;
   }
 }
-
 mat-form-field  {
   width: 200px;
 }
-ngx-mat-select-search {
-  width: 200px;
-}
+
 .img-center {
   height: 150px;
 }
@@ -33,7 +23,11 @@ ngx-mat-select-search {
 .mat-select-search-inner.mat-typography.mat-datepicker-content.mat-tab-header{
   width: 200px;
 }
-
+.search-icon {
+  color: gray;
+  margin: 10px;
+  cursor: pointer;
+}
 .search {
   padding: 0 20px;
   max-width: 400px;
@@ -41,23 +35,4 @@ ngx-mat-select-search {
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box
-}
-
-
-.submit {
-  cursor: pointer;
-  border: none;
-  background-color: #0079d3;
-  background-size: 35px 35px;
-  border-radius: 0 20px 20px 0;
-  /*padding: 15px 25px;*/
-
-  display: inline-block;
-  width: 40px;
-  height: 40px;
-}
-
-.wrapper {
-  max-width: 550px;
-  width: 80%;
 }

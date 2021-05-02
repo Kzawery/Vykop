@@ -49,13 +49,23 @@ export class PostComponent implements OnInit {
     });
   }
 
-  handleEmoji(e)  {
-    this.comment +=  e.char;
+  handleEmoji(e, element)  {
+    if (element != null) {
+      element.text += e.char;
+    } else {
+      this.comment += e.char;
+    }
     }
 
-  handleCharDelete(e)  {
-    if (this.text.length >  0) {
-      this.text =  this.text.substr(0,  this.text.length -  2);
+  handleCharDelete(e, element)  {
+    if (element != null) {
+      if (element.text.length >  0) {
+        element.text =  element.text.substr(0,  element.text.length -  2);
+      }
+    }  else {
+      if (this.text.length > 0) {
+        this.text = this.text.substr(0, this.text.length - 2);
+      }
     }
   }
 

@@ -71,9 +71,16 @@ export class PostAddComponent implements OnInit {
     this.formData.append('title', this.title);
     this.formData.append('text', this.text !== undefined ? this.text : '');
     this.formData.append('subVykop', this.subVykop);
+    if (this.imageURL != null) {
+      console.log('imageURL: ' + this.imageURL.toString());
+      this.formData.append('image', this.imageURL.toString());
+    } else {
+      console.log('imageURL: ' + null);
+      this.formData.append('image', null);
+    }
     if (this.edited) {
       this.postService.editPost(this.post.id, this.formData).subscribe( x => {
-        this.dialogRef.close();
+        this.dialogRef.close(x);
         this._snackBar.open('Post have been edited', 'hide',  {
           duration: 2000,
         });
@@ -84,11 +91,12 @@ export class PostAddComponent implements OnInit {
       });
     } else {
     this.postService.addPost(this.formData).subscribe(x => {
-        this.dialogRef.close();
+        this.dialogRef.close(x);
         this.isLoading = false;
           this._snackBar.open('Post have been added', 'hide',  {
             duration: 2000,
-          }); },
+          });
+          },
       error => {
         this.isLoading = false;
         this._snackBar.open('Sorry, there was an error with your post', 'hide',  {

@@ -7,14 +7,13 @@
       <mat-card class="example-card">
         <mat-card-title class="p">{{item.title}}</mat-card-title>
         <mat-card-header class="mat-card-header">
-          <div mat-card-avatar class="example-header-image" style="background-image: url({{item.author.avatar}})"></div>
+          <div mat-card-avatar class="example-header-image" style="background-image: url({{item.author.avatar}});"></div>
           <a href="subVykop/{{item.subVykop.name}}" class="text-center" style="margin-right: 10px">r/{{item.subVykop.name}}</a>
           <p class="text-center" style="margin-right: 10px">Posted by:</p>
           <a class="text-center" href="u/{{item.author.username}}">u/{{item.author.username}}</a>
-        </mat-card-header> <br>
+        </mat-card-header> <br style="margin-top: 10px">
         <mat-card-content [class.show]="true" class="container">
           <img [src]="item.content.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-bottom: 10px; display: flex"  *ngIf="item.content.image">
-          <mat-video src="{{item.content.video}}" *ngIf="item.content.video"></mat-video>
           <br>
           <p class="p" *ngIf="!!item.content.text">{{item.content.text}}</p>
         </mat-card-content>
@@ -29,10 +28,6 @@
       </mat-card>
     </ng-container>
     <div class="spinner-item">
-      <mat-progress-spinner [mode]="'indeterminate'" [diameter]="50" *ngIf="loading"></mat-progress-spinner>
-    </div>
-    <div class="spinner-item" *ngIf="!loading">
-<!--      There are no more posts to load.-->
       <mat-spinner *ngIf="!noPosts"></mat-spinner>
       <p *ngIf="noPosts">There are no more posts to load.</p>
     </div>
@@ -49,7 +44,7 @@
             <div class="descriptionName-trending">{{item.name}}</div>
             <div class="descriptionUsers-trending">{{item.score}} members</div>
           </div>
-          <button mat-button class="trending-join" > <a href="subVykop/{{item.name}}"> <mat-icon> send </mat-icon> </a> </button>
+          <button mat-button class="trending-join" > <a href="subVykop/{{item.name}}"> <mat-icon class="icon"> send </mat-icon> </a> </button>
         </div>
       </div>
     </div>
@@ -69,3 +64,4 @@
     </div>
   </div>
 </div>
+<app-chat></app-chat>

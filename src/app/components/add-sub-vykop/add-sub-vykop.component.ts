@@ -1,9 +1,7 @@
-import {Component, Injectable, OnInit} from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {Component, OnInit} from '@angular/core';
 import {FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
 import {SubVykop} from '../../models/subVykop';
 import {MatDialogRef} from '@angular/material/dialog';
-import {first} from 'rxjs/operators';
 import {SubvykopService} from '../../services/subvykop.service';
 
 @Component({
@@ -48,7 +46,6 @@ export class AddSubVykopComponent implements OnInit {
   }
 
   onEdit() {
-
     this.isLoading = true;
     this.subVykopForm.append('name', this.name);
     this.subVykopForm.append('description', this.description);
@@ -82,5 +79,4 @@ export class AddSubVykopComponent implements OnInit {
       }
     }
   }
-
 }

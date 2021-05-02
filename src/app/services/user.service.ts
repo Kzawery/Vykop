@@ -42,7 +42,7 @@ export class UserService {
     return this.http.get<User[]>(`${environment.apiUrl}/users/search?match=` + name);
   }
   edit(data) {
-    return this.http.put(`${environment.apiUrl}/users/` + data.get('id'), data);
+    return this.http.put(`${environment.apiUrl}/users/` + data.id, data);
   }
   getMostPopularUsers() {
     return this.http.get<User[]>(`${environment.apiUrl}/users/most_popular`);

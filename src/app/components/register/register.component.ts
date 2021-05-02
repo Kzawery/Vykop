@@ -41,7 +41,6 @@ export class RegisterComponent implements OnInit {
           this.router.navigate(['/login']);
         },
         error => {
-          console.log('zajete');
           this.validCredentials = false;
           this.isLoading = false;
         });
@@ -49,5 +48,4 @@ export class RegisterComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
 }

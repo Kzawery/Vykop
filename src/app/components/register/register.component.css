@@ -2,7 +2,7 @@
   max-width: 400px;
 }
 .error-dv{
-  margin-top: 20px;
+  margin-top: 40px;
 }
 .error{
   color: #e6183b;
@@ -45,7 +45,7 @@
 }
 
 .register-div{
-  padding-top: 20%;
+  padding-top: 10%;
   font-family: Verdana;
   font-size: 15px;
   text-align: center;

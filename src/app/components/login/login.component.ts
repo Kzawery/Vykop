@@ -1,12 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from '../../services/authentication.service';
-import {first} from 'rxjs/operators';
-import {AppRoutingModule} from '../../app-routing.module';
 import {Router} from '@angular/router';
-import {WebSocketAPI} from '../../services/WebSocketApi.service';
 import {WebsocketService} from '../../services/websocket.service';
-
+import {first} from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -14,8 +11,6 @@ import {WebsocketService} from '../../services/websocket.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-
-  isLoading = false;
   loading = false;
   submitted = false;
   hide = true;
@@ -38,6 +33,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          console.log(data);
           this.router.navigate(['/']);
         },
         error => {
@@ -48,6 +44,4 @@ export class LoginComponent implements OnInit {
     toRegister() {
     this.router.navigate(['/register']);
   }
-
-
 }

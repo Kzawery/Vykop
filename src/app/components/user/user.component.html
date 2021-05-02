@@ -1,15 +1,16 @@
 <app-navbar></app-navbar>
 <mat-card class="example-card" style="margin-top: 10px">
-  <mat-card-title class="p">{{user?.username}}</mat-card-title>
+<!--  <mat-card-title class="p">{{user.username}}</mat-card-title>-->
   <mat-card-content [class.show]="true" class="container">
     <div>
       <div class="float-child1">
         <img src="{{user.avatar}}" style="max-width:100%; max-height:100%;">
       </div>
       <div class="float-child2">
+        <p>Username: {{user.username}}</p>
         <p>Registration Date: {{user.registrationDate}}</p>
-        <p *ngIf="user.username == authenticationService.currentUserValue?.username">Email: {{user.email}}</p>
-        <mat-icon *ngIf="id === user?.id" class="edit-icon" (click)="profile()"> edit </mat-icon>
+<!--        <p *ngIf="user.username == authenticationService.currentUserValue.username">Email: {{user.email}}</p>-->
+        <mat-icon *ngIf="id == user.id" class="edit-icon" (click)="profile()"> edit </mat-icon>
       </div>
     </div>
   </mat-card-content>

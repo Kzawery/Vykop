@@ -52,7 +52,8 @@ export class UserComponent implements OnInit {
   id: number;
   stats: Object;
 
-  constructor(private userService: UserService, private route: ActivatedRoute, private authenticationService: AuthenticationService, public dialog: MatDialog) {
+  constructor(private userService: UserService, private route: ActivatedRoute, private authenticationService: AuthenticationService,
+              public dialog: MatDialog) {
   }
 
   ngOnInit(): void {
@@ -75,7 +76,7 @@ export class UserComponent implements OnInit {
         labels: ['Posts', 'Post Upvotes', 'Comments', 'Comment Upvotes'],
         datasets: [{
           label: '',
-          data:[ ],
+          data: [],
           backgroundColor: [
             'rgba(255, 99, 132, 0.2)',
             'rgba(54, 162, 235, 0.2)',

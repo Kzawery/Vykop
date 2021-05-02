@@ -1,4 +1,4 @@
-import {Component, Input, NgZone, OnInit, SimpleChanges, ViewChild, OnChanges} from '@angular/core';
+import {Component, Input, NgZone, OnInit, ViewChild} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UserService} from '../../services/user.service';
@@ -36,7 +36,6 @@ export class FeedComponent implements OnInit {
   title = 'Angular Infinite Scrolling List';
   trendingSubs = [];
   popularUsers = [];
-  loading = false;
   i = 0 ;
   busyGettingData = false;
   postLoaded = true;
@@ -108,9 +107,9 @@ export class FeedComponent implements OnInit {
     });
   }
 
-  ngOnChanges(changes: any) {
-   if ( changes.posts.length > 0) {
-     this.postLoaded = false;
-   }
-  }
+  // ngOnChanges(changes: any) {
+  //  if ( changes.posts.length > 0) {
+  //    this.postLoaded = false;
+  //  }
+  // }
 }

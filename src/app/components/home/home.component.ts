@@ -35,7 +35,9 @@ export class HomeComponent implements OnInit, AfterViewInit {
   private feed: FeedComponent;
 
   onScroll() {
-    this.fetchMore();
+    if (!this.noPosts) {
+      this.fetchMore();
+    }
   }
 
   childMsg(event) {
@@ -75,12 +77,10 @@ export class HomeComponent implements OnInit, AfterViewInit {
       if (data.length === 0) {
           this.noPosts = true;
       }
-
-
       this.parentData = this.listItems2;
       this.feed.busyGettingData = false;
     }, error => {
-      this.feed.loading = false;
+      this.noPosts = true;
       this.feed.busyGettingData = false;
     });
   }

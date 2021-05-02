@@ -14,8 +14,8 @@ import {FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
 })
 export class UserProfileComponent implements OnInit {
 
-  // tslint:disable-next-line:max-line-length
-  constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<UserProfileComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService) {}
+  constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<UserProfileComponent>,
+              @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService) {}
   isLoading = false;
   form = new FormData();
   hide = true;
@@ -25,13 +25,13 @@ export class UserProfileComponent implements OnInit {
     form_basic_username: new FormControl('', [Validators.required]),
     form_basic_password:  new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&].{8,}')]),
     email: new FormControl('', [Validators.required, Validators.email]),
-    role: new FormControl('', [Validators.required])
+    role: new FormControl('user', [Validators.required])
   });
-
   ngOnInit(): void {
     if (this.data) {
-      console.log("test")
-      console.log(this.data)
+      console.log('test');
+      console.log(this.data);
+      console.log(this.registerForm);
       this.userService.getById(this.data.id).subscribe( u => {
         console.log(u);
         this.userDB = u;
@@ -45,7 +45,6 @@ export class UserProfileComponent implements OnInit {
       form_basic_username: this.userDB.username,
       form_basic_password: this.userDB.password,
       email: this.userDB.email,
-      role: this.userDB.role,
     });
   }
 
@@ -74,12 +73,14 @@ export class UserProfileComponent implements OnInit {
 
   onEdit() {
     this.isLoading = true;
-    this.form.append('id', this.userDB.id.toString());
-    this.form.append('username', this.registerForm.get('form_basic_username').value);
-    this.form.append('password', this.registerForm.get('form_basic_password').value);
-    this.form.append('registrationDate', this.userDB.registrationDate);
-    this.form.append('email', this.registerForm.get('email').value);
-    this.userService.edit(this.form)
+    // this.form.append('id', this.userDB.id.toString());
+    // this.form.append('username', this.registerForm.get('form_basic_username').value);
+    // this.form.append('password', this.registerForm.get('form_basic_password').value);
+    // this.form.append('role', 'admin');
+    // this.form.append('registrationDate', this.userDB.registrationDate);
+    this.userDB.email = 'email@email.pl';
+    console.log(this.userDB);
+    this.userService.edit(this.userDB)
       .pipe(first())
       .subscribe(
         data => {

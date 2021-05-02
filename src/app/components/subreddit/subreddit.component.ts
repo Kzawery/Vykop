@@ -1,6 +1,5 @@
 import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {timer} from 'rxjs';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UserService} from '../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
@@ -9,8 +8,6 @@ import {SubvykopService} from '../../services/subvykop.service';
 import {PostAddComponent} from '../post/post-add/post-add.component';
 import {MatDialog} from '@angular/material/dialog';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {Post} from '../../models/post';
-import {PostService} from '../../services/post.service';
 
 @Component({
   selector: 'app-subreddit',
@@ -24,7 +21,6 @@ export class SubredditComponent implements OnInit {
   title = 'Angular Infinite Scrolling List';
   subreddit: SubVykop = new SubVykop();
   listItems = [];
-  imageURL: string;
   loading = false;
   subredditName: any;
   isSub = false;
@@ -32,10 +28,12 @@ export class SubredditComponent implements OnInit {
   index = 0;
   noPosts: boolean;
   busyGettingData = false;
+  banner: string;
+  postIds = [];
   constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
               private userService: UserService, private subvykopService: SubvykopService,
               private router: Router, private route: ActivatedRoute, public dialog: MatDialog,
-              private _snackbar: MatSnackBar, private postService: PostService) { }
+              private _snackbar: MatSnackBar) { }
 
   joinSubVykop() {
     this.subvykopService.subscribe(this.subreddit.id).subscribe(resp => {
@@ -51,16 +49,15 @@ export class SubredditComponent implements OnInit {
     });
   }
 
-
   addPost() {
     const dialogRef = this.dialog.open(PostAddComponent, {
       hasBackdrop: true,
       data: this.subreddit.name
     });
     dialogRef.afterClosed().subscribe(result => {
+      this.listItems.unshift(result);
     });
   }
-
 
   ngOnInit(): void {
     this.noPosts = false;
@@ -69,52 +66,42 @@ export class SubredditComponent implements OnInit {
     });
     this.subvykopService.searchSubs(this.subredditName).subscribe(resp => {
       this.subreddit = resp[0];
-      this.imageURL = resp[0].banner;
+      this.banner = resp[0].banner;
       this.checkSub();
       this.fetchMore();
+      console.log(this.banner);
+      console.log(resp[0].avatar);
     });
   }
 
   checkSub() {
     this.subvykopService.checkSub(this.subreddit.id).subscribe(resp => {
       this.isSub = !!resp;
-      console.log('sub: ' + this.isSub);
     });
   }
 
   onScroll() {
-    this.fetchMore();
-  }
-
-  likeBtnClick(element: Post, i) {
-    this.postService.upvote(element.id).subscribe(resp => {
-      this.refresh(element, i);
-      console.log(resp);
-      });
-  }
-  refresh(element: Post, i): void {
-    this.postService.getPost(element.id).subscribe(p => {
-      element = p;
-      this.listItems[i].votes = element.votes;
-    });
+    if (!this.noPosts) {
+      this.fetchMore();
+    }
   }
 
   fetchMore(): void {
     this.busyGettingData = true;
-    console.log('index:' + this.index);
     this.subvykopService.getPostBySubVykopName(this.subreddit.name, this.index).subscribe(data => {
       for (const post of data) {
-        this.listItems.push(post);
+        if (!this.postIds.includes(post.id)) {
+          this.listItems.push(post);
+          this.postIds.push(post.id);
+        }
       }
       this.parentData = this.listItems;
       this.busyGettingData = false;
       this.index ++ ;
     },
-      error1 => {
-        console.log('error');
+      () => {
         this.busyGettingData = false;
         this.noPosts = true;
       });
   }
-
 }
