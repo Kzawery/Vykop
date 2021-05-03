@@ -1,9 +1,7 @@
-import {Component, ElementRef, HostBinding, OnInit, ViewChild} from '@angular/core';
+import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {animate, group, state, style, transition, trigger} from '@angular/animations';
-import {delay} from 'rxjs/operators';
 import {WebsocketService} from '../../services/websocket.service';
-import {WebSocketAPI} from '../../services/WebSocketApi.service';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 
 @Component({
