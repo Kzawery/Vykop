@@ -153,7 +153,7 @@ export class ChatComponent implements OnInit {
       this.page = 1;
       this.offset = 0;
     }, error => {
-      this.chatMessages = null;
+      this.chatMessages = [];
     });
   }
   filter(name: String) {

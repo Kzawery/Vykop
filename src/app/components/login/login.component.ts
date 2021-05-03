@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
       .subscribe(
         data => {
           console.log(data);
-          this.router.navigate(['/']);
+          window.location.replace(window.location.origin);
         },
         error => {
           this.loading = false;
