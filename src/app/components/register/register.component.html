@@ -19,7 +19,7 @@
           <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
         </mat-form-field>
         <div class="meter">
-          <password-strength-meter [password]="this.registerForm.get('form_basic_password').value" enableFeedback="true" ></password-strength-meter>
+          <password-strength-meter [password]="this.registerForm.get('form_basic_password').value" enableFeedback="true"></password-strength-meter>
         </div>
       </form>
       <div class="error-div" [hidden]='validCredentials'>

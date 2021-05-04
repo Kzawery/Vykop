@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {Router} from '@angular/router';
 import {first} from 'rxjs/operators';
@@ -9,7 +9,7 @@ import {UserService} from '../../services/user.service';
   templateUrl: './register.component.html',
   styleUrls: ['./register.component.css']
 })
-export class RegisterComponent implements OnInit {
+export class RegisterComponent {
 
   isLoading = false;
   hide = true;
@@ -44,8 +44,5 @@ export class RegisterComponent implements OnInit {
           this.validCredentials = false;
           this.isLoading = false;
         });
-  }
-
-  ngOnInit(): void {
   }
 }
