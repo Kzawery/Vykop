@@ -1,7 +1,5 @@
 import {AfterViewInit, ChangeDetectionStrategy, Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {filter, map, pairwise, throttleTime} from 'rxjs/operators';
-import {timer} from 'rxjs';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
 import {UserService} from '../../services/user.service';

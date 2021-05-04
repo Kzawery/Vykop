@@ -1,7 +1,5 @@
 import {Component, NgZone, OnInit, ViewChild} from '@angular/core';
 import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
-import {AuthenticationService} from '../../services/authentication.service';
-import {UserService} from '../../services/user.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {SubVykop} from '../../models/subVykop';
 import {SubvykopService} from '../../services/subvykop.service';
@@ -21,7 +19,6 @@ export class SubredditComponent implements OnInit {
   title = 'Angular Infinite Scrolling List';
   subreddit: SubVykop = new SubVykop();
   listItems = [];
-  loading = false;
   subredditName: any;
   isSub = false;
   parentData: any;
@@ -30,9 +27,7 @@ export class SubredditComponent implements OnInit {
   busyGettingData = false;
   banner: string;
   postIds = [];
-  constructor(private ngZone: NgZone, private authenticationService: AuthenticationService,
-              private userService: UserService, private subvykopService: SubvykopService,
-              private router: Router, private route: ActivatedRoute, public dialog: MatDialog,
+  constructor(private subvykopService: SubvykopService, private route: ActivatedRoute, public dialog: MatDialog,
               private _snackbar: MatSnackBar) { }
 
   joinSubVykop() {
@@ -67,8 +62,8 @@ export class SubredditComponent implements OnInit {
     this.subvykopService.searchSubs(this.subredditName).subscribe(resp => {
       this.subreddit = resp[0];
       this.banner = resp[0].banner;
-      this.checkSub();
       this.fetchMore();
+      this.checkSub();
       console.log(this.banner);
       console.log(resp[0].avatar);
     });

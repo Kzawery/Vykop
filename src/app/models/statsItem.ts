@@ -1,5 +1,5 @@
 export class StatsItem {
   name: string;
-  score: string;
+  score: number;
   logo: string;
 }

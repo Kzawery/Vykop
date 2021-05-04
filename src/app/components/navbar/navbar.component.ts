@@ -1,7 +1,6 @@
-import {Component, NgZone, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {Router} from '@angular/router';
 import {AuthenticationService} from '../../services/authentication.service';
-import {UserService} from '../../services/user.service';
 import {PostService} from '../../services/post.service';
 import {SubvykopService} from '../../services/subvykop.service';
 import {SubVykop} from '../../models/subVykop';
@@ -17,8 +16,8 @@ export class NavbarComponent implements OnInit {
   id: number;
   public subs: SubVykop[] = [];
 
-  constructor(private ngZone: NgZone, private router: Router,
-              public authenticationService: AuthenticationService, private userService: UserService,
+  constructor(private router: Router,
+              public authenticationService: AuthenticationService,
               private postService: PostService, private subService: SubvykopService, public dialog: MatDialog) {
   }
 
@@ -45,7 +44,6 @@ export class NavbarComponent implements OnInit {
     });
     this.subs = this.subs.filter((el, i, a) => i === a.indexOf(el));
   }
-
   addSubVykop() {
     const addSub = this.dialog.open(AddSubVykopComponent, {
       hasBackdrop: true,

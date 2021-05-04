@@ -28,6 +28,7 @@ export class AuthenticationService {
           localStorage.setItem('currentUser', JSON.stringify(resp.body.user));
           localStorage.setItem('token', resp.body.token);
           localStorage.setItem('password', resp.body.password);
+          localStorage.setItem('role', resp.body.role);
           this.currentUserSubject.next(resp.body);
         }
         return resp.body;

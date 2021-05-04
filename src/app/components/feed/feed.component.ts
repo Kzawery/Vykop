@@ -100,7 +100,7 @@ export class FeedComponent implements OnInit {
       for ( const item of r) {
         const model = new StatsItem();
         model.name = item.username;
-        model.score = Object.values(item)[4];
+        model.score = Object.values(item)[5];
         model.logo = item.avatar;
         this.popularUsers.push(model);
       }

@@ -18,7 +18,7 @@ export class LoginComponent implements OnInit {
     form_basic_username: new FormControl('', [Validators.required]),
     form_basic_password: new FormControl('', [Validators.required])
   });
-  constructor(  private authenticationService: AuthenticationService, private router: Router, private webSocket: WebsocketService) { }
+  constructor(  private authenticationService: AuthenticationService, private router: Router) { }
   ngOnInit( ): void {
   }
 
@@ -32,6 +32,7 @@ export class LoginComponent implements OnInit {
       .pipe(first())
       .subscribe(
         data => {
+          console.log(this.authenticationService.currentUserValue);
           console.log(data);
           window.location.replace(window.location.origin);
         },
