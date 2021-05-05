@@ -5,7 +5,6 @@ import {HttpClientModule} from '@angular/common/http';
 
 describe('WebsocketService', () => {
   let service: WebsocketService;
-
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [ HttpClientModule ]
