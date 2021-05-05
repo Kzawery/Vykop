@@ -31,7 +31,7 @@ export class UserService {
     return this.http.get(`${environment.apiUrl}/users/${username}/stats`);
   }
 
-  register(data) {
+  register(data: any) {
     return this.http.post(`${environment.apiUrl}/users/signup`, data);
   }
 
