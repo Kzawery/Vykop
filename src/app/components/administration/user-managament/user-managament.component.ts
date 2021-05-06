@@ -13,8 +13,9 @@ import {User} from '../../../models/user';
 })
 export class UserManagamentComponent implements OnInit {
 
-  // tslint:disable-next-line:max-line-length
-  constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<UserManagamentComponent>, @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService) {}
+  constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<UserManagamentComponent>,
+              @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
+              public userService: UserService) {}
   isLoading = false;
   hide = true;
   userDB: User;

@@ -48,8 +48,10 @@ export class NavbarComponent implements OnInit {
     const addSub = this.dialog.open(AddSubVykopComponent, {
       hasBackdrop: true,
     });
-    addSub.afterClosed().subscribe(() => {
-      this.router.navigate(['/subVykop/']);
+    addSub.afterClosed().subscribe(resp => {
+      if (resp != null) {
+        this.router.navigate(['/subVykop/']);
+      }
     });
   }
 

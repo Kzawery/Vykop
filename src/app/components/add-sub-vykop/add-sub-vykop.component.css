@@ -1,5 +1,4 @@
 .comment-textarea{
-  margin-top: 10%;
   width: 100%;
   font-size: 14px;
   user-select: text;
@@ -9,9 +8,22 @@
   border-style: solid;
   border-color: whitesmoke;
   height: auto;
-  margin-bottom: 10%;
   padding-bottom: 10%;
 }
+
+.input{
+  width: 100%;
+  font-size: 18px;
+  user-select: text;
+  display: block;
+  cursor: text;
+  text-align: center;
+  resize: none;
+  border-style: solid;
+  border-color: whitesmoke;
+  height: auto;
+}
+
 .example-card {
   max-width: 400px;
 }

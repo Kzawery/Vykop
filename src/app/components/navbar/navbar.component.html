@@ -4,7 +4,7 @@
       </a>
   <span class="example-spacer"></span>
 
-  <input class="search" #inputElement matInput placeholder="Search" aria-label="State" [matAutocomplete]="auto" (keyup.enter)="goTo($event.target.value)" (input)="filter($event.target.value)" >
+  <input class="search" #inputElement placeholder="Search" aria-label="State" [matAutocomplete]="auto" (keyup.enter)="goTo($event.target.value)" (input)="filter($event.target.value)" >
 
   <mat-icon class="search-icon" (click)="goTo(inputElement.value) ">search</mat-icon>
 
