@@ -20,7 +20,7 @@
       <mat-icon>add</mat-icon>
     </button>
 
-    <button mat-icon-button class="example-icon favorite-icon" aria-label="Admin panel" (click)="manage()" *ngIf="authenticationService.currentUserValue.role == 'admin'">
+    <button mat-icon-button class="example-icon favorite-icon" aria-label="Admin panel" (click)="manage()" *ngIf="authenticationService.currentUserValue?.role == 'admin'">
       <mat-icon>admin_panel_settings</mat-icon>
     </button>
 
