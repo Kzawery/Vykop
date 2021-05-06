@@ -14,7 +14,7 @@ export class PostService {
   getForUser(i) {
     return this.http.get<Post[]>(`${environment.apiUrl}/userposts?page=` + i);
   }
-
+  // potrzebne?
   getPostSet(i, name) {
     return this.http.get<Post[]>(`${environment.apiUrl}/posts/` + name + `?page=` + i);
   }
