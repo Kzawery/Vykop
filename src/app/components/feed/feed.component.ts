@@ -85,6 +85,9 @@ export class FeedComponent implements OnInit {
   goToPost(event) {
     this.router.navigate(['post/' + event.id]);
   }
+  goToSubVykop(event) {
+    this.router.navigate(['subVykop/' + event]);
+  }
 
   ngOnInit(): void {
     this.subVykopService.getMostPopularSubVykops().subscribe(r => {

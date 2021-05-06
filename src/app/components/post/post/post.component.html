@@ -8,13 +8,16 @@
 
 <div class="content" style="width: 100%">
   <mat-card class="example-card" *ngIf="this.post.author!=null">
+    <mat-card-title>{{post.title}}</mat-card-title>
     <mat-card-header class="mat-card-header" style="">
       <div mat-card-avatar class="example-header-image" style="background-image: url({{this.post.author.avatar}})"></div>
       <a href="subVykop/{{this.post.subVykop.id}}" class="text-center" >r/{{this.post.subVykop.name}}</a>
       <p class="text-center" style="margin-right: 10px">Posted by:</p>
       <a class="text-center" href="u/{{post.author.username}}">u/{{post.author.username}}</a>
-    </mat-card-header> <br><br>
-    <h2 style="margin-right: 10px">{{post.title}}</h2>
+    </mat-card-header>
+
+    <br><br>
+
     <mat-card-content [class.show]="true" class="container">
       <img [src]="post.content.image" style="max-width: 100%; height: auto; margin-right: auto; margin-left: auto; margin-bottom: 10px; display: flex"  *ngIf="post.content.image">
       <video  width="400" #videoPlayer [src]="post.content.video" *ngIf="post.content.video"></video>
@@ -150,4 +153,4 @@
 
 </body>
 </html>
-<app-chat></app-chat>
+

@@ -51,6 +51,7 @@ export class SubredditComponent implements OnInit {
     });
     dialogRef.afterClosed().subscribe(result => {
       this.listItems.unshift(result);
+      this.postIds.push(result.id);
     });
   }
 
