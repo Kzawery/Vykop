@@ -13,11 +13,7 @@ import {A} from '@angular/cdk/keycodes';
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
-  let authconstants = {
-    currentUserValue: {
-      username: 'user'
-    }
-  };
+  let routerSpy = {navigate: jasmine.createSpy('navigate')};
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ HomeComponent ],
@@ -28,7 +24,7 @@ describe('HomeComponent', () => {
         },
         {
           provide: Router,
-          useValue: {}
+          useValue: routerSpy
         },
         {
           provide: MatSnackBar,
@@ -36,17 +32,17 @@ describe('HomeComponent', () => {
         },
         {
           provide: MatDialogRef,
-          useValue: {}
+          useValue: {afterClosed: () => {}}
         },
         {
           provide: MatDialog,
-          useValue: {}
+          useValue: { open: () => {}}
         },
         {
           provide: AuthenticationService,
           useValue: { currentUserValue: {
               username: 'user'
-            }}
+            }, logout: () => {}}
         }
         ],
       imports: [ HttpClientModule ]
@@ -63,5 +59,47 @@ describe('HomeComponent', () => {
   it('should create', () => {
     component.ngAfterViewInit();
     expect(component).toBeTruthy();
+  });
+  describe('variableInitiation', () => {
+    it('loading should be false', () => {
+      expect(component.loading).toEqual(false);
+    });
+
+    it('busyGettingData should be false', () => {
+      expect(component.busyGettingData).toEqual(false);
+    });
+
+    it('busyGettingData should be false', () => {
+      expect(component.noPosts).toEqual(false);
+    });
+
+    it('busyGettingData should be false', () => {
+      expect(component.listItems2).toHaveSize(0);
+    });
+
+    it('iteration should be equal to 0', () => {
+      expect(component.i).toEqual(0);
+    });
+  });
+  describe('functionsTest', () => {
+    it('onScroll should call fetchMore', () => {
+      spyOn(component, 'fetchMore');
+      component.onScroll();
+      expect(component.fetchMore).toHaveBeenCalled();
+    });
+    it('onScroll should call fetchMore', () => {
+      spyOn(component, 'fetchMore');
+      component.onScroll();
+      expect(component.fetchMore).toHaveBeenCalled();
+    });
+    it('logout() should go to login', () => {
+      component.logout();
+      expect (routerSpy.navigate).toHaveBeenCalledWith(['/login']);
+    });
+    it('addPost() should open dialog', () => {
+      spyOn(component.dialog, 'open');
+      component.addPost();
+      expect(component.dialog.open).toHaveBeenCalled();
+    });
   });
 });

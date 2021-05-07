@@ -35,9 +35,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     }
   }
 
-  childMsg(event) {
-    this.message = event;
-  }
   constructor( private ngZone: NgZone, private router: Router,
               private authenticationService: AuthenticationService, private userService: UserService,
               private postService: PostService, public dialog: MatDialog,
@@ -59,8 +56,6 @@ export class HomeComponent implements OnInit, AfterViewInit {
     const dialogRef = this.dialog.open(PostAddComponent, {
       hasBackdrop: true,
     });
-    dialogRef.afterClosed().subscribe(result => {
-    });
   }
 
   fetchMore(): void {
@@ -81,14 +76,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   logout() {
     this.authenticationService.logout();
-    this.router.navigate(['/login']);
-  }
-  arseJwt = (token) => {
-    try {
-      return JSON.parse(atob(token.split('.')[1]));
-    } catch (e) {
-      return null;
-    }
+    this.router.navigate(['/login'])
   }
 
 }
