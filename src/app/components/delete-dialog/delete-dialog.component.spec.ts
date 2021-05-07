@@ -7,20 +7,23 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 describe('DeleteDialogComponent', () => {
   let component: DeleteDialogComponent;
   let fixture: ComponentFixture<DeleteDialogComponent>;
-
+  const data: any = {
+    id: 10,
+    model: 'post',
+  };
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ DeleteDialogComponent ],
       providers: [
         {
           provide: MatSnackBar,
-          useValue: {}
+          useValue: {open: () => { }}
         },
         {
           provide: MatDialogRef,
-          useValue: {}
+          useValue: { close: () => { }}
         },
-        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: data },
       ]
     })
     .compileComponents();
@@ -34,5 +37,31 @@ describe('DeleteDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  describe('clousureTests', () => {
+    it('should close the dialog onNoClick()', () => {
+      spyOn(component.dialogRef, 'close');
+      component.onNoClick();
+      expect(component.dialogRef.close).toHaveBeenCalled();
+    });
+    it('should close the dialog onYesClick()', () => {
+      spyOn(component.dialogRef, 'close');
+      component.onYesClick();
+      expect(component.dialogRef.close).toHaveBeenCalled();
+    });
+    it('should open SnackBack on with function onYesClick()', () => {
+      spyOn(component.dialogRef, 'close');
+      spyOn(component._snackBar, 'open');
+      component.onYesClick();
+      expect(component._snackBar.open).toHaveBeenCalled();
+    });
+  });
+  describe('injectedVariables', () => {
+    it('id should be equal injected value', () => {
+      expect(component.id).toEqual(10);
+    });
+    it('model should be equal injected value', () => {
+      expect(component.model).toEqual('post');
+    });
   });
 });

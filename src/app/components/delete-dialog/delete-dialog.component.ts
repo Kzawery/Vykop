@@ -10,7 +10,7 @@ import {MatSnackBar} from '@angular/material/snack-bar';
 })
 
 export class DeleteDialogComponent implements OnInit {
-  constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<DeleteDialogComponent>,
+  constructor(public _snackBar: MatSnackBar, public dialogRef: MatDialogRef<DeleteDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any) {}
   id: number = this.data.id;
   model: String = this.data.model;
@@ -27,7 +27,5 @@ export class DeleteDialogComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
-
 }
 
