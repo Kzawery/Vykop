@@ -7,7 +7,7 @@ import {environment} from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<User>;
+  currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
   public token: string;
 

@@ -2,13 +2,21 @@ import { TestBed } from '@angular/core/testing';
 import {HttpClientTestingModule, HttpTestingController} from '@angular/common/http/testing';
 import {PostService} from './post.service';
 import {SubvykopService} from './subvykop.service';
+import {HTTP_INTERCEPTORS} from '@angular/common/http';
+import {JwtInterceptor} from '../helpers/jwt.interceptor';
+import {AuthenticationService} from './authentication.service';
 
 describe('SubVykopService', () => {
   let service: SubvykopService;
   let httpTestingController: HttpTestingController;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [SubvykopService],
+      providers: [SubvykopService,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: JwtInterceptor,
+          multi: true
+        }],
       imports: [HttpClientTestingModule]
     });
     httpTestingController = TestBed.get(HttpTestingController);
@@ -45,19 +53,11 @@ describe('SubVykopService', () => {
     req.flush([]);
   });
   it('checkSub() should check if user is subscribed', () => {
-    service.checkSub(1).subscribe(() => {});
+    service.checkSub(1).subscribe((res) => expect(res).toBeTruthy());
     const req = httpTestingController.expectOne(
       'http://localhost:8080/subvykop/1/isSubscribed'
     );
-    expect(req.request.method).toBe('GET');
-    req.flush([]);
-  });
-  it('subscribe() should check if user is subscribed', () => {
-    service.joinSubVykop(1).subscribe(() => {});
-    const req = httpTestingController.expectOne(
-      'http://localhost:8080/sub_vykop/1/subscribe'
-    );
-    expect(req.request.method).toBe('POST');
+    expect(req.request.headers.has('Authorization')).toEqual(true);
     req.flush([]);
   });
 });
