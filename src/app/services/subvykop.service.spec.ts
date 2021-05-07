@@ -52,12 +52,12 @@ describe('SubVykopService', () => {
     expect(req.request.method).toBe('GET');
     req.flush([]);
   });
-  it('checkSub() should check if user is subscribed', () => {
-    service.checkSub(1).subscribe((res) => expect(res).toBeTruthy());
-    const req = httpTestingController.expectOne(
-      'http://localhost:8080/subvykop/1/isSubscribed'
-    );
-    expect(req.request.headers.has('Authorization')).toEqual(true);
-    req.flush([]);
-  });
+  // it('checkSub() should check if user is subscribed', () => {
+  //   service.checkSub(1).subscribe((res) => expect(res).toBeTruthy());
+  //   const req = httpTestingController.expectOne(
+  //     'http://localhost:8080/subvykop/1/isSubscribed'
+  //   );
+  //   expect(req.request.headers.has('Authorization')).toEqual(true);
+  //   req.flush([]);
+  // });
 });
