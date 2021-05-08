@@ -7,7 +7,7 @@ import {Observable, Subject} from 'rxjs';
   providedIn: 'root'
 })
 export class WebsocketService {
-  public missionConfirmedSource: Subject<any>;
+  public  missionConfirmedSource: Subject<any>;
   missionConfirmed$;
   public LogConfirmedSource: Subject<any>;
   LogConfirmedSource$;
@@ -52,7 +52,7 @@ export class WebsocketService {
 
   async afterInit() {
     await this.delay(4000);
-    this.client.subscribe('/messages/' + this.authenticationService.currentUserValue.username + '/queue', this.callback);
+    this.client.subscribe('/messages/' + this.authenticationService.currentUserValue.id + '/queue', this.callback);
     this.client.subscribe('/messages/all/login', this.callbackLog);
     this.client.subscribe('/messages/all/logout', this.callbackLogout);
   }
@@ -67,6 +67,7 @@ export class WebsocketService {
   }
   callback = (message) => {
     const _this = this;
+    console.log(message);
     this.confirmMission(JSON.parse(message.body));
   }
   callbackLog = (message) => {

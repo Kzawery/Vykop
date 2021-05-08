@@ -117,7 +117,10 @@ export class UserComponent implements OnInit {
         data: {id: this.id},
       });
       dialogRef.afterClosed().subscribe(result => {
-        // this.reloadData();
+        this.userService.getByUsername(this.user.username).subscribe(user => {
+          this.user = user;
+          console.log(user);
+        });
     });
   }
   addData(chart, stats) {

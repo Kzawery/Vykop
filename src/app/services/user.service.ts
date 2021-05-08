@@ -35,7 +35,9 @@ export class UserService {
   register(data: any) {
     return this.http.post(`${environment.apiUrl}/users/signup`, data);
   }
-
+  setAvatar(file) {
+    return this.http.put(`${environment.apiUrl}/users/avatar`, file);
+  }
   add(data) {
     return this.http.post(`${environment.apiUrl}/users`, data);
   }

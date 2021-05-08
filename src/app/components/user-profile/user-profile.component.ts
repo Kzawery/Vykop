@@ -6,6 +6,7 @@ import {first} from 'rxjs/operators';
 import {User} from '../../models/user';
 import {UserService} from '../../services/user.service';
 import {FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
+import {AuthenticationService} from '../../services/authentication.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -15,7 +16,8 @@ import {FileSystemFileEntry, NgxFileDropEntry} from 'ngx-file-drop';
 export class UserProfileComponent implements OnInit {
 
   constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<UserProfileComponent>,
-              @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService) {}
+              @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService,
+              private authenticationService: AuthenticationService) {}
   isLoading = false;
   form = new FormData();
   hide = true;
@@ -24,8 +26,7 @@ export class UserProfileComponent implements OnInit {
   registerForm = new FormGroup({
     form_basic_username: new FormControl('', [Validators.required]),
     form_basic_password:  new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&].{8,}')]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    role: new FormControl('user', [Validators.required])
+    email: new FormControl('', [Validators.required, Validators.email])
   });
   ngOnInit(): void {
     if (this.data) {
@@ -70,28 +71,50 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-
-  onEdit() {
-    this.isLoading = true;
-    // this.form.append('id', this.userDB.id.toString());
-    // this.form.append('username', this.registerForm.get('form_basic_username').value);
-    // this.form.append('password', this.registerForm.get('form_basic_password').value);
-    // this.form.append('role', 'admin');
-    // this.form.append('registrationDate', this.userDB.registrationDate);
-    this.userDB.email = 'email@email.pl';
-    console.log(this.userDB);
+  afterEdit(x) {
     this.userService.edit(this.userDB)
       .pipe(first())
       .subscribe(
         data => {
-          this.isLoading = false;
-          this.dialogRef.close();
-          this._snackBar.open('User have been edited', 'hide',  {
-            duration: 2000,
-          });
+          if (!x) {
+            this.isLoading = false;
+            this.dialogRef.close();
+            this._snackBar.open('User have been edited', 'hide', {
+              duration: 2000,
+            });
+          }
+          if (x) {
+            this.authenticationService.logout().then( () => {
+              this.authenticationService.login(this.userDB.username, this.userDB.password)
+                .pipe(first())
+                .subscribe(
+                  d => {
+                    console.log(this.authenticationService.currentUserValue);
+                    console.log(d);
+                    window.location.replace(window.location.origin);
+                  });
+              }
+            );
+          }
         },
         error => {
           this.isLoading = false;
         });
+  }
+
+  onEdit() {
+    const x = this.userDB.username !== this.registerForm.get('form_basic_username').value;
+    this.isLoading = true;
+    this.userDB.email = this.registerForm.get('email').value;
+    this.userDB.username = this.registerForm.get('form_basic_username').value;
+    this.userDB.password = this.registerForm.get('form_basic_password').value;
+
+    if (this.form.get('file') != null) {
+      this.userService.setAvatar(this.form).subscribe(() => {
+        this.afterEdit(x);
+      });
+    } else {
+      this.afterEdit(x);
+    }
   }
 }

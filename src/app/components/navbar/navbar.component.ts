@@ -62,10 +62,8 @@ export class NavbarComponent implements OnInit {
         .shouldReuseRoute = function () {
         return false;
       };
-      this.router.navigateByUrl('/subVykop/' + sub);
-    } else {
-      this.router.navigate(['/subVykop/' + sub]);
     }
+      this.router.navigate(['/subVykop/' + sub]);
   }
 
   profile() {

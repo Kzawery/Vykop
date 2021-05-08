@@ -51,22 +51,13 @@ export class ChatComponent implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   ngOnInit(): void {
-    this.userService.getContactedUsers().subscribe(r => {
-      this.userMessages = r;
-      this.userService.getLoggedUsers().subscribe(res => {
-        const messages = this.userMessages.reduce(function(previousValue, currentValue) {
-          if (res.includes(currentValue.username)) {
-            currentValue.online = true;
-          }
-          previousValue.push(currentValue);
-          return previousValue;
-        }, []);
-      });
-    });
+    this.refresh();
     this.webSocket.missionConfirmed$.subscribe(
-      msg => {
+      async msg => {
         this.chatMessages.push(msg);
-        this.myScrollContainer.nativeElement.scrollIntoView();
+        console.log(msg);
+        await this.delay(10);
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
       });
     this.webSocket.LogConfirmedSource$.subscribe(
       msg => {
@@ -96,7 +87,7 @@ export class ChatComponent implements OnInit {
     if (elem.scrollTop < 20) {
       this.isLoading = true;
 
-      this.userService.getMsgByPage(this.msgReceiver.username, this.page).subscribe( r => {
+      this.userService.getMsgByPage(this.msgReceiver.id, this.page).subscribe( r => {
         this.page++;
         r = r.slice(0, r.length - this.offset);
         r = r.reverse();
@@ -136,7 +127,7 @@ export class ChatComponent implements OnInit {
   }
   send() {
     const msg = {
-        'to': this.msgReceiver.username,
+        'to': this.msgReceiver.id,
         'content': this.text,
       };
     this.webSocket.sendMsg(msg);
@@ -146,9 +137,26 @@ export class ChatComponent implements OnInit {
       this.page ++;
       this.offset = 0;
     }
+    this.refresh();
   }
+
+  refresh() {
+    this.userService.getContactedUsers().subscribe(r => {
+      this.userMessages = r;
+      this.userService.getLoggedUsers().subscribe(res => {
+        const messages = this.userMessages.reduce(function(previousValue, currentValue) {
+          if (res.includes(currentValue.username)) {
+            currentValue.online = true;
+          }
+          previousValue.push(currentValue);
+          return previousValue;
+        }, []);
+      });
+    });
+  }
+
   getMsg() {
-    this.userService.getMsg(this.msgReceiver.username).subscribe( r => {
+    this.userService.getMsg(this.msgReceiver.id).subscribe( r => {
       this.chatMessages = r;
       this.page = 1;
       this.offset = 0;
