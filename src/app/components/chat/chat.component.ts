@@ -33,7 +33,7 @@ import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 })
 export class ChatComponent implements OnInit {
   constructor(private userService: UserService, private webSocket: WebsocketService) {}
-  chatToggleUp = true;
+  chatToggle = true;
   userMessages = [];
   msgToggle = false;
   msgReceiver: any;
@@ -102,12 +102,9 @@ export class ChatComponent implements OnInit {
       });
     }
   }
-  async toggleChatOff() {
+  async toggleChat() {
     await this.delay(150);
-    this.chatToggleUp = !this.chatToggleUp;
-  }
-  toggleChat() {
-    this.chatToggleUp = !this.chatToggleUp;
+    this.chatToggle = !this.chatToggle;
   }
   async toggleMsg(user: any) {
     this.msgToggle = false;

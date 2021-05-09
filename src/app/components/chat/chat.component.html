@@ -25,14 +25,14 @@
        </button>
     </div>
   </div>
-  <div class="chat-toogle" *ngIf="chatToggleUp" (click)="toggleChat()">
+  <div class="chat-toogle" *ngIf="chatToggle" (click)="toggleChat()">
     <div class="messenger-label">Messenger</div>
   </div>
-  <div class="chat-list" *ngIf="!chatToggleUp" [@slideInOut]>
+  <div class="chat-list" *ngIf="!chatToggle" [@slideInOut]>
 
     <div class="chat-list-title">
       <div class="messenger-label">Messenger</div>
-      <button mat-icon-button class="example-icon favorite-icon chat-title-button" aria-label="Close chat" (click)="toggleChatOff()">
+      <button mat-icon-button class="example-icon favorite-icon chat-title-button" aria-label="Close chat" (click)="toggleChat()">
         <mat-icon>close</mat-icon>
       </button>
     </div>
