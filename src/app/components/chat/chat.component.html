@@ -28,7 +28,7 @@
   <div class="chat-toogle" *ngIf="chatToggleUp" (click)="toggleChat()">
     <div class="messenger-label">Messenger</div>
   </div>
-  <div class="chat-list" *ngIf="chatToggle" [@slideInOut]>
+  <div class="chat-list" *ngIf="!chatToggleUp" [@slideInOut]>
 
     <div class="chat-list-title">
       <div class="messenger-label">Messenger</div>
