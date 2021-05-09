@@ -44,9 +44,9 @@ export class ChatComponent implements OnInit {
   text: String;
   scrollHeight = 0;
   offset = 0;
-  @ViewChild('scrollMe') myScrollContainer: ElementRef;
+  @ViewChild('scrollMe', { static: true }) myScrollContainer: ElementRef;
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
-  private delay(ms: number) {
+  public delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
   ngOnInit(): void {
