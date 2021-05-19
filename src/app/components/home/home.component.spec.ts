@@ -36,7 +36,7 @@ describe('HomeComponent', () => {
         },
         {
           provide: MatDialog,
-          useValue: { open: () => {}}
+            useValue: { open: () => {}}
         },
         {
           provide: AuthenticationService,

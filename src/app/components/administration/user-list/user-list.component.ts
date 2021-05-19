@@ -34,10 +34,9 @@ export class UserListComponent implements OnInit {
   displayedColumns: string[] = ['id', 'username', 'password', 'email', 'registrationDate', 'role'];
   expandedElement: User | null;
   isLoading = false;
-  // @ts-ignore
   @ViewChild(MatPaginator) paginator: MatPaginator;
-  // @ts-ignore
   @ViewChild(MatSort) sort: MatSort;
+
   isExpansionDetailRow = (index, row) => row.hasOwnProperty('detailRow');
   ngOnInit() {
     this.reloadData();
@@ -87,7 +86,7 @@ export class UserListComponent implements OnInit {
       width: '250px',
       disableClose: true,
       hasBackdrop: true,
-      data: {id: id, model: "User"},
+      data: {id: id, model: 'User'},
     });
     dialogRef.afterClosed().subscribe(result => {
       if (result) {

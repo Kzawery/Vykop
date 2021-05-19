@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit, AfterViewInit {
   }
   logout() {
     this.authenticationService.logout();
-    this.router.navigate(['/login'])
+    this.router.navigate(['/login']);
   }
 
 }

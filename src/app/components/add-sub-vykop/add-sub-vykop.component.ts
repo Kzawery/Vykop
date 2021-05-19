@@ -14,7 +14,7 @@ export class AddSubVykopComponent implements OnInit {
   constructor(public dialogRef: MatDialogRef<AddSubVykopComponent>, public subvykopService: SubvykopService) { }
   files;
   subVykop: SubVykop = new SubVykop();
-  isLoading = null;
+  isLoading = false;
   subVykopForm = new FormData();
   name: string;
   description: string;
@@ -26,20 +26,28 @@ export class AddSubVykopComponent implements OnInit {
     this.dialogRef.close();
   }
 
-  public dropped(files: NgxFileDropEntry[]) {
+  public dropped(files: NgxFileDropEntry[], name: String) {
     this.files = files;
     for (const droppedFile of files) {
       if (droppedFile.fileEntry.isFile) {
         const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
         const reader = new FileReader();
         fileEntry.file((file: File) => {
-          // this.isLoading = true;
-          this.subVykopForm.append('banner', file, droppedFile.relativePath);
-          reader.readAsDataURL(file);
-          reader.onload = () => {
-            this.subVykop.banner = reader.result.toString();
-            console.log(reader.result.toString());
-          };
+          if (name === 'banner') {
+            this.subVykopForm.append('banner', file, droppedFile.relativePath);
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+              this.subVykop.banner = reader.result.toString();
+              console.log(reader.result.toString());
+            };
+          } if (name === 'avatar') {
+            this.subVykopForm.append('avatar', file, droppedFile.relativePath);
+            reader.readAsDataURL(file);
+            reader.onload = () => {
+              this.subVykop.avatar = reader.result.toString();
+              console.log(reader.result.toString());
+            };
+          }
         });
       }
     }
@@ -49,32 +57,9 @@ export class AddSubVykopComponent implements OnInit {
     this.isLoading = true;
     this.subVykopForm.append('name', this.name);
     this.subVykopForm.append('description', this.description);
-    console.log(this.subVykopForm.get('name'));
-    console.log(this.subVykopForm.get('description'));
-    console.log(this.subVykopForm.get('avatar'));
-    console.log(this.subVykopForm.get('banner'));
-    // console.log(this.subVykop);
      this.subvykopService.create(this.subVykopForm).subscribe(resp => {
        this.isLoading = false;
        this.onBack();
      });
-  }
-  public dropped2(files: NgxFileDropEntry[]) {
-    this.files = files;
-    for (const droppedFile of files) {
-      if (droppedFile.fileEntry.isFile) {
-        const fileEntry = droppedFile.fileEntry as FileSystemFileEntry;
-        const reader = new FileReader();
-        fileEntry.file((file: File) => {
-          // this.isLoading = true;
-          this.subVykopForm.append('avatar', file, droppedFile.relativePath);
-          reader.readAsDataURL(file);
-          reader.onload = () => {
-            this.subVykop.avatar = reader.result.toString();
-            console.log(reader.result.toString());
-          };
-        });
-      }
-    }
   }
 }

@@ -1,17 +1,13 @@
 <div class="background-div">
   <mat-card class="example-card" style="text-align: center;">
     <mat-card-header style="width: 100%; padding-top: 20px;">
-
-
     </mat-card-header>
-
     <mat-card-content>
-
       <div style="width: 50%; height: auto; margin-left:25%; padding: 20px">
         <div>
           <mat-label>SubVykop Banner: </mat-label>
           <div></div>
-          <ngx-file-drop (onFileDrop)="dropped($event)" style="width: 100px; height: 100px; margin:auto; float: none; margin: 10px">
+          <ngx-file-drop (onFileDrop)="dropped($event, 'banner')" style="width: 100px; height: 100px; margin:auto; float: none; margin: 10px">
 
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector" style="margin: auto">
               <img src="{{subVykop.banner}}"  style="width: 145px; height: 145px; marigin-top: 25px;" alt="" (click)="openFileSelector()" *ngIf="subVykop.banner != null">
@@ -24,7 +20,7 @@
 
           <mat-label>SubVykop Avatar: </mat-label>
           <div></div>
-          <ngx-file-drop (onFileDrop)="dropped2($event)" style="width: 170px; height: 170px; margin:auto; float: none; margin: 10px">
+          <ngx-file-drop (onFileDrop)="dropped($event, 'avatar')" style="width: 170px; height: 170px; margin:auto; float: none; margin: 10px">
 
             <ng-template ngx-file-drop-content-tmp let-openFileSelector="openFileSelector" style="margin: auto">
               <img src="{{subVykop.avatar}}"  style="width: 145px; height: 145px; marigin-top: 25px;" alt="" (click)="openFileSelector()" *ngIf="subVykop.avatar != null">
@@ -36,17 +32,12 @@
       </div>
 
       <div class="mat-card-header-text"></div>
-
-
-
         <mat-form-field appearance="fill">
           <mat-label >Enter Sub Vykop Name</mat-label>
           <input matInput placeholder="Sub Vykop Name" [(ngModel)]='name' required>
         </mat-form-field>
-
         <hr>
         <textarea class="comment-textarea"  [(ngModel)]='description' placeholder="Description"></textarea>
-
       <div class="example-button-container">
         <div class="button-div-right">
           <button mat-fab color="#6EBFC2" aria-label="Register button" (click)="onEdit()">

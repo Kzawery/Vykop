@@ -17,7 +17,7 @@ import {MatDialog} from '@angular/material/dialog';
 export class PostComponent implements OnInit {
 
   constructor(private ngZone: NgZone, private route: ActivatedRoute, public postService: PostService,
-              public auth: AuthenticationService, private _snackBar: MatSnackBar, private dialog: MatDialog) { }
+              public auth: AuthenticationService, private _snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
   @Input() commnets: any[] = [];
