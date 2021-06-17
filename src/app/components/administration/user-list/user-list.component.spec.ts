@@ -61,7 +61,7 @@ describe('UserListComponent', () => {
     //   expect (component.dataSource).toEqual( new MatTableDataSource<User>());
     // });
     it('DisplayedColumns should be initialized', () => {
-      expect (component.displayedColumns).toEqual( ['id', 'username', 'password', 'email', 'registrationDate', 'role']);
+      expect (component.displayedColumns).toEqual( ['id', 'username', 'registrationDate', 'role']);
     });
     it('IsLoading should be false', () => {
       expect (component.isLoading).toBeFalse();

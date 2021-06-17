@@ -40,7 +40,7 @@ export class UserManagamentComponent implements OnInit {
       form_basic_username: this.userDB.username,
       form_basic_password: this.userDB.password,
       email: this.userDB.email,
-      role: this.userDB.role,
+      role: 'user',
     });
   }
 

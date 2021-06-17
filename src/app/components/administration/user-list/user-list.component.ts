@@ -31,7 +31,7 @@ export class UserListComponent implements OnInit {
 
   title = '';
   dataSource = new MatTableDataSource<User>();
-  displayedColumns: string[] = ['id', 'username', 'password', 'email', 'registrationDate', 'role'];
+  displayedColumns: string[] = ['id', 'username', 'registrationDate', 'role'];
   expandedElement: User | null;
   isLoading = false;
   @ViewChild(MatPaginator) paginator: MatPaginator;

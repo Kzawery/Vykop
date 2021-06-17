@@ -20,7 +20,7 @@ export class PostComponent implements OnInit {
               public auth: AuthenticationService, private _snackBar: MatSnackBar, public dialog: MatDialog) { }
 
   @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
-  @Input() commnets: any[] = [];
+  comments: any[] = [];
   title = 'Angular Infinite Scrolling List';
   loading = false;
   addCommentField = false;
@@ -44,6 +44,7 @@ export class PostComponent implements OnInit {
   refresh(): void {
     this.postService.getPost(this.id_post).subscribe(p => {
       this.post = p;
+      p.comments.forEach((value => {this.comments.push(value); }));
       this.upvoted = p.upvoted;
     });
   }
@@ -70,10 +71,10 @@ export class PostComponent implements OnInit {
 
   likeBtnClick(element: Comment, i: number) {
     if (element.upvoted) {
-      this.commnets[i].votes -= 1;
+      this.comments[i].votes -= 1;
       element.upvoted = false;
     } else {
-      this.commnets[i].votes += 1;
+      this.comments[i].votes += 1;
       element.upvoted = true;
     }
 

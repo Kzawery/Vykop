@@ -2,7 +2,6 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {UserService} from '../../services/user.service';
 import {animate, group, state, style, transition, trigger} from '@angular/animations';
 import {WebsocketService} from '../../services/websocket.service';
-import {CdkVirtualScrollViewport} from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-chat',
@@ -44,8 +43,7 @@ export class ChatComponent implements OnInit {
   text: String;
   scrollHeight = 0;
   offset = 0;
-  @ViewChild('scrollMe', { static: true }) myScrollContainer: ElementRef;
-  @ViewChild('scroller') scroller: CdkVirtualScrollViewport;
+  @ViewChild('scrollMe') myScrollContainer: ElementRef;
   public delay(ms: number) {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
@@ -56,7 +54,9 @@ export class ChatComponent implements OnInit {
         this.chatMessages.push(msg);
         console.log(msg);
         await this.delay(10);
+        if (this.myScrollContainer !== undefined) {
         this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+        }
       });
     this.webSocket.LogConfirmedSource$.subscribe(
       msg => {
@@ -116,7 +116,9 @@ export class ChatComponent implements OnInit {
       await this.delay(350);
       this.msgToggle = true;
       await this.delay(50);
-      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      if (this.myScrollContainer !== undefined) {
+        this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+      }
     }
   }
   send() {

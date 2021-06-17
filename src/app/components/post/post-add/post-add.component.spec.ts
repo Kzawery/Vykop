@@ -32,4 +32,32 @@ describe('PostAddComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  describe('variableInitiation', () => {
+    it('title should be empty string', () => {
+      expect(component.title).toBe('');
+    });
+    it('text should be empty string', () => {
+      expect(component.text).toBe('');
+    });
+    it('isLoading should be false', () => {
+      expect(component.isLoading).toBe(false);
+    });
+    it('edited should be false', () => {
+      expect(component.edited).toBe(false);
+    });
+    it('formData should be empty instance of FromData', () => {
+      expect(component.formData).toEqual(new FormData());
+    });
+    it('formData should be empty instance of FromData', () => {
+      expect(component.formData).toEqual(new FormData());
+    });
+  });
+  describe('functionsTest', () => {
+    it('removeImg should remove image', () => {
+      spyOn(component, 'removeImg');
+      component.removeImg();
+      expect(component.imageURL).toBe(null);
+    });
+  });
 });

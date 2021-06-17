@@ -11,10 +11,10 @@
     </div>
     <div class="msg-content" (scroll)="onScroll($event)" #scrollMe>
 
-      <div [ngClass]="item.from==msgReceiver.username ? 'msg-message': 'msg-message-user'" *ngFor="let item of chatMessages; let i = index">
+      <div [ngClass]="item.from==msgReceiver.id ? 'msg-message': 'msg-message-user'" *ngFor="let item of chatMessages; let i = index">
         <div class="msg-logo" *ngIf="item.from==msgReceiver.username" style="background-image: url({{msgReceiver.avatar}})"></div>
         <div>
-          <div [ngClass]="item.from==msgReceiver.username ? 'msg-single-message': 'msg-single-message-user'">{{item.content}}</div>
+          <div [ngClass]="item.from==msgReceiver.id ? 'msg-single-message': 'msg-single-message-user'">{{item.content}}</div>
         </div>
       </div>
     </div>

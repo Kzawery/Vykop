@@ -50,8 +50,12 @@ export class SubredditComponent implements OnInit {
       data: this.subreddit.name
     });
     dialogRef.afterClosed().subscribe(result => {
-      this.listItems.unshift(result);
-      this.postIds.push(result.id);
+      if (result === undefined || this.postIds.length === 0) {
+        this.fetchMore();
+      } else {
+        this.listItems.unshift(result);
+        this.postIds.push(result.id);
+      }
     });
   }
 
@@ -65,8 +69,6 @@ export class SubredditComponent implements OnInit {
       this.banner = resp[0].banner;
       this.fetchMore();
       this.checkSub();
-      console.log(this.banner);
-      console.log(resp[0].avatar);
     });
   }
 

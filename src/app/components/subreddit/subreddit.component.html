@@ -6,7 +6,9 @@
 <app-navbar></app-navbar>
 <div itemSize="3" class="content">
 <!--  <div style="background: url({{subreddit.banner}}) no-repeat center / cover;background-position:center top;height:200px"> </div>-->
-  <section class="banner" [ngStyle]="{'background': 'url(' + banner + ') no-repeat center / cover'}"></section>
+<!--  <section class="banner" [ngStyle]="{'background': 'url(' + subreddit.banner + ') no-repeat center / cover'}"></section>-->
+  <img src="{{subreddit.banner}}" class="banner">
+<!--  <img _ngcontent-nvj-c212="" class="banner" src="http://dummyimage.com/175x144.jpg/ff4444/ffffff">-->
   <div class="under-banner">
     <div class="flex">
       <img src="{{subreddit.avatar}}" class="avatar">

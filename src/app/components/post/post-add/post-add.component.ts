@@ -16,11 +16,11 @@ export class PostAddComponent implements OnInit {
   public formData = new FormData();
   public files: NgxFileDropEntry[] = [];
   isLoading = false;
-  imageURL: string | ArrayBuffer;
+  imageURL: string | ArrayBuffer = null;
   public currentUser = this.authenticationService.currentUserValue;
   public post = new Post();
-  title: string;
-  text: string;
+  title = '';
+  text = '';
   subVykop: string;
   edited = false;
 

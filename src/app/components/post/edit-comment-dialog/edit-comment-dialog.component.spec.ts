@@ -17,17 +17,17 @@ describe('EditCommentDialogComponent', () => {
       providers: [
         {
           provide: MatDialogRef,
-          useValue: {}
+          useValue: {close: () => { }}
         },
         {
           provide: MatSnackBar,
-          useValue: {}
+          useValue: {open: () => { }}
         },
         {
           provide: BrowserAnimationsModule,
           useValue: {}
         },
-        { provide: MAT_DIALOG_DATA, useValue: {} },
+        { provide: MAT_DIALOG_DATA, useValue: {id: 1, model: 'Model', commentText: 'commentText', post_id: 1} },
       ],
       imports: [HttpClientModule]
     })
@@ -42,5 +42,32 @@ describe('EditCommentDialogComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+  describe('variableInitialization', () => {
+    it('id should be 1', () => {
+      expect (component.id).toBe(1);
+    });
+    it('model should be Model', () => {
+      expect (component.model).toBe('Model');
+    });
+    it('commentText should be commentText', () => {
+      expect (component.commentText).toBe('Model');
+    });
+    it('post_id should be 1', () => {
+      expect (component.post_id).toBe(1);
+    });
+  });
+  describe('clousureTests', () => {
+    it('should close the dialog onNoClick()', () => {
+      spyOn(component.dialogRef, 'close');
+      component.onNoClick();
+      expect(component.dialogRef.close).toHaveBeenCalled();
+    });
+    it('should close the dialog onYesClick()', () => {
+      spyOn(component.dialogRef, 'close');
+      spyOn(component._snackBar, 'open');
+      component.onYesClick();
+      expect(component.dialogRef.close).toHaveBeenCalled();
+    });
   });
 });

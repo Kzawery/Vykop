@@ -17,7 +17,9 @@ export class UserProfileComponent implements OnInit {
 
   constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<UserProfileComponent>,
               @Optional() @Inject(MAT_DIALOG_DATA) public data: any, public userService: UserService,
-              private authenticationService: AuthenticationService) {}
+              private authenticationService: AuthenticationService) {
+  }
+
   isLoading = false;
   form = new FormData();
   hide = true;
@@ -25,15 +27,16 @@ export class UserProfileComponent implements OnInit {
   files;
   registerForm = new FormGroup({
     form_basic_username: new FormControl('', [Validators.required]),
-    form_basic_password:  new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&].{8,}')]),
+    form_basic_password: new FormControl('', [Validators.required, Validators.pattern('(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[$@$!%*?&])[A-Za-z\\d$@$!%*?&].{8,}')]),
     email: new FormControl('', [Validators.required, Validators.email])
   });
+
   ngOnInit(): void {
     if (this.data) {
       console.log('test');
       console.log(this.data);
       console.log(this.registerForm);
-      this.userService.getById(this.data.id).subscribe( u => {
+      this.userService.getById(this.data.id).subscribe(u => {
         console.log(u);
         this.userDB = u;
         this.updateForm();
@@ -71,28 +74,28 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
-  afterEdit(x) {
+  editUser(usernameEdited) {
     this.userService.edit(this.userDB)
       .pipe(first())
       .subscribe(
         data => {
-          if (!x) {
+          if (!usernameEdited) {
             this.isLoading = false;
             this.dialogRef.close();
             this._snackBar.open('User have been edited', 'hide', {
               duration: 2000,
             });
           }
-          if (x) {
-            this.authenticationService.logout().then( () => {
-              this.authenticationService.login(this.userDB.username, this.userDB.password)
-                .pipe(first())
-                .subscribe(
-                  d => {
-                    console.log(this.authenticationService.currentUserValue);
-                    console.log(d);
-                    window.location.replace(window.location.origin);
-                  });
+          if (usernameEdited) {
+            this.authenticationService.logout().then(() => {
+                this.authenticationService.login(this.userDB.username, this.userDB.password)
+                  .pipe(first())
+                  .subscribe(
+                    d => {
+                      console.log(this.authenticationService.currentUserValue);
+                      console.log(d);
+                      window.location.replace(window.location.origin);
+                    });
               }
             );
           }
@@ -103,18 +106,38 @@ export class UserProfileComponent implements OnInit {
   }
 
   onEdit() {
-    const x = this.userDB.username !== this.registerForm.get('form_basic_username').value;
+    const usernameEdited = this.userDB.username !== this.registerForm.get('form_basic_username').value;
     this.isLoading = true;
-    this.userDB.email = this.registerForm.get('email').value;
-    this.userDB.username = this.registerForm.get('form_basic_username').value;
-    this.userDB.password = this.registerForm.get('form_basic_password').value;
-
-    if (this.form.get('file') != null) {
-      this.userService.setAvatar(this.form).subscribe(() => {
-        this.afterEdit(x);
+    if (usernameEdited) {
+      this.userService.getByUsername(this.registerForm.get('form_basic_username').value).pipe(first()).subscribe(d => {
+        this.isLoading = false;
+        this._snackBar.open('Username was already taken', 'hide', {
+          duration: 2000,
+        });
+      }, error => {
+        this.userDB.email = this.registerForm.get('email').value;
+        this.userDB.username = this.registerForm.get('form_basic_username').value;
+        this.userDB.password = this.registerForm.get('form_basic_password').value;
+        if (this.form.get('file') != null) {
+          this.userService.setAvatar(this.form).subscribe(() => {
+            this.editUser(usernameEdited);
+          });
+        } else {
+          this.editUser(usernameEdited);
+        }
       });
-    } else {
-      this.afterEdit(x);
+
+  } else {
+        this.userDB.email = this.registerForm.get('email').value;
+        this.userDB.username = this.registerForm.get('form_basic_username').value;
+        this.userDB.password = this.registerForm.get('form_basic_password').value;
+        if (this.form.get('file') != null) {
+          this.userService.setAvatar(this.form).subscribe(() => {
+            this.editUser(usernameEdited);
+          });
+        } else {
+          this.editUser(usernameEdited);
+        }
     }
   }
 }

@@ -182,6 +182,7 @@
   padding: 2px 5px;
   word-wrap: break-word;
   max-width: 160px;
+  margin-left: 10px
 }
 .msg-single-message-user{
   border-radius: 5px;

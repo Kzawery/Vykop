@@ -51,6 +51,9 @@ describe('SubredditComponent', () => {
   afterAll(() => {
     TestBed.resetTestingModule();
   });
+  afterEach(() => {
+    fixture.destroy();
+  });
 
   it('should create', () => {
     expect(component).toBeTruthy();
@@ -67,9 +70,6 @@ describe('SubredditComponent', () => {
     it('busyGettingData should be false', () => {
       expect(component.busyGettingData).toEqual(false);
     });
-    // it('postIds should be empty', () => {
-    //   expect(component.postIds).toHaveSize(0);
-    // });
   });
   describe('functionsTest', () => {
     it('onScroll should call fetchMore', () => {
@@ -77,12 +77,5 @@ describe('SubredditComponent', () => {
       component.onScroll();
       expect(component.fetchMore).toHaveBeenCalled();
     });
-    // it('check Sub should be called', () => {
-    //   service.currentUserSubject = new BehaviorSubject<User>( new User());
-    //   service.currentUserValue.username = 'admin';
-    //   service.currentUserValue.id = 3;
-    //   component.checkSub();
-    //   expect(component.isSub).toBe(true);
-    // });
   });
 });

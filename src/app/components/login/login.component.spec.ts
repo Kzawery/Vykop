@@ -8,7 +8,7 @@ import {AbstractControl, FormBuilder, FormGroup} from '@angular/forms';
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let routerSpy = {navigate: jasmine.createSpy('navigate')};
+  const routerSpy = {navigate: jasmine.createSpy('navigate')};
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       declarations: [ LoginComponent ],

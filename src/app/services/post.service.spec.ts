@@ -65,7 +65,7 @@ describe('PostService', () => {
     const req = httpTestingController.expectOne(
       'http://localhost:8080/posts/edit/1'
     );
-    expect(req.request.method).toBe('POST');
+    expect(req.request.method).toBe('PUT');
     req.flush([]);
   });
   it('addComment() should add comment to Post with given id', () => {

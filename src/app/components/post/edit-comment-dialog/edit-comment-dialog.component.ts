@@ -10,7 +10,7 @@ import {PostService} from '../../../services/post.service';
 })
 export class EditCommentDialogComponent implements OnInit {
 
-  constructor(private _snackBar: MatSnackBar, public dialogRef: MatDialogRef<EditCommentDialogComponent>,
+  constructor(public _snackBar: MatSnackBar, public dialogRef: MatDialogRef<EditCommentDialogComponent>,
               @Inject(MAT_DIALOG_DATA) public data: any, public postService: PostService) { }
 
   id: number = this.data.id;

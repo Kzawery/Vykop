@@ -14,10 +14,6 @@ export class PostService {
   getForUser(i) {
     return this.http.get<Post[]>(`${environment.apiUrl}/userposts?page=` + i);
   }
-  // potrzebne?
-  getPostSet(i, name) {
-    return this.http.get<Post[]>(`${environment.apiUrl}/posts/` + name + `?page=` + i);
-  }
 
   getPost(id) {
     return this.http.get<Post>(`${environment.apiUrl}/post?id=` + id );
@@ -31,7 +27,7 @@ export class PostService {
   }
 
   editPost(id, post) {
-    return this.http.post<Post>(`${environment.apiUrl}/posts/edit/` + id, post);
+    return this.http.put<Post>(`${environment.apiUrl}/posts/edit/` + id, post);
   }
 
   addComment(id, value) {
